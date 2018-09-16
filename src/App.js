@@ -6,13 +6,13 @@ const Home = () => (
   <div>
     <h1>Home</h1>
   </div>
-)
+);
 
 const Login = () => (
   <div>
     <h1>Login</h1>
   </div>
-)
+);
 
 const Nav = () => {
   return (
@@ -25,7 +25,7 @@ const Nav = () => {
       </Link>
     </div>
   )
-}
+};
 
 class App extends Component {
   render() {
