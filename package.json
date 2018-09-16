@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "react-router-dom": "^4.4.0-alpha.1",
     "react-scripts": "1.1.5"
   },
   "dependencies": {
