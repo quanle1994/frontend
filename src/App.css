@@ -26,3 +26,12 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.btn {
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  padding: 10px 10px;
+  cursor: pointer;
+}
