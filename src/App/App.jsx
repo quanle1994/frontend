@@ -8,12 +8,15 @@ import { PrivateRoute } from '../_components';
 import { HomePage } from '../HomePage';
 import { LoginPage } from '../LoginPage';
 import { RegisterPage } from '../RegisterPage';
+import MetaTags from 'react-meta-tags';
+
+
 
 class App extends React.Component {
     constructor(props) {
         super(props);
 
-        const { dispatch } = this.props;
+        const {dispatch} = this.props;
         history.listen((location, action) => {
             // clear alert on location change
             dispatch(alertActions.clear());
@@ -21,19 +24,23 @@ class App extends React.Component {
     }
 
     render() {
-        const { alert } = this.props;
+        const {alert} = this.props;
         return (
-            <div className="jumbotron">
+            <div className="wrapper">
+                <MetaTags>
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                </MetaTags>
                 <div className="container">
-                    <div className="col-sm-8 col-sm-offset-2">
+                    <div className="col">
                         {alert.message &&
-                            <div className={`alert ${alert.type}`}>{alert.message}</div>
+                        <div className={`alert ${alert.type}`}>{alert.message}</div>
                         }
                         <Router history={history}>
                             <div>
-                                <PrivateRoute exact path="/" component={HomePage} />
-                                <Route path="/login" component={LoginPage} />
-                                <Route path="/register" component={RegisterPage} />
+                                {/*<PrivateRoute exact path="/" component={HomePage}/>/*/}
+                                <Route path="/login" component={LoginPage}/>
+                                <Route path="/homepage" component={HomePage}/>
+                                <Route path="/register" component={RegisterPage}/>
                             </div>
                         </Router>
                     </div>
@@ -42,6 +49,7 @@ class App extends React.Component {
         );
     }
 }
+
 
 function mapStateToProps(state) {
     const { alert } = state;
