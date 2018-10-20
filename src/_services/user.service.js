@@ -13,7 +13,7 @@ export const userService = {
 
 function login(email, password) {
     const requestOptions = {
-        "Access-Control-Allow-Origin": "*",
+        // "Access-Control-Allow-Origin": "*",
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -92,6 +92,7 @@ function handleResponse(response) {
         console.log( '{ "message": "'+ text +
             '"}');
         if (!response.ok) {
+            console.log("OK OK");
             if (response.status === 401) {
                 // auto logout if 401 response returned from api
                 logout();
