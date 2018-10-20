@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { userActions } from '../_actions';
 import ButtonAppBar from './AppBar';
 import SimpleBottomNavigation from './BottomBar';
+import './HomePage.css';
 
 class HomePage extends React.Component {
     componentDidMount() {
@@ -17,7 +18,7 @@ class HomePage extends React.Component {
     render() {
         const { user, users } = this.props;
         return (
-            <div className="col-md-6 col-md-offset-3">
+            <div>
                 <ButtonAppBar />
                 <h1>Hi!</h1>
                 <p>You're logged in with React!!</p>
