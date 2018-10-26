@@ -12,6 +12,7 @@ import { LoginPage } from '../LoginPage';
 import { RegisterPage } from '../RegisterPage';
 import HomePage from '../HomePage/index';
 import UserTypePage from "../LoginPage/UserTypePage";
+import RegisterVendorPage from "../RegisterPage/RegisterVendorPage";
 
 export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 class App extends React.Component {
@@ -43,7 +44,8 @@ class App extends React.Component {
                 <Route path="/login" component={LoginPage} />
                 <Route path="/homepage" component={HomePage} />
                 <Route path="/userType" component={UserTypePage} />
-                <Route path="/register" component={RegisterPage} />
+                <Route path="/registerStudent" component={RegisterPage} />
+                <Route path="/registerVendor" component={RegisterVendorPage} />
               </div>
             </Router>
           </div>

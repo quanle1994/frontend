@@ -7,6 +7,11 @@ import Bookmark from '@material-ui/icons/Bookmark';
 import History from '@material-ui/icons/History';
 import Search from '@material-ui/icons/Search';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import connect from 'react-redux/es/connect/connect';
+import { compose } from 'redux';
+import Link from 'react-router-dom/es/Link';
+import styled from 'styled-components';
+import { history } from '../../_helpers/history';
 
 const styles = {
   root: {
@@ -39,6 +44,20 @@ class SimpleBottomNavigation extends React.Component {
     };
   }
 
+  componentWillMount() {
+    const { page } = this.props;
+    this.setState({
+      value: page,
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { page } = nextProps;
+    this.setState({
+      value: page,
+    });
+  }
+
   render() {
     const { classes } = this.props;
     const { value } = this.state;
@@ -59,6 +78,7 @@ class SimpleBottomNavigation extends React.Component {
             selected: classes.selected,
             label: classes.label,
           }}
+          onClick={() => { history.push('/homepage'); }}
           icon={<Home className={classes.icon} />}
         />
         <BottomNavigationAction
@@ -67,6 +87,7 @@ class SimpleBottomNavigation extends React.Component {
             selected: classes.selected,
             label: classes.label,
           }}
+          onClick={() => { history.push('/bookmark'); }}
           icon={<Bookmark className={classes.icon} />}
         />
         <BottomNavigationAction
@@ -75,6 +96,7 @@ class SimpleBottomNavigation extends React.Component {
             selected: classes.selected,
             label: classes.label,
           }}
+          onClick={() => { history.push('/history'); }}
           icon={<History className={classes.icon} />}
         />
         <BottomNavigationAction
@@ -83,6 +105,7 @@ class SimpleBottomNavigation extends React.Component {
             selected: classes.selected,
             label: classes.label,
           }}
+          onClick={() => { history.push('/search'); }}
           icon={<Search className={classes.icon} />}
         />
       </BottomNavigation>
@@ -90,4 +113,8 @@ class SimpleBottomNavigation extends React.Component {
   }
 }
 
-export default withStyles(styles)(SimpleBottomNavigation);
+const mapStateToProps = state => ({
+  page: state.currentPage.page,
+});
+
+export default compose(withStyles(styles), connect(mapStateToProps))(SimpleBottomNavigation);

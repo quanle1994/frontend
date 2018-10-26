@@ -7,6 +7,7 @@ import './css/HomePage.css';
 import Content from './pages/Content';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import { history } from '../_helpers';
+import VendorMenuPage from '../VendorPages/VendorMenu/VendorMenuPage';
 
 const HomePage = (props) => {
   const { classes } = props;
@@ -14,15 +15,17 @@ const HomePage = (props) => {
     <div style={{
       display: 'flex',
       flexDirection: 'column',
-    }}>
+    }}
+    >
       <TopBar />
       <Router history={history}>
         <main style={{
           flexGrow: 1,
           display: 'flex',
           overflow: 'scroll',
-        }}>
-          <Route exact path="/homepage" component={Content} />
+        }}
+        >
+          <Route exact path="/homepage/vendor" component={VendorMenuPage} />
           <Route exact path="/homepage/profile" component={ProfilePage} />
         </main>
       </Router>
