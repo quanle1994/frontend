@@ -30,7 +30,7 @@ class App extends React.Component {
                 <MetaTags>
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 </MetaTags>
-                <div className="container">
+                <div>
                     <div className="col">
                         {alert.message &&
                         <div className={`alert ${alert.type}`}>{alert.message}</div>
