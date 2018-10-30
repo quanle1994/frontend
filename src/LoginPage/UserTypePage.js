@@ -41,7 +41,7 @@ class UserTypePage extends React.Component {
             }}
             onClick={() => {}}
             to={{
-              pathname: '/register',
+              pathname: '/registerStudent',
             }}
           >
             <Typography
@@ -66,7 +66,7 @@ class UserTypePage extends React.Component {
             }}
             onClick={() => {}}
             to={{
-              pathname: '/register',
+              pathname: '/registerVendor',
             }}
           >
             <Typography

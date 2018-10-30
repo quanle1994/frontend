@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography/Typography';
 import Grid from '@material-ui/core/Grid/Grid';
 import TextField from '@material-ui/core/TextField/TextField';
 import Link from 'react-router-dom/es/Link';
-import ProfileCard from '../HomePage/components/ProfileCard';
+import ProfileCard from './ProfileCard';
 import { SET_CURRENT_PAGE } from '../App/index';
 
 export const UPDATE_PROFILE_DETAILS = 'UPDATE_PROFILE_DETAILS';
