@@ -12,6 +12,9 @@ class LoginPage extends React.Component {
   constructor(props) {
     super(props);
 
+    console.log(`**********************\nconstructor`);
+
+
     // reset login status
     this.props.dispatch(userActions.logout());
 
@@ -32,6 +35,7 @@ class LoginPage extends React.Component {
   }
 
   handleSubmit(e) {
+    console.log(`**********\nsubmit clicked`)
     e.preventDefault();
 
     this.setState({ submitted: true });
@@ -83,7 +87,7 @@ class LoginPage extends React.Component {
                 width: 150,
                 marginBottom: 20,
               }}
-              onClick={() => {}}
+              onClick={this.handleSubmit}
               to={{
                 pathname: '../login',
               }}
