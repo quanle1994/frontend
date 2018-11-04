@@ -20,6 +20,17 @@ class VendorMenuPage extends React.Component {
         </Typography>
         <AddItemDialog />
         <MenuCard />
+        <MenuCard />
+        <MenuCard />
+        <MenuCard />
+        <MenuCard />
+        <MenuCard />
+        <MenuCard />
+        <MenuCard />
+        <MenuCard />
+        <MenuCard />
+        <MenuCard />
+        <MenuCard />
       </div>
     );
   }
