@@ -38,6 +38,7 @@ const HomePage = (props) => {
 
       </Router>
 
+
       <SimpleBottomNavigation />
     </div>
   );

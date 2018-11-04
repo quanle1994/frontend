@@ -118,3 +118,4 @@ const mapStateToProps = state => ({
 });
 
 export default compose(withStyles(styles), connect(mapStateToProps))(SimpleBottomNavigation);
+
