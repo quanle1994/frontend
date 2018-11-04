@@ -8,6 +8,10 @@ import Content from './pages/Content';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import { history } from '../_helpers';
 import VendorMenuPage from '../VendorPages/VendorMenu/VendorMenuPage';
+import CanteenCard from '../StudentPages/CanteenCard';
+import Typography from '@material-ui/core/Typography/Typography';
+import CanteenMenuPage from '../StudentPages/CanteenMenuPage';
+import StudentOrderPage from '../StudentPages/StudenOrderPage';
 
 const HomePage = (props) => {
   const { classes } = props;
@@ -18,6 +22,7 @@ const HomePage = (props) => {
     }}
     >
       <TopBar />
+
       <Router history={history}>
         <main style={{
           flexGrow: 1,
@@ -27,8 +32,12 @@ const HomePage = (props) => {
         >
           <Route exact path="/homepage/vendor" component={VendorMenuPage} />
           <Route exact path="/homepage/profile" component={ProfilePage} />
+          <Route exact path="/homepage/canteen" component={CanteenMenuPage} />
+          <Route exact path="/homepage/menu" component={StudentOrderPage} />
         </main>
+
       </Router>
+
       <SimpleBottomNavigation />
     </div>
   );

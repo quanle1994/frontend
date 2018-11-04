@@ -9,6 +9,8 @@ import { userActions } from '../../_actions/index';
 import { SET_CURRENT_PAGE } from '../../App';
 import VendorMenuPage from '../../VendorPages/VendorMenu/VendorMenuPage';
 import {history} from "../../_helpers";
+import ProfileCard from '../../ProfilePage/ProfileCard';
+import CanteenCard from '../../StudentPages/CanteenCard';
 
 class Content extends React.Component {
   componentWillMount() {
