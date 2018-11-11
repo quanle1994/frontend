@@ -3,7 +3,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { userActions } from '../_actions';
+import {
+  userActions,
+  canteenActions
+} from '../_actions';
 
 import './login.css';
 import Button from '@material-ui/core/Button/Button';
@@ -43,6 +46,7 @@ class LoginPage extends React.Component {
     const { dispatch } = this.props;
     if (email && password) {
       dispatch(userActions.login(email, password));
+      dispatch(canteenActions.getAllCanteens());
     }
   }
 

@@ -2,18 +2,29 @@ import config from 'config';
 import { authHeader } from '../_helpers';
 
 export const canteenService = {
-    getAll,
     getById,
+    getAllCanteens
 }
 
-function getAll() {
+function getAllCanteens() {
+    const token = 'Basic YWxpY2VAZ21haWwuY29tOnBhc3N3b3Jk';
+    // const {token} = JSON.parse(localStorage.getItem('user'));
+    if (!token) {
+        return Promise.reject('User is not logged in!');
+    }
     const requestOptions = {
         method: 'GET',
-        headers: authHeader(),
-    }
+        headers: {
+            Authorization: token
+        }
+    };
 
-    return fetch(`${config.apiUrl}/canteens`, requestOptions)
-        .then(handleResponse);
+    return fetch(`${config.apiUrl}/Resource/canteens`, requestOptions)
+        .then(
+          response => response.json(),
+
+          error => error
+        );
 }
 
 function getById(id) {
