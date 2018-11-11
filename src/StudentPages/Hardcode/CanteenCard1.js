@@ -19,7 +19,7 @@ const styles = {
   },
 };
 
-function CanteenCard(props) {
+function CanteenCard1(props) {
   const { classes } = props;
   return (
     <div className={classes.wrapper}>
@@ -27,8 +27,8 @@ function CanteenCard(props) {
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image="../../../img/deck.png"
-            title="Deck"
+            image="../../../img/fineFood.png"
+            title="Fine Food"
           />
         </CardActionArea>
       </Card>
@@ -36,4 +36,4 @@ function CanteenCard(props) {
   );
 }
 
-export default withStyles(styles)(CanteenCard);
+export default withStyles(styles)(CanteenCard1);

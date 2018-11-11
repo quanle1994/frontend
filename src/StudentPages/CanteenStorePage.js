@@ -3,6 +3,7 @@ import * as React from 'react';
 import connect from 'react-redux/es/connect/connect';
 import Typography from '@material-ui/core/Typography/Typography';
 import StoreCard from './StoreCard';
+import { canteenActions, userActions } from '../_actions';
 
 class CanteenStorePage extends React.Component {
   render() {
@@ -22,5 +23,6 @@ class CanteenStorePage extends React.Component {
     );
   }
 }
+
 
 export default connect()(CanteenStorePage);
