@@ -2,105 +2,70 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
-import IconButton from '@material-ui/core/IconButton';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Add from '@material-ui/icons/Add';
-import Remove from '@material-ui/icons/Remove';
+import Bookmark from '@material-ui/icons/Bookmark';
+import IconButton from '@material-ui/core/IconButton';
 
-const styles = theme => ({
+const styles = {
   card: {
     width: 400,
+    paddingTop: 10,
   },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
   },
-  actions: {
-    display: 'flex',
-    height: 25,
-  },
   content: {
     paddingTop: 0,
     textAlign: 'justify',
     align: 'center',
-},
+  },
+  actions: {
+    display: 'flex',
+    height: 25,
+  },
+};
 
-});
-
-class StoreCard extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      expanded: false,
-      quantity: 0,
-    };
-  }
-
-  handleExpandClick = () => {
-    this.setState(state => ({ expanded: !state.expanded }));
-  };
-
-  render() {
-    const { classes } = this.props;
-    const { quantity } = this.state;
-    const adjustQuantity = (value) => {
-      this.setState({
-        quantity: Math.max(0, quantity + value),
-      })
-    };
-    return (
-      <Card className={classes.card}>
+function StoreCard(props) {
+  const { classes } = props;
+  return (
+    <Card className={classes.card}>
+      <CardActionArea>
         <CardMedia
           className={classes.media}
           image="../../../img/kimchi_fried_rice.png"
-          title="Kimchi Fried Rice"
+          title="Store"
         />
-        <CardContent
-          className={classes.content}
+      </CardActionArea>
+      <CardContent className={classes.content}>
+      <Typography
+        component="p"
+        variant="h3"
+        style={{
+          fontSize: 20,
+          display: 'inline-block',
+        }}>
+        Hwang's
+      </Typography>
+      <CardActions
+        className={classes.actions} disableActionSpacing
+        style={{
+          display: 'inline-block',
+        }}>
+        <IconButton
+          aria-label="Bookmark"
         >
-          <Typography
-            component="p"
-            variant="h3"
-            style={{
-              fontSize: 15,
-              display: 'inline-block',
-
-            }}
-          >
-            Kimchi Fried Rice
-          </Typography>
-          <CardActions
-            className={classes.actions} disableActionSpacing
-            style={{
-              display: 'inline-block',
-              verticalAlign: 'baseline',
-            }}
-          >
-            <IconButton aria-label="Add quantity" onClick={ () => adjustQuantity(1) }>
-              <Add className={classes.icon} />
-            </IconButton>
-            <Typography
-              component="p"
-              variant="h3"
-              style={{
-                fontSize: 15,
-                display: 'inline-block',
-              }}
-            >
-              {quantity}
-            </Typography>
-            <IconButton aria-label="Minus quantity" onClick={ () => adjustQuantity(-1)} >
-              <Remove className={classes.icon} />
-            </IconButton>
-          </CardActions>
-        </CardContent>
-      </Card>
-    );
-  }
+          <Bookmark className={classes.icon} />
+        </IconButton>
+      </CardActions>
+      </CardContent>
+    </Card>
+  );
 }
 
 StoreCard.propTypes = {
