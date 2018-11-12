@@ -4,11 +4,9 @@ import connect from 'react-redux/es/connect/connect';
 import Typography from '@material-ui/core/Typography/Typography';
 import Dialog from '@material-ui/core/Dialog/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
-import MenuCard from './MenuCard';
 import DialogContent from "@material-ui/core/DialogContent/DialogContent";
 import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/Button/Button";
-import Link from "react-router-dom/es/Link";
 import DialogActions from "@material-ui/core/DialogActions/DialogActions";
 
 export const CLOSE_ADD_ITEM_DIALOG = 'CLOSE_ADD_ITEM_DIALOG';

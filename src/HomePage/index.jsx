@@ -14,6 +14,8 @@ import CanteenMenuPage from '../StudentPages/CanteenMenuPage';
 import StudentOrderPage from '../StudentPages/StudenOrderPage';
 import CanteenStorePage from '../StudentPages/CanteenStorePage';
 import CartPage from '../StudentPages/CartPage';
+import TrackOrderPage from '../StudentPages/TrackOrderPage';
+import BookmarkPage from '../StudentPages/BookmarkPage';
 
 const HomePage = (props) => {
   const { classes } = props;
@@ -38,6 +40,9 @@ const HomePage = (props) => {
           <Route exact path="/homepage/menu" component={StudentOrderPage} />
           <Route exact path="/homepage/store" component={CanteenStorePage}/>
           <Route exact path="/homepage/cart" component={CartPage}/>
+          <Route exact path="/homepage/trackOrder" component={TrackOrderPage}/>
+          <Route exact path="/homepage/bookmark" component={BookmarkPage}/>
+
         </main>
 
       </Router>

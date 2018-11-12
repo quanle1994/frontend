@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Add from '@material-ui/icons/Add';
 
 import Remove from '@material-ui/icons/Remove';
+import Button from '@material-ui/core/Button/Button';
 
 const styles = theme => ({
   card: {
@@ -97,6 +98,30 @@ class MenuCard extends React.Component {
             <IconButton aria-label="Minus quantity" onClick={ () => adjustQuantity(-1)} >
               <Remove className={classes.icon} />
             </IconButton>
+            <Button
+              variant="outlined"
+              size="medium"
+              // component={Link}
+              style={{
+                borderColor: '#CB9D1B',
+                backgroundColor: 'floralWhite',
+                textTransform: 'none',
+                textDecoration: 'none',
+                justifyItems: 'center',
+                alignItems: 'center',
+              }}
+              //onClick={openConfirmationDialog}
+              // to={{
+              //   pathname: './homepage',
+              // }}
+            >
+              <Typography style={{
+                fontSize: 15,
+                color: '#CB9D1B',
+              }}
+              >Add To Cart
+              </Typography>
+            </Button>
           </CardActions>
         </CardContent>
       </Card>

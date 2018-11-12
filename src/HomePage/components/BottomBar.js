@@ -4,6 +4,8 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import Home from '@material-ui/icons/Home';
 import Bookmark from '@material-ui/icons/Bookmark';
+import ShoppingCart from '@material-ui/icons/ShoppingCart'
+import Assignment from '@material-ui/icons/Assignment'
 import History from '@material-ui/icons/History';
 import Search from '@material-ui/icons/Search';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
@@ -91,22 +93,22 @@ class SimpleBottomNavigation extends React.Component {
           icon={<Bookmark className={classes.icon} />}
         />
         <BottomNavigationAction
-          label="History"
+          label="Orders"
           classes={{
             selected: classes.selected,
             label: classes.label,
           }}
-          onClick={() => { history.push('/history'); }}
-          icon={<History className={classes.icon} />}
+          onClick={() => { history.push('/orders'); }}
+          icon={<Assignment className={classes.icon} />}
         />
         <BottomNavigationAction
-          label="Search"
+          label="Cart"
           classes={{
             selected: classes.selected,
             label: classes.label,
           }}
-          onClick={() => { history.push('/search'); }}
-          icon={<Search className={classes.icon} />}
+          onClick={() => { history.push('/cart'); }}
+          icon={<ShoppingCart className={classes.icon} />}
         />
       </BottomNavigation>
     );

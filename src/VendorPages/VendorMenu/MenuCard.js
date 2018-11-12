@@ -1,7 +1,6 @@
 import * as React from 'react';
 import connect from 'react-redux/es/connect/connect';
 import CardActionArea from '@material-ui/core/CardActionArea/CardActionArea';
-import CardMedia from '@material-ui/core/CardMedia/CardMedia';
 import Card from '@material-ui/core/Card/Card';
 import Add from '@material-ui/icons/Add';
 import { withStyles } from '@material-ui/core';

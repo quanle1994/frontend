@@ -6,7 +6,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import FoodItem from './components/FoodItem';
+import OrderDetails from './components/OrderDetails';
 
 const styles = theme => ({
   root: {
@@ -21,7 +21,7 @@ const styles = theme => ({
   },
 });
 
-function CartList(props) {
+function TrackOrderList(props) {
   const { classes } = props;
   return (
     <div className={classes.root}>
@@ -30,32 +30,34 @@ function CartList(props) {
           className={classes.heading}
           expandIcon={<ExpandMoreIcon />}
         >
+          <div className="col-xs-7">
           <Typography
             style={{
               fontSize: 20,
-            }}
-          >
-            Deck:
+            }}>
+            2372836
           </Typography>
+          </div>
+          <div className="col-xs-5">
           <Typography
             style={{
               paddingLeft: 5,
               fontSize: 20,
-            }}
-          >
-            Roasted
+            }}>
+            Preparing
           </Typography>
+          </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <FoodItem/>
+          <OrderDetails/>
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </div>
   );
 }
 
-CartList.propTypes = {
+TrackOrderList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CartList);
+export default withStyles(styles)(TrackOrderList);

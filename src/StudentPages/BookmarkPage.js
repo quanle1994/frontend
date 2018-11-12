@@ -2,9 +2,10 @@
 import * as React from 'react';
 import connect from 'react-redux/es/connect/connect';
 import Typography from '@material-ui/core/Typography/Typography';
-import MenuCard from './MenuCard';
+import TrackOrderList from './TrackOrderList';
+import BookmarkList from './BookmarkList';
 
-class StudentOrderPage extends React.Component {
+class BookmarkPage extends React.Component {
   render() {
     return (
       <div>
@@ -14,14 +15,13 @@ class StudentOrderPage extends React.Component {
             color: 'gray',
             marginTop: 20,
             marginLeft: '4vw',
-            marginBottom: 20,
           }}
-        >Korean
+        >Bookmark
         </Typography>
-        <MenuCard/>
+        <BookmarkList/>
       </div>
     );
   }
 }
 
-export default connect()(StudentOrderPage);
+export default connect()(BookmarkPage);
