@@ -1,12 +1,14 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import * as React from 'react';
+import React, { Component } from 'react';
 import connect from 'react-redux/es/connect/connect';
 import Typography from '@material-ui/core/Typography/Typography';
 import StoreCard from './StoreCard';
 import CartList from './CartList';
+import { customerService } from '../_services/customer.service';
 
-class CartPage extends React.Component {
+class CartPage extends Component {
   render() {
+    console.log("### " + customerService.getCart());
     return (
       <div>
         <Typography

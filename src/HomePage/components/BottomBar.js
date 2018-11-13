@@ -80,7 +80,7 @@ class SimpleBottomNavigation extends React.Component {
             selected: classes.selected,
             label: classes.label,
           }}
-          onClick={() => { history.push('/homepage'); }}
+          onClick={() => { history.push('/homepage/canteen'); }}
           icon={<Home className={classes.icon} />}
         />
         <BottomNavigationAction
@@ -89,7 +89,7 @@ class SimpleBottomNavigation extends React.Component {
             selected: classes.selected,
             label: classes.label,
           }}
-          onClick={() => { history.push('/bookmark'); }}
+          onClick={() => { history.push('/homepage/bookmark'); }}
           icon={<Bookmark className={classes.icon} />}
         />
         <BottomNavigationAction
@@ -98,7 +98,7 @@ class SimpleBottomNavigation extends React.Component {
             selected: classes.selected,
             label: classes.label,
           }}
-          onClick={() => { history.push('/orders'); }}
+          onClick={() => { history.push('/homepage/trackOrder'); }}
           icon={<Assignment className={classes.icon} />}
         />
         <BottomNavigationAction
@@ -107,7 +107,7 @@ class SimpleBottomNavigation extends React.Component {
             selected: classes.selected,
             label: classes.label,
           }}
-          onClick={() => { history.push('/cart'); }}
+          onClick={() => { history.push('/homepage/cart'); }}
           icon={<ShoppingCart className={classes.icon} />}
         />
       </BottomNavigation>
