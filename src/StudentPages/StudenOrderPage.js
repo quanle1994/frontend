@@ -16,7 +16,7 @@ class StudentOrderPage extends React.Component {
             marginLeft: '4vw',
             marginBottom: 20,
           }}
-        >Korean
+        >Menu
         </Typography>
         <MenuCard/>
       </div>

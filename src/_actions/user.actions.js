@@ -18,7 +18,7 @@ function login(email, password) {
       .then(
         (user) => {
           dispatch(success(user));
-          history.push('/');
+          history.push('/homepage/canteen');
         },
         (error) => {
           dispatch(failure(error.toString()));
