@@ -16,7 +16,6 @@ class LoginPage extends React.Component {
 
     console.log(`**********************\nconstructor`);
 
-
     // reset login status
     this.props.dispatch(userActions.logout());
 

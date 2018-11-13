@@ -1,14 +1,13 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import React, { Component } from 'react';
+import * as React from 'react';
 import connect from 'react-redux/es/connect/connect';
 import Typography from '@material-ui/core/Typography/Typography';
-import StoreCard from './StoreCard';
-import CartList from './CartList';
-import { customerService } from '../_services/customer.service';
+import VendorOrdersList from './VendorOrdersList';
+import VendorCompletedList from './VendorCompletedList';
 
-class CartPage extends Component {
+
+class VendorOrdersPage extends React.Component {
   render() {
-    console.log("### " + customerService.getCart());
     return (
       <div>
         <Typography
@@ -18,13 +17,13 @@ class CartPage extends Component {
             marginTop: 20,
             marginLeft: '4vw',
           }}
-        >Cart
+        >Orders
         </Typography>
-        <CartList/>
-        <CartList/>
+        <VendorOrdersList/>
+        <VendorCompletedList/>
       </div>
     );
   }
 }
 
-export default connect()(CartPage);
+export default connect()(VendorOrdersPage);

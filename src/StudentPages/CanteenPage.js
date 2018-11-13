@@ -1,15 +1,15 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import * as React from 'react';
-import connect from 'react-redux/es/connect/connect';
+import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography/Typography';
 import CanteenCard from './CanteenCard';
 import CanteenCard1 from './Hardcode/CanteenCard1';
 import CanteenCard2 from './Hardcode/CanteenCard2';
 import { canteenActions } from '../_actions'
-import { history } from '../_helpers';
 import { canteenConstants } from '../_constants';
+import { history } from '../_helpers/history';
 
-class CanteenMenuPage extends React.Component {
+class CanteenPage extends React.Component {
   constructor(props) {
     super(props);
     this.props.dispatch(canteenActions.getAllCanteens());
@@ -24,6 +24,8 @@ class CanteenMenuPage extends React.Component {
     });
     history.push('/homepage/store');
   }
+
+
 
   render() {
     return (
@@ -51,4 +53,4 @@ class CanteenMenuPage extends React.Component {
   }
 }
 
-export default connect()(CanteenMenuPage);
+export default connect()(CanteenPage);

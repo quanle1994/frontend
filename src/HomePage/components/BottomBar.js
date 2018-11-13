@@ -14,6 +14,7 @@ import { compose } from 'redux';
 import Link from 'react-router-dom/es/Link';
 import styled from 'styled-components';
 import { history } from '../../_helpers/history';
+import Badge from '@material-ui/core/Badge/Badge';
 
 const styles = {
   root: {
@@ -80,7 +81,7 @@ class SimpleBottomNavigation extends React.Component {
             selected: classes.selected,
             label: classes.label,
           }}
-          onClick={() => { history.push('/homepage'); }}
+          onClick={() => { history.push('/homepage/canteen'); }}
           icon={<Home className={classes.icon} />}
         />
         <BottomNavigationAction
@@ -89,7 +90,7 @@ class SimpleBottomNavigation extends React.Component {
             selected: classes.selected,
             label: classes.label,
           }}
-          onClick={() => { history.push('/bookmark'); }}
+          onClick={() => { history.push('/homepage/bookmark'); }}
           icon={<Bookmark className={classes.icon} />}
         />
         <BottomNavigationAction
@@ -98,8 +99,13 @@ class SimpleBottomNavigation extends React.Component {
             selected: classes.selected,
             label: classes.label,
           }}
-          onClick={() => { history.push('/orders'); }}
-          icon={<Assignment className={classes.icon} />}
+
+          onClick={() => { history.push('/homepage/trackOrder'); }}
+          icon={
+            <Badge className={classes.margin} badgeContent={1} color="primary">
+          <Assignment className={classes.icon} />
+            </Badge>}
+
         />
         <BottomNavigationAction
           label="Cart"
@@ -107,8 +113,14 @@ class SimpleBottomNavigation extends React.Component {
             selected: classes.selected,
             label: classes.label,
           }}
-          onClick={() => { history.push('/cart'); }}
-          icon={<ShoppingCart className={classes.icon} />}
+
+          onClick={() => { history.push('/homepage/cart'); }}
+          icon={
+
+
+            <ShoppingCart className={classes.icon} />
+            }
+
         />
       </BottomNavigation>
     );

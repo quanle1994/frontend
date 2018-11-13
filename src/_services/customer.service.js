@@ -1,5 +1,6 @@
 import config from 'config';
-import { authHeader } from `../_helpers`;
+import { authHeader } from '../_helpers';
+import { request } from 'https';
 
 export const customerService = {
     login,
@@ -9,6 +10,7 @@ export const customerService = {
     getById,
     update,
     delete: _delete,
+    getCart,
     pay,
 };
 
@@ -90,6 +92,17 @@ function _delete(id) {
         .then(handleResponse);
 }
 
+// TODO: find the right file to place this method
+function getCart() {
+    const requestOptions = {
+        method: 'GET',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+    };
+
+    return fetch(`${config.apiUrl}/Resource/customerOrders/cart`, requestOptions)
+        .then(handleCartResponse);
+}
+
 function pay(orderId) {
     const requestOptions = {
         method: 'GET',
@@ -108,6 +121,27 @@ function handleResponse(response) {
             '"}');
         if (!response.ok) {
             console.log("OK OK");
+            if (response.status === 401) {
+                // auto logout if 401 response returned from api
+                logout();
+                location.reload(true);
+            }
+            const error = (data && data.message) || response.statusText;
+            return Promise.reject(error);
+        }
+        return data;
+    });
+}
+
+function handleCartResponse(response) {
+    console.log(response);
+    return response.json().then(json => {
+        console.log("Json " + JSON.stringify(json));
+        const data = JSON.parse(json);
+        console.log( '{ "message": "'+ json +
+            '"}');
+        if (!response.ok) {
+            console.log("NOT OK");
             if (response.status === 401) {
                 // auto logout if 401 response returned from api
                 logout();

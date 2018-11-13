@@ -7,47 +7,31 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import InboxIcon from '@material-ui/icons/Inbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
+import Badge from '@material-ui/core/Badge';
+import BookmarkStores from './BookmarkStores';
+import RemoveIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
 
 const styles = theme => ({
   root: {
-    width: '375',
-    maxWidth: 375,
+    width: 365,
     backgroundColor: theme.palette.background.paper,
   },
 });
-
-function ListItemLink(props) {
-  return <ListItem button component="a" {...props} />;
-}
 
 function BookmarkList(props) {
   const { classes } = props;
   return (
     <div className={classes.root}>
       <List component="nav">
-        <ListItem button>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <ListItemText primary="Inbox" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <DraftsIcon />
-          </ListItemIcon>
-          <ListItemText primary="Drafts" />
+        <ListItem>
+          <BookmarkStores/>
+          <IconButton className={classes.button} aria-label="Delete">
+          <RemoveIcon/>
+          </IconButton>
         </ListItem>
       </List>
       <Divider />
-      <List component="nav">
-        <ListItem button>
-          <ListItemText primary="Trash" />
-        </ListItem>
-        <ListItemLink href="#simple-list">
-          <ListItemText primary="Spam" />
-        </ListItemLink>
-      </List>
     </div>
   );
 }

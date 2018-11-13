@@ -20,7 +20,7 @@ const styles = {
 };
 
 function CanteenCard(props) {
-  const { classes } = props;
+  const { classes, onClick } = props;
   return (
     <div className={classes.wrapper}>
       <Card className={classes.card}>
@@ -29,6 +29,7 @@ function CanteenCard(props) {
             className={classes.media}
             image="../../../img/deck.png"
             title="Deck"
+            onClick={onClick}
           />
         </CardActionArea>
       </Card>
