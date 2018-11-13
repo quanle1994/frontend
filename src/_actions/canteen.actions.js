@@ -2,6 +2,7 @@ import { canteenConstants } from '../_constants';
 import {
   canteenService
 } from '../_services';
+import { history } from '../_helpers';
 
 function getAllCanteens() {
   return dispatch => {
@@ -21,5 +22,5 @@ function getAllCanteens() {
 }
 
 export const canteenActions = {
-  getAllCanteens
+  getAllCanteens,
 };

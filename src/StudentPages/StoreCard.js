@@ -9,6 +9,10 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Bookmark from '@material-ui/icons/Bookmark';
 import IconButton from '@material-ui/core/IconButton';
+import { history } from '../_helpers';
+import { canteenConstants } from '../_constants';
+
+import MenuCard from './MenuCard';
 
 const styles = {
   card: {
@@ -31,7 +35,13 @@ const styles = {
 };
 
 function StoreCard(props) {
-  const { classes } = props;
+  const { classes, qoodieStore } = props;
+  console.log(`####store:\n${JSON.stringify(qoodieStore,undefined,2)}`);
+
+
+
+
+
   return (
     <Card className={classes.card}>
       <CardActionArea>
@@ -39,6 +49,10 @@ function StoreCard(props) {
           className={classes.media}
           image="../../../img/kimchi_fried_rice.png"
           title="Store"
+          onClick={() => {
+            localStorage.setItem('currentStore', JSON.stringify(qoodieStore));
+            history.push('/homepage/menu');
+          }}
         />
       </CardActionArea>
       <CardContent className={classes.content}>
@@ -49,7 +63,7 @@ function StoreCard(props) {
           fontSize: 20,
           display: 'inline-block',
         }}>
-        Hwang's
+        {qoodieStore.name}
       </Typography>
       <CardActions
         className={classes.actions} disableActionSpacing
