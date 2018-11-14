@@ -1,15 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Router, Route } from 'react-router-dom';
-import TopBar from './components/TopBar';
-import SimpleBottomNavigation from './components/BottomBar';
+import VendorTopBar from '../homepage/components/VendorTopBar';
+import VendorBottomBar from '../homepagecomponents/VendorBottomBar';
 import './css/HomePage.css';
-import Content from './pages/Content';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import { history } from '../_helpers';
 import VendorMenuPage from '../VendorPages/VendorMenu/VendorMenuPage';
+import VendorOrdersPage from '../VendorPages/VendorOrders/VendorOrdersPage';
+import VendorHistoryPage from '../VendorPages/VendorOrders/VendorHistoryPage';
+import VendorBottomBar from '../HomePage/components/VendorBottomBar';
 
-const HomePage = (props) => {
+const VendorPages = (props) => {
   const { classes } = props;
   return (
     <div style={{
@@ -17,7 +19,8 @@ const HomePage = (props) => {
       flexDirection: 'column',
     }}
     >
-      <TopBar />
+      <VendorTopBar />
+
       <Router history={history}>
         <main style={{
           flexGrow: 1,
@@ -26,12 +29,18 @@ const HomePage = (props) => {
         }}
         >
           <Route exact path="/homepage/vendor" component={VendorMenuPage} />
+          <Route exact path="/homepage/vendorHistory" component={VendorHistoryPage} />
+          <Route exact path="/homepage/vendorOrders" component={VendorOrdersPage} />
           <Route exact path="/homepage/profile" component={ProfilePage} />
+
         </main>
+
       </Router>
-      <SimpleBottomNavigation />
+
+
+      <VendorBottomBar />
     </div>
   );
 };
 
-export default connect()(HomePage);
+export default connect()(VendorPages);

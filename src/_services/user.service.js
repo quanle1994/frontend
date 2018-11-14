@@ -1,5 +1,9 @@
 import config from 'config';
+
 import { authHeader } from '../_helpers';
+import {
+    generateToken
+} from '../_helpers/authorization';
 
 export const userService = {
     login,
@@ -12,24 +16,32 @@ export const userService = {
 };
 
 function login(email, password) {
+
+  const token = generateToken(email, password);
+  console.log(`*********token:\n${token}`);
     const requestOptions = {
         // "Access-Control-Allow-Origin": "*",
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token
+        }
     };
 
-    return fetch(`${config.apiUrl}/signin`, requestOptions)
+    return fetch(`${config.apiUrl}/Resource/customers/login`, requestOptions)
         .then(handleResponse)
         .then(user => {
             // login successful if there's a jwt token in the response
-            if (user.token) {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(user));
-            }
+            user.token = token;
+            console.log(user);
+            console.log(`#########\n${user.name}`);
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('user', JSON.stringify(user));
 
             return user;
         });
+
+
 }
 
 function logout() {
@@ -72,7 +84,7 @@ function update(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(`${config.apiUrl}/users/${user.id}`, requestOptions).then(handleResponse);;
+    return fetch(`${config.apiUrl}/users/${user.id}`, requestOptions).then(handleResponse);
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
@@ -87,10 +99,11 @@ function _delete(id) {
 
 function handleResponse(response) {
     return response.text().then(text => {
-        const text_formated ='{ "message": "'+ text + '"}';
-        const data = text && JSON.parse(text_formated);
-        console.log( '{ "message": "'+ text +
-            '"}');
+        console.log(`***********\n${text}`);
+        // const text_formated ='{ "message": "'+ text + '"}';
+        // const data = text && JSON.parse(text_formated);
+        // console.log( '{ "message": "'+ text +
+        //     '"}');
         if (!response.ok) {
             console.log("OK OK");
             if (response.status === 401) {
@@ -103,6 +116,7 @@ function handleResponse(response) {
             return Promise.reject(error);
         }
 
+        const data = JSON.parse(text);
         return data;
     });
 }

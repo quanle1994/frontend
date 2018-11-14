@@ -2,14 +2,14 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.jsx',
+  entry: './src/index.js',
   output: {
     path: path.resolve('dist'),
     publicPath: '/',
     filename: 'bundle.js',
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.js'],
   },
   module: {
     loaders: [
@@ -19,6 +19,8 @@ module.exports = {
         loader: 'babel-loader',
         query: {
           presets: ['react', 'es2015', 'stage-3'],
+          plugins: ["transform-object-rest-spread", "transform-class-properties"]
+
         },
       },
       {
@@ -46,7 +48,7 @@ module.exports = {
   externals: {
     // global app config object
     config: JSON.stringify({
-      apiUrl: 'http://localhost:3000',
+      apiUrl: 'http://localhost:8080/Qoodie-war',
     }),
   },
 };

@@ -1,9 +1,10 @@
-/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { userActions } from '../_actions';
+import {
+  userActions,
+} from '../_actions';
 
 import './login.css';
 import Button from '@material-ui/core/Button/Button';
@@ -11,6 +12,8 @@ import Button from '@material-ui/core/Button/Button';
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
+
+    console.log(`**********************\nconstructor`);
 
     // reset login status
     this.props.dispatch(userActions.logout());
@@ -32,6 +35,7 @@ class LoginPage extends React.Component {
   }
 
   handleSubmit(e) {
+    console.log(`**********\nsubmit clicked`)
     e.preventDefault();
 
     this.setState({ submitted: true });
@@ -83,7 +87,7 @@ class LoginPage extends React.Component {
                 width: 150,
                 marginBottom: 20,
               }}
-              onClick={() => {}}
+              onClick={this.handleSubmit}
               to={{
                 pathname: '../login',
               }}

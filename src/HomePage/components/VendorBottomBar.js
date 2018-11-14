@@ -39,7 +39,7 @@ const styles = {
   },
 };
 
-class SimpleBottomNavigation extends React.Component {
+class VendorBottomBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -85,13 +85,13 @@ class SimpleBottomNavigation extends React.Component {
           icon={<Home className={classes.icon} />}
         />
         <BottomNavigationAction
-          label="Bookmark"
+          label="History"
           classes={{
             selected: classes.selected,
             label: classes.label,
           }}
-          onClick={() => { history.push('/homepage/bookmark'); }}
-          icon={<Bookmark className={classes.icon} />}
+          onClick={() => { history.push('/homepage/history'); }}
+          icon={<History className={classes.icon} />}
         />
         <BottomNavigationAction
           label="Orders"
@@ -102,23 +102,7 @@ class SimpleBottomNavigation extends React.Component {
 
           onClick={() => { history.push('/homepage/trackOrder'); }}
           icon={
-            <Badge className={classes.margin} badgeContent={1} color="primary">
-          <Assignment className={classes.icon} />
-            </Badge>}
-
-        />
-        <BottomNavigationAction
-          label="Cart"
-          classes={{
-            selected: classes.selected,
-            label: classes.label,
-          }}
-
-          onClick={() => { history.push('/homepage/cart'); }}
-          icon={
-
-
-            <ShoppingCart className={classes.icon} />
+              <Assignment className={classes.icon} />
             }
 
         />
@@ -131,4 +115,5 @@ const mapStateToProps = state => ({
   page: state.currentPage.page,
 });
 
-export default compose(withStyles(styles), connect(mapStateToProps))(SimpleBottomNavigation);
+export default compose(withStyles(styles), connect(mapStateToProps))(VendorBottomBar);
+
