@@ -9,14 +9,13 @@ import { history } from '../_helpers';
 import VendorMenuPage from '../VendorPages/VendorMenu/VendorMenuPage';
 import VendorOrdersPage from '../VendorPages/VendorOrders/VendorOrdersPage';
 import VendorHistoryPage from '../VendorPages/VendorOrders/VendorHistoryPage';
-import CanteenCard from '../StudentPages/CanteenCard';
-import Typography from '@material-ui/core/Typography/Typography';
 import CanteenPage from '../StudentPages/CanteenPage';
 import StudentOrderPage from '../StudentPages/StudenOrderPage';
 import CanteenStorePage from '../StudentPages/CanteenStorePage';
 import CartPage from '../StudentPages/CartPage';
 import TrackOrderPage from '../StudentPages/TrackOrderPage';
 import BookmarkPage from '../StudentPages/BookmarkPage';
+
 
 const HomePage = (props) => {
   const { classes } = props;
@@ -35,9 +34,6 @@ const HomePage = (props) => {
           overflow: 'scroll',
         }}
         >
-          <Route exact path="/homepage/vendor" component={VendorMenuPage} />
-          <Route exact path="/homepage/vendorHistory" component={VendorHistoryPage} />
-          <Route exact path="/homepage/vendorOrders" component={VendorOrdersPage} />
           <Route exact path="/homepage/profile" component={ProfilePage} />
           <Route exact path="/homepage/canteen" component={CanteenPage} />
           <Route exact path="/homepage/menu" component={StudentOrderPage} />

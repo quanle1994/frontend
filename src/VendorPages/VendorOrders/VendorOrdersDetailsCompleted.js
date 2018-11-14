@@ -8,16 +8,16 @@ const styles = {
   },
 };
 
-function VendorOrdersDetails(props) {
+function VendorOrdersDetailsCompleted(props) {
   const { classes } = props;
   return (
     <div className={classes.wrapper}>
-      <div className="col-xs-8" >Kimichi Fried Rice</div>
-      <div className="col-xs-4" >x1</div>
+      <div className="col-xs-10" >Kimichi Fried Rice</div>
+      <div className="col-xs-2" >x1</div>
       <Divider/>
     </div>
 
   );
 }
 
-export default withStyles(styles)(VendorOrdersDetails);
+export default withStyles(styles)(VendorOrdersDetailsCompleted);

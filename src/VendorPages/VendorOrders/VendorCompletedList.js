@@ -9,7 +9,7 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import AssignmentDoneIcon from '@material-ui/icons/AssignmentTurnedIn';
-import VendorOrdersDetailsList from './VendorOrdersDetailsList';
+import VendorOrdersDetailsCompleted from './VendorOrdersDetailsCompleted';
 
 const styles = theme => ({
   root: {
@@ -50,8 +50,8 @@ class VendorCompletedList extends React.Component {
           </ListItem>
           <Collapse in={this.state.open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
-                <VendorOrdersDetailsList/>
+              <ListItem className={classes.nested}>
+                <VendorOrdersDetailsCompleted/>
               </ListItem>
             </List>
           </Collapse>
