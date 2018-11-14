@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import VendorOrdersDetails from './VendorOrdersDetails';
+import VendorConfirmOrderReadyDialog from './VendorConfirmOrderReadyDialog';
 
 
 const styles = theme => ({
@@ -19,7 +20,12 @@ function VendorOrdersDetailsList(props) {
     <div className={classes.root}>
       <List component="nav">
         <ListItem>
-          <VendorOrdersDetails/>
+          <div className="col-xs-8" >
+
+          <VendorOrdersDetails/></div>
+          <div className="col-xs-4" >
+          <VendorConfirmOrderReadyDialog/>
+          </div>
         </ListItem>
       </List>
     </div>

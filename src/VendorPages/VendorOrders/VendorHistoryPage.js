@@ -27,6 +27,7 @@ class VendorHistoryPage extends React.Component {
           marginTop: 20,
         }}
         />
+
         <VendorRevenueHistoryList/>
         <VendorTotalRevenue/>
       </div>
