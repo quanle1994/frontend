@@ -42,8 +42,6 @@ module.exports = {
   })],
   devServer: {
     historyApiFallback: true,
-    // host: '172.23.213.190',
-    // port: 8080,
   },
   externals: {
     // global app config object

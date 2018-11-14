@@ -1,5 +1,7 @@
 import { OPEN_ADD_ITEM_DIALOG } from '../VendorPages/VendorMenu/MenuCard';
-import { CLOSE_ADD_ITEM_DIALOG } from '../VendorPages/VendorMenu/AddItemDialog';
+import {
+  CLOSE_ADD_ITEM_DIALOG,
+} from '../VendorPages/VendorMenu/AddItemDialog';
 
 const INITIAL_STATE = {
   openAddItemDialog: false,

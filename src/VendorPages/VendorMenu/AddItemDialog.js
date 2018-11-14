@@ -12,20 +12,14 @@ import DialogActions from '@material-ui/core/DialogActions/DialogActions';
 import withMobileDialog from '@material-ui/core/es/withMobileDialog/withMobileDialog';
 import { compose } from 'redux';
 import InputLabel from '@material-ui/core/InputLabel/InputLabel';
-import Input from '@material-ui/core/Input/Input';
-import { FilePond, File, registerPlugin } from 'react-filepond';
-
-// Import FilePond styles
+import { FilePond, registerPlugin } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
-
-// Import the Image EXIF Orientation and Image Preview plugins
-// Note: These need to be installed separately
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
-import MenuCard from './MenuCard';
+import api from "../../_api/vendors";
 
 
 export const CLOSE_ADD_ITEM_DIALOG = 'CLOSE_ADD_ITEM_DIALOG';
@@ -34,12 +28,30 @@ registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview,
   FilePondPluginFileValidateType, FilePondPluginFileValidateSize);
 
 class AddItemDialog extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      price: 0,
+      file: '',
+    };
+  }
+
+
   render() {
     const { openAddItemDialog, dispatch, fullScreen } = this.props;
+    const { name, price } = this.state;
     const closeAddItemDialog = () => {
       this.setState({}, () => dispatch({
         type: CLOSE_ADD_ITEM_DIALOG,
       }));
+    };
+    const updateNewItem = (e) => {
+      this.setState({ [e.target.name]: e.target.value });
+    };
+    const addNewItem = () => {
+      const { name: _name, price: _price, file } = this.state;
+      api.createNewItem(_name, _price, file).then(() => closeAddItemDialog());
     };
     return (
       <Dialog
@@ -75,12 +87,17 @@ class AddItemDialog extends React.Component {
               </Typography>
             )}
             fullWidth
+            id="name"
+            name="name"
+            value={name}
             InputProps={{
               style: {
                 fontSize: 15,
                 marginTop: 20,
               },
             }}
+            type="text"
+            onChange={updateNewItem}
           />
           <TextField
             label={(
@@ -92,6 +109,9 @@ class AddItemDialog extends React.Component {
               >Price
               </Typography>
             )}
+            id="price"
+            name="price"
+            value={price}
             fullWidth
             InputProps={{
               style: {
@@ -99,6 +119,8 @@ class AddItemDialog extends React.Component {
                 marginTop: 20,
               },
             }}
+            type="number"
+            onChange={updateNewItem}
           />
           <InputLabel>
             <Typography
@@ -114,22 +136,25 @@ class AddItemDialog extends React.Component {
             ref={ref => this.pond = ref}
             allowMultiple
             maxFiles={1}
-            maxFileSize="2MB"
+            maxFileSize="10MB"
             acceptedFileTypes={['image/*']}
             server={{
+              url: 'http://172.19.195.190:8080/Qoodie-war/Resource/vendors',
               process:
-                (fieldName, file, metadata, load, error, progress, abort) => {
+                (fieldName, _file, metadata, load, error, progress, abort) => {
                   const formData = new FormData();
-                  formData.append(fieldName, file, file.name);
+                  formData.append(fieldName, _file, _file.name);
 
                   const request = new XMLHttpRequest();
-                  request.open('POST', 'http:/localhost:8080/Qoodie-war/Resource/vendors/uploadImage');
+                  const url = 'http://172.19.195.190:8080/Qoodie-war/Resource/vendors/uploadImage';
+                  request.open('POST', url);
                   request.upload.onprogress = (e) => {
                     progress(e.lengthComputable, e.loaded, e.total);
                   };
                   request.onload = () => {
                     if (request.status >= 200 && request.status < 300) {
                       load(request.responseText);
+                      this.setState({ file: request.responseText });
                     } else {
                       error('oh no');
                     }
@@ -145,29 +170,21 @@ class AddItemDialog extends React.Component {
                     },
                   };
                 },
+              revert: {
+                url: '/revertImage',
+                method: 'POST',
+                withCredentials: false,
+                // headers: {},
+                timeout: 7000,
+                onload: () => this.setState({ file: '' }),
+                onerror: null,
+              },
             }}
             // oninit={() => this.handleInit()}
             // onupdatefiles={(fileItems) => {
-              // Set current file objects to this.state
-              // this.setState({
-              //   files: fileItems.map(fileItem => fileItem.file),
-              // });
-            {/*}}*/}
-          >
-
-            {/* Update current files  */}
-            {/* {this.state.files.map(file => ( */}
-            {/* <File key={file} src={file} origin="local" /> */}
-            {/* ))} */}
-
-          </FilePond>
-          {/* <Input */}
-          {/* fullWidth */}
-          {/* type="file" */}
-          {/* style={{ */}
-          {/* fontSize: 15, */}
-          {/* }} */}
-          {/* /> */}
+            //
+            // }}
+          />
         </DialogContent>
         <DialogActions>
           <Button
@@ -180,7 +197,7 @@ class AddItemDialog extends React.Component {
               textTransform: 'none',
               textDecoration: 'none',
             }}
-            onClick={closeAddItemDialog}
+            onClick={addNewItem}
             // to={{
             //   pathname: './homepage',
             // }}
