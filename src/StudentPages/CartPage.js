@@ -12,6 +12,28 @@ class CartPage extends Component {
     this.state = { cartItems: [] };
   }
 
+
+  //dirty
+  componentWillReceiveProps(nextProps) {
+    const { getCart } = cartService;
+    const cartItems = getCart().then(
+      items => this.setState({
+        cartItems: items,
+      })
+    )
+  }
+
+  componentWillMount() {
+    const { getCart } = cartService;
+    const cartItems = getCart().then(
+      items => this.setState({
+        cartItems: items,
+      })
+    )
+  }
+
+
+
   componentDidMount() {
     const { getCart } = cartService;
     const cartItems = getCart().then(
@@ -25,7 +47,7 @@ class CartPage extends Component {
     const { cartItems } = this.state;
     console.log('### cartitems: ###');
     console.table(cartItems);
-    
+
 
     return (
       <div>
