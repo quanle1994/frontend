@@ -11,6 +11,11 @@ import Add from '@material-ui/icons/Add';
 
 import Remove from '@material-ui/icons/Remove';
 import Button from '@material-ui/core/Button/Button';
+import { history } from '../_helpers';
+import { canteenConstants } from '../_constants';
+import config from 'config';
+
+
 
 const styles = theme => ({
   card: {
@@ -56,12 +61,13 @@ class MenuCard extends React.Component {
       })
     };
 
-    const { dishes } = JSON.parse(localStorage.getItem('currentStore'));
+    const currentStore = JSON.parse(localStorage.getItem('currentStore'));
+    const { dishes } = currentStore;
     console.log(`#####dishes:\n${JSON.stringify(dishes,undefined,2)}`);
 
     const dishCards = dishes.map(dish => {
       return (
-        <Card className={classes.card}>
+        <Card className={classes.card} key={dish.id}>
           <CardMedia
             className={classes.media}
             image="../../../img/kimchi_fried_rice.png"
@@ -116,10 +122,39 @@ class MenuCard extends React.Component {
                   justifyItems: 'center',
                   alignItems: 'center',
                 }}
-                //onClick={openConfirmationDialog}
-                // to={{
-                //   pathname: './homepage',
-                // }}
+                onClick={() => {
+                  const {token} = JSON.parse(localStorage.getItem('user'));
+                  const requestOptions = {
+                    method: 'POST',
+                    headers: {
+                      Authorization: token,
+                      "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                      amount: this.state.quantity,
+                      dish: {
+                        description: dish.description,
+                        id: dish.id,
+                        isAvailable: dish.isAvailable,
+                        name: dish.name,
+                        price: dish.price,
+                        store: {
+                          id: currentStore.id,
+                          name: currentStore.name
+                        },
+                      }
+                    })
+                  };
+
+                  console.log(`###Printing the order request:\n${JSON.stringify(requestOptions, undefined, 2)}`);
+                  fetch(`${config.apiUrl}/Resource/orderDishes`, requestOptions)
+                    .then(
+                      response => response.json(),
+
+                      error => error
+                    );
+                  history.push('/homepage/cart');
+                }}
               >
                 <Typography style={{
                   fontSize: 15,

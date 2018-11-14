@@ -24,10 +24,14 @@ class OrderConfirmationPage extends React.Component {
   };
 
   render() {
-    if(!this.props.orderId || !this.props.total) {
+    const {data} = this.props
+    const total = data.amount * data.item.price;
+    const { orderId } = this.props;
+
+    if(!this.props.orderId) {
       return (<div></div>);
     }
-    const { orderId, total } = this.props;
+
     let orderNum = parseInt(orderId);
     let totalPrice = new Intl.NumberFormat('en-GB', {
       style: 'currency',

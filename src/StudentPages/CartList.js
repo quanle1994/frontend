@@ -28,8 +28,9 @@ function CartList(props) {
       <div></div>
     )
   }
-  const totalPrice = props.total;
-  const canteenName = props.data.canteenName;
+  //dirty
+  const totalPrice = 0;
+  const canteenName = 'FineFood';
   const storeName = props.data.storeName;
   const orders = props.data.orders;
   const orderId = props.orderId;

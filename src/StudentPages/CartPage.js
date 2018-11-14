@@ -26,6 +26,7 @@ class CartPage extends Component {
     console.log('### cartitems: ###');
     console.table(cartItems);
     
+
     return (
       <div>
         <Typography
@@ -38,7 +39,7 @@ class CartPage extends Component {
         >Cart
         </Typography>
         {cartItems.length == 0 ? (
-          <Typography 
+          <Typography
             variant="h3"
             align="center"
             style={{

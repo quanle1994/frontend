@@ -51,6 +51,7 @@ function StoreCard(props) {
           title="Store"
           onClick={() => {
             localStorage.setItem('currentStore', JSON.stringify(qoodieStore));
+
             history.push('/homepage/menu');
           }}
         />

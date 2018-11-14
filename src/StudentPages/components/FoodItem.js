@@ -19,13 +19,15 @@ function FoodItem(props) {
     );
   }
   const { data, total, orderId } = props;
+  console.log(`******order:\n${JSON.stringify(data,undefined,2)}`);
+
   return (
     <div className={classes.wrapper}>
       <OrderItems data={data}/>
       <TotalAmount total={total} />
       <div className="col-xs-5"></div>
       <div className="col-xs-7">
-        <OrderConfirmationDialog total={total} orderId={orderId} />
+        <OrderConfirmationDialog total={total} orderId={orderId} data={data}/>
       </div>
     </div>
 

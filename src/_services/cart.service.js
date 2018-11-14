@@ -7,11 +7,13 @@ export const cartService = {
 
 function getCart() {
     const requestOptions = {
-        mode: 'cors',
         method: 'GET',
-        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        headers: {
+            ...authHeader()
+        },
     };
 
+    console.log(`###printing request:\n${JSON.stringify(requestOptions,undefined,2)}`);
     return fetch(`${config.apiUrl}/Resource/customerOrders/cart`, requestOptions)
         .then(handleCartResponse)
         .then(buildCartItems);
