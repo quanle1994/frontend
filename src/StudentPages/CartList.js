@@ -23,6 +23,17 @@ const styles = theme => ({
 
 function CartList(props) {
   const { classes } = props;
+  if(!props.data) {
+    return (
+      <div></div>
+    )
+  }
+  const totalPrice = props.total;
+  const canteenName = props.data.canteenName;
+  const storeName = props.data.storeName;
+  const orders = props.data.orders;
+  const orderId = props.orderId;
+
   return (
     <div className={classes.root}>
       <ExpansionPanel>
@@ -35,7 +46,7 @@ function CartList(props) {
               fontSize: 20,
             }}
           >
-            Deck:
+            {canteenName?canteenName:'canteenName'}:
           </Typography>
           <Typography
             style={{
@@ -43,11 +54,13 @@ function CartList(props) {
               fontSize: 20,
             }}
           >
-            Roasted
+            {storeName?storeName:'storeName'}
           </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <FoodItem/>
+          {orders?orders.map(function(order, key) {
+            return (<FoodItem key={key} data={order} total={totalPrice} orderId={orderId} />)
+          }):''}
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </div>

@@ -6,11 +6,14 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography/Typography';
+import { customerService } from '../../_services';
+import { history } from '../../_helpers/history';
 
 class OrderConfirmationPage extends React.Component {
-  state = {
-    open: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = { open: false, };
+  }
 
   handleClickOpen = () => {
     this.setState({ open: true });
@@ -21,6 +24,15 @@ class OrderConfirmationPage extends React.Component {
   };
 
   render() {
+    if(!this.props.orderId || !this.props.total) {
+      return (<div></div>);
+    }
+    const { orderId, total } = this.props;
+    let orderNum = parseInt(orderId);
+    let totalPrice = new Intl.NumberFormat('en-GB', {
+      style: 'currency',
+      currency: 'SGD',
+    }).format(total);
     return (
       <div>
 
@@ -37,6 +49,7 @@ class OrderConfirmationPage extends React.Component {
             alignItems: 'center',
           }}
           onClick={this.handleClickOpen}
+          id={orderId}
           // to={{
           //   pathname: './homepage',
           // }}
@@ -68,7 +81,7 @@ class OrderConfirmationPage extends React.Component {
                 color: '#CB9D1B',
               }}
             >
-            Order Number:
+            Proceed with payment?
             </Typography>
           </DialogTitle>
           <DialogContent
@@ -85,7 +98,9 @@ class OrderConfirmationPage extends React.Component {
               <Typography
                 variant="h5"
               >
-              12345678
+              Order number: {orderId}
+              <br />
+              Total payment: {totalPrice}
               </Typography>
             </DialogContentText>
           </DialogContent>
@@ -95,6 +110,28 @@ class OrderConfirmationPage extends React.Component {
             display: 'inline-block',
             verticalAlign: 'middle',
           }}>
+            <Button
+              onClick={() => customerService.pay(orderNum).then(() => history.push('/homepage/trackOrder'))}
+              variant="outlined"
+              size="medium"
+              style={{
+                borderColor: '#CB9D1B',
+                backgroundColor: 'floralWhite',
+                textTransform: 'none',
+                textDecoration: 'none',
+                justifyItems: 'center',
+                alignItems: 'center',
+                display: 'inline-block',
+                verticalAlign: 'middle',
+              }}>
+              <Typography style={{
+                fontSize: 15,
+                color: '#CB9D1B',
+              }}
+              >
+              Pay
+              </Typography>
+            </Button>
             <Button
               onClick={this.handleClose}
               variant="outlined"
@@ -114,7 +151,7 @@ class OrderConfirmationPage extends React.Component {
                 color: '#CB9D1B',
               }}
               >
-              Ok
+              Close
               </Typography>
             </Button>
           </DialogActions>

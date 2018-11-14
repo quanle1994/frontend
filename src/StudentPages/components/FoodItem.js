@@ -8,19 +8,24 @@ import OrderItems from './OrderItems';
 
 const styles = {
   wrapper: {
-
   },
 };
 
 function FoodItem(props) {
   const { classes } = props;
+  if(!props.data) {
+    return (
+      <div></div>
+    );
+  }
+  const { data, total, orderId } = props;
   return (
     <div className={classes.wrapper}>
-      <OrderItems/>
-      <TotalAmount/>
+      <OrderItems data={data}/>
+      <TotalAmount total={total} />
       <div className="col-xs-5"></div>
       <div className="col-xs-7">
-        <OrderConfirmationDialog/>
+        <OrderConfirmationDialog total={total} orderId={orderId} />
       </div>
     </div>
 

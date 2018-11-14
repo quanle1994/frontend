@@ -1,6 +1,5 @@
 import config from 'config';
 import { authHeader } from '../_helpers';
-import { request } from 'https';
 
 export const customerService = {
     login,
@@ -105,12 +104,20 @@ function getCart() {
 
 function pay(orderId) {
     const requestOptions = {
-        method: 'GET',
-        headers: authHeader(),
+        method: 'PATCH',
+        mode: 'cors',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        body: JSON.stringify(
+            {
+            "customerOrderType": {
+                "id": 14,
+                "name": "PAID"
+                },
+            }
+        ),
     };
 
-    return fetch(`${config.apiUrl}/${orderId}/pay`, requestOptions)
-        .then(handleResponse);
+    return fetch(`${config.apiUrl}/Resource/customerOrders/${orderId}`, requestOptions);
 }
 
 function handleResponse(response) {
@@ -134,22 +141,15 @@ function handleResponse(response) {
 }
 
 function handleCartResponse(response) {
-    console.log(response);
-    return response.json().then(json => {
-        console.log("Json " + JSON.stringify(json));
-        const data = JSON.parse(json);
-        console.log( '{ "message": "'+ json +
-            '"}');
-        if (!response.ok) {
-            console.log("NOT OK");
-            if (response.status === 401) {
-                // auto logout if 401 response returned from api
-                logout();
-                location.reload(true);
-            }
-            const error = (data && data.message) || response.statusText;
-            return Promise.reject(error);
+    if (!response.ok) {
+        console.log("NOT OK");
+        if (response.status === 401) {
+            // auto logout if 401 response returned from api
+            logout();
+            location.reload(true);
         }
-        return data;
-    });
+        const error = (data && data.message) || response.statusText;
+        return Promise.reject(error);
+    }
+    return response.json();
 }

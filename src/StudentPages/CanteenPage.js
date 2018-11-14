@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import * as React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography/Typography';
 import CanteenCard from './CanteenCard';
@@ -9,7 +9,7 @@ import { canteenActions } from '../_actions'
 import { canteenConstants } from '../_constants';
 import { history } from '../_helpers/history';
 
-class CanteenPage extends React.Component {
+class CanteenPage extends Component {
   constructor(props) {
     super(props);
     this.props.dispatch(canteenActions.getAllCanteens());
