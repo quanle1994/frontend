@@ -7,6 +7,9 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FoodItem from './components/FoodItem';
+import OrderConfirmationDialog from './components/OrderConfirmationPage';
+import OrderItems from './components/OrderItems';
+import TotalAmount from './components/TotalAmount';
 
 const styles = theme => ({
   root: {
@@ -59,6 +62,14 @@ function CartList(props) {
           </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
+          {/*<div className={classes.wrapper}>*/}
+            {/*<OrderItems data={data}/>*/}
+            {/*<TotalAmount total={total} />*/}
+            {/*<div className="col-xs-5"></div>*/}
+            {/*<div className="col-xs-7">*/}
+              {/*<OrderConfirmationDialog total={total} orderId={orderId} data={data}/>*/}
+            {/*</div>*/}
+          {/*</div>*/}
           {orders?orders.map(function(order, key) {
             return (<FoodItem key={key} data={order} total={totalPrice} orderId={orderId} />)
           }):''}

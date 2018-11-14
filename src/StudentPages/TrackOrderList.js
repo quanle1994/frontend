@@ -22,7 +22,7 @@ const styles = theme => ({
 });
 
 function TrackOrderList(props) {
-  const { classes } = props;
+  const { classes, order } = props;
   return (
     <div className={classes.root}>
       <ExpansionPanel>
@@ -35,21 +35,21 @@ function TrackOrderList(props) {
             style={{
               fontSize: 20,
             }}>
-            2372836
+            {order.id}
           </Typography>
           </div>
           <div className="col-xs-5">
           <Typography
             style={{
               paddingLeft: 5,
-              fontSize: 20,
+              fontSize: 15,
             }}>
-            Preparing
+            {order.customerOrderType.name}
           </Typography>
           </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <OrderDetails/>
+          <OrderDetails order={order}/>
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </div>

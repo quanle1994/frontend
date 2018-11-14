@@ -3,6 +3,7 @@ import { authHeader } from '../_helpers';
 
 export const cartService = {
     getCart,
+    getOrders
 }
 
 function getCart() {
@@ -19,6 +20,18 @@ function getCart() {
         .then(buildCartItems);
 }
 
+function getOrders () {
+  const requestOptions = {
+    method: 'GET',
+    headers: {
+      ...authHeader()
+    },
+  };
+  return fetch(`${config.apiUrl}/Resource/customers/orders`, requestOptions)
+    .then(handleCartResponse)
+    .then(buildOrderItems)
+}
+
 const handleCartResponse = (response) => {
     if (!response.ok) {
         console.log("NOT OK");
@@ -32,6 +45,11 @@ const handleCartResponse = (response) => {
     }
     return response.json();
 }
+
+const buildOrderItems = (data) => {
+  localStorage.setItem('orderStatus', JSON.stringify(data));
+  return data;
+};
 
 const buildCartItems = (data) => {
     return data.map((cItem) => {

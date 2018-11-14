@@ -11,17 +11,23 @@ const styles = {
 };
 
 function OrderDetails(props) {
-  const { classes } = props;
+  const { classes, order } = props;
+  const dishes = order.orderDishes.map(dish => {
+    return (
+      <div>
+        Ordered dishes: {dish.dish.name}
+        <OrderItems dish={dish}/>
+        <TotalAmount dish={dish}/>
+      </div>
+    );
+  })
   return (
     <div className={classes.wrapper}>
-      <CollectionStore/>
+      <CollectionStore order={order}/>
       <div className="col-xs-1"></div>
       <div className="col-xs-11">
-        Ordered dishes:
+        {dishes}
       </div>
-      <OrderItems/>
-      <TotalAmount/>
-
     </div>
 
 

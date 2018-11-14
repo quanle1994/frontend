@@ -12,13 +12,13 @@ const styles = {
 };
 
 function CollectionStore(props) {
-  const { classes } = props;
+  const { classes, order } = props;
   return (
     <div className={classes.wrapper}>
-      <div className="col-xs-10" >Venue</div>
-      <div className="col-xs-2" >Deck</div>
-      <div className="col-xs-10" >Store</div>
-      <div className="col-xs-2" >Menu</div>
+      <div className="col-xs-8" >Venue</div>
+      <div className="col-xs-4" >{order.orderDishes[0].dish.store.canteen.name}</div>
+      <div className="col-xs-8" >Store</div>
+      <div className="col-xs-4" >{order.orderDishes[0].dish.store.name}</div>
     </div>
 
 

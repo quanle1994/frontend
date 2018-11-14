@@ -7,13 +7,16 @@ const styles = {
 };
 
 function FoodItem(props) {
-  const { classes } = props;
-  if(!props.total) {
+  const { classes, dish } = props;
+  if(!dish) {
     return (
-      <div></div>
-    );
+      <div>
+      </div>
+    )
   }
-  const { total } = props;
+  console.log(JSON.stringify(dish,undefined,2));
+
+  const total = dish.amount * dish.dish.price;
   const totalPrice = new Intl.NumberFormat('en-GB', {
     style: 'currency',
     currency: 'SGD',

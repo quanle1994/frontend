@@ -10,7 +10,7 @@ const styles = {
   },
 };
 
-function dishItems(props) {
+function OrderItemForCart(props) {
   const { classes, dish } = props;
   if(!dish) {
     return (
@@ -24,7 +24,7 @@ function dishItems(props) {
   const length = 18;
   const dishName = dish.dish.name;
   const trimmedDishName = dishName.length > length ?
-                          dishName.substring(0, length-3) + "..." : dishName;
+    dishName.substring(0, length-3) + "..." : dishName;
   const dishPrice = new Intl.NumberFormat('en-GB', {
     style: 'currency',
     currency: 'SGD',
@@ -41,4 +41,4 @@ function dishItems(props) {
   );
 }
 
-export default withStyles(styles)(dishItems);
+export default withStyles(styles)(OrderItemForCart);

@@ -27,7 +27,7 @@ class OrderConfirmationPage extends React.Component {
     const {data} = this.props
     const total = data.amount * data.item.price;
     const { orderId } = this.props;
-
+    console.log(`@@@orderId: ${orderId}`);
     if(!this.props.orderId) {
       return (<div></div>);
     }
