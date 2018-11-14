@@ -24,7 +24,21 @@ const createNewItem = (name, price, file) => api
     {},
   );
 
+const getVendorDetails = vendorId => api
+  .get(
+    'getVendorDetails',
+    { params: { vendorId } },
+  );
+
+const getOrdersByVendorId = vendorId => api
+  .get(
+    'getOrdersByVendorId',
+    { params: { vendorId } },
+  );
+
 export default {
   createVendor,
   createNewItem,
+  getVendorDetails,
+  getOrdersByVendorId,
 };

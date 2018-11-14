@@ -4,9 +4,18 @@ import connect from 'react-redux/es/connect/connect';
 import Typography from '@material-ui/core/Typography/Typography';
 import VendorOrdersList from './VendorOrdersList';
 import VendorCompletedList from './VendorCompletedList';
+import api from '../../_api/vendors';
 
-
+export const GET_ORDERS_BY_VENDOR_ID = 'GET_ORDERS_BY_VENDOR_ID';
 class VendorOrdersPage extends React.Component {
+  componentWillMount() {
+    const { dispatch } = this.props;
+    api.getOrdersByVendorId(18).then(response => dispatch({
+      type: GET_ORDERS_BY_VENDOR_ID,
+      data: response.data,
+    }));
+  }
+
   render() {
     return (
       <div>
@@ -19,11 +28,15 @@ class VendorOrdersPage extends React.Component {
           }}
         >Orders
         </Typography>
-        <VendorOrdersList/>
-        <VendorCompletedList/>
+        <VendorOrdersList />
+        <VendorCompletedList />
       </div>
     );
   }
 }
 
-export default connect()(VendorOrdersPage);
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = dispatch => ({ dispatch });
+
+export default connect(mapStateToProps, mapDispatchToProps)(VendorOrdersPage);
