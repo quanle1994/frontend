@@ -1,46 +1,42 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Router, Route } from 'react-router-dom';
-import VendorTopBar from '../homepage/components/VendorTopBar';
-import VendorBottomBar from '../homepagecomponents/VendorBottomBar';
-import './css/HomePage.css';
+import '../HomePage/css/HomePage.css';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import { history } from '../_helpers';
-import VendorMenuPage from '../VendorPages/VendorMenu/VendorMenuPage';
-import VendorOrdersPage from '../VendorPages/VendorOrders/VendorOrdersPage';
-import VendorHistoryPage from '../VendorPages/VendorOrders/VendorHistoryPage';
+import VendorMenuPage from './VendorMenu/VendorMenuPage';
+import VendorOrdersPage from './VendorOrders/VendorOrdersPage';
+import VendorHistoryPage from './VendorOrders/VendorHistoryPage';
+import VendorTopBar from '../HomePage/components/VendorTopBar';
 import VendorBottomBar from '../HomePage/components/VendorBottomBar';
 
-const VendorPages = (props) => {
-  const { classes } = props;
-  return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-    }}
-    >
-      <VendorTopBar />
+class VendorPages extends React.Component {
+  render() {
+    return (
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+      >
+        <VendorTopBar />
 
-      <Router history={history}>
-        <main style={{
-          flexGrow: 1,
-          display: 'flex',
-          overflow: 'scroll',
-        }}
-        >
-          <Route exact path="/homepage/vendor" component={VendorMenuPage} />
-          <Route exact path="/homepage/vendorHistory" component={VendorHistoryPage} />
-          <Route exact path="/homepage/vendorOrders" component={VendorOrdersPage} />
-          <Route exact path="/homepage/profile" component={ProfilePage} />
-
-        </main>
-
-      </Router>
-
-
-      <VendorBottomBar />
-    </div>
-  );
-};
+        <Router history={history}>
+          <main style={{
+            flexGrow: 1,
+            display: 'flex',
+            overflow: 'scroll',
+          }}
+          >
+            <Route exact path="/vendor/menu" component={VendorMenuPage} />
+            <Route exact path="/vendor/vendorHistory" component={VendorHistoryPage} />
+            <Route exact path="/vendor/vendorOrders" component={VendorOrdersPage} />
+            <Route exact path="/vendor/profile" component={ProfilePage} />
+          </main>
+        </Router>
+        <VendorBottomBar />
+      </div>
+    );
+  }
+}
 
 export default connect()(VendorPages);

@@ -6,13 +6,48 @@ import withStyles from '@material-ui/core/es/styles/withStyles';
 import { compose } from 'redux';
 import Typography from '@material-ui/core/Typography/Typography';
 import Button from '@material-ui/core/Button/Button';
-import Link from "react-router-dom/es/Link";
+import api from '../_api/vendors';
+import { history } from '../_helpers';
 
 class RegisterVendorPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      emailAddress: '',
+      password: '',
+      storeName: '',
+      canteen: '',
+    };
+  }
+
+
   render() {
     const { classes } = this.props;
+    const updateField = (e) => {
+      const field = e.target.name;
+      let value = e.target.value;
+      if (field === 'username') {
+        value = value.replace(' ', '');
+      }
+      this.setState({ [field]: value });
+    };
+    const registerVendor = () => {
+      api.createVendor(this.state).then((response) => {
+        console.log(response.data);
+        history.push('/homepage/vendor');
+      }).catch();
+    };
     return (
-      <div className="container-fluid">
+      <div
+        className="container-fluid"
+        style={{
+          width: '100vw',
+          height: '100vh',
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}
+      >
         <div
           className="row"
           style={{
@@ -34,10 +69,10 @@ class RegisterVendorPage extends React.Component {
           label={(
             <Typography
               style={{
-                fontSize: 25,
+                fontSize: 20,
                 color: '#CB9D1B',
               }}
-            >Store Name
+            >User Name
             </Typography>
           )}
           fullWidth
@@ -46,19 +81,21 @@ class RegisterVendorPage extends React.Component {
           }}
           InputProps={{
             style: {
-              fontSize: 25,
+              fontSize: 20,
               marginTop: 20,
             },
           }}
+          name="username"
+          onChange={updateField}
         />
         <TextField
           label={(
             <Typography
               style={{
-                fontSize: 25,
+                fontSize: 20,
                 color: '#CB9D1B',
               }}
-            >Canteen
+            >Email Address
             </Typography>
           )}
           fullWidth
@@ -67,17 +104,19 @@ class RegisterVendorPage extends React.Component {
           }}
           InputProps={{
             style: {
-              fontSize: 25,
+              fontSize: 20,
               marginTop: 20,
             },
           }}
+          name="emailAddress"
+          onChange={updateField}
         />
         <TextField
           type="password"
           label={(
             <Typography
               style={{
-                fontSize: 25,
+                fontSize: 20,
                 color: '#CB9D1B',
               }}
             >Password
@@ -89,10 +128,58 @@ class RegisterVendorPage extends React.Component {
           }}
           InputProps={{
             style: {
-              fontSize: 25,
+              fontSize: 20,
               marginTop: 20,
             },
           }}
+          name="password"
+          onChange={updateField}
+        />
+        <TextField
+          label={(
+            <Typography
+              style={{
+                fontSize: 20,
+                color: '#CB9D1B',
+              }}
+            >Store Name
+            </Typography>
+          )}
+          fullWidth
+          style={{
+            height: 60,
+          }}
+          InputProps={{
+            style: {
+              fontSize: 20,
+              marginTop: 20,
+            },
+          }}
+          name="storeName"
+          onChange={updateField}
+        />
+        <TextField
+          label={(
+            <Typography
+              style={{
+                fontSize: 20,
+                color: '#CB9D1B',
+              }}
+            >Canteen
+            </Typography>
+          )}
+          fullWidth
+          style={{
+            height: 60,
+          }}
+          InputProps={{
+            style: {
+              fontSize: 20,
+              marginTop: 20,
+            },
+          }}
+          name="canteen"
+          onChange={updateField}
         />
         <div style={{
           textAlign: 'center',
@@ -101,22 +188,18 @@ class RegisterVendorPage extends React.Component {
           <Button
             variant="outlined"
             size="large"
-            component={Link}
             style={{
-              marginTop: 50,
+              marginTop: 20,
               borderColor: '#CB9D1B',
               backgroundColor: 'floralWhite',
-              marginBottom: 50,
+              marginBottom: 20,
               textTransform: 'none',
               textDecoration: 'none',
             }}
-            onClick={() => {}}
-            to={{
-              pathname: './homepage',
-            }}
+            onClick={registerVendor}
           >
             <Typography style={{
-              fontSize: 25,
+              fontSize: 20,
               color: '#CB9D1B',
             }}
             >Start Cooking

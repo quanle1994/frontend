@@ -8,6 +8,7 @@ import { canteens } from './canteens.reducer';
 import currentPage from './currentPage.reducer';
 import userProfile from './userProfile.reducer';
 import addItem from './addItem.reducer';
+import vendorOrders from './vendorOrders.reducer';
 
 const rootReducer = combineReducers({
   authentication,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
   currentPage,
   userProfile,
   addItem,
-  canteens
+  canteens,
+  vendorOrders,
 });
 
 export default rootReducer;

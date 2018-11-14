@@ -4,8 +4,19 @@ import connect from 'react-redux/es/connect/connect';
 import Typography from '@material-ui/core/Typography/Typography';
 import MenuCard from './MenuCard';
 import AddItemDialog from './AddItemDialog';
+import api from '../../_api/vendors';
 
+export const GET_VENDOR_DETAILS_SUCCESS = 'GET_VENDOR_DETAILS_SUCCESS';
 class VendorMenuPage extends React.Component {
+  componentWillMount() {
+    const { dispatch } = this.props;
+    api.getVendorDetails()
+      .then(response => dispatch({
+        type: GET_VENDOR_DETAILS_SUCCESS,
+        data: response.data,
+      }));
+  }
+
   render() {
     return (
       <div>
@@ -25,4 +36,7 @@ class VendorMenuPage extends React.Component {
   }
 }
 
-export default connect()(VendorMenuPage);
+const mapStateToProps = state => ({});
+const mapDispatchToProps = dispatch => ({ dispatch });
+
+export default connect(mapStateToProps, mapDispatchToProps)(VendorMenuPage);

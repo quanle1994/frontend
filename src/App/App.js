@@ -3,7 +3,6 @@ import { Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import MetaTags from 'react-meta-tags';
-import { Switch } from 'react-router';
 import { history } from '../_helpers';
 import { alertActions } from '../_actions';
 import { PrivateRoute } from '../_components';
@@ -11,8 +10,9 @@ import { PrivateRoute } from '../_components';
 import { LoginPage } from '../LoginPage';
 import { RegisterPage } from '../RegisterPage';
 import HomePage from '../HomePage/index';
-import UserTypePage from "../LoginPage/UserTypePage";
-import RegisterVendorPage from "../RegisterPage/RegisterVendorPage";
+import UserTypePage from '../LoginPage/UserTypePage';
+import RegisterVendorPage from '../RegisterPage/RegisterVendorPage';
+import VendorPages from '../VendorPages';
 
 export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 class App extends React.Component {
@@ -43,6 +43,7 @@ class App extends React.Component {
                 {/* <PrivateRoute exact path="/" component={HomePage}/>/ */}
                 <Route path="/login" component={LoginPage} />
                 <Route path="/homepage" component={HomePage} />
+                <Route path="/vendor" component={VendorPages} />
                 <Route path="/userType" component={UserTypePage} />
                 <Route path="/registerStudent" component={RegisterPage} />
                 <Route path="/registerVendor" component={RegisterVendorPage} />
