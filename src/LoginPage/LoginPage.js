@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import {
   userActions,
-  canteenActions
 } from '../_actions';
 
 import './login.css';
@@ -44,7 +43,6 @@ class LoginPage extends React.Component {
     const { dispatch } = this.props;
     if (email && password) {
       dispatch(userActions.login(email, password));
-      dispatch(canteenActions.getAllCanteens());
     }
   }
 

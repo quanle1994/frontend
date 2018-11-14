@@ -1,15 +1,32 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import * as React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography/Typography';
 import CanteenCard from './CanteenCard';
 import CanteenCard1 from './Hardcode/CanteenCard1';
 import CanteenCard2 from './Hardcode/CanteenCard2';
+import { canteenActions } from '../_actions'
+import { canteenConstants } from '../_constants';
 import { history } from '../_helpers/history';
-import { userActions } from '../_actions';
 
-class CanteenPage extends React.Component {
+class CanteenPage extends Component {
+  constructor(props) {
+    super(props);
+    this.props.dispatch(canteenActions.getAllCanteens());
+  }
+
+  onCanteenClick(canteenId) {
+    console.log('####clicked a canteen');
+    const {dispatch} = this.props;
+    dispatch({
+      type: canteenConstants.SET_CURRENT_CANTEEN,
+      currentCanteen: canteenId
+    });
+    history.push('/homepage/store');
+  }
+
+
+
   render() {
     return (
       <div>
@@ -22,13 +39,13 @@ class CanteenPage extends React.Component {
           }}
         >Canteen
         </Typography>
-        <div className="col-xs-6" >
-          <CanteenCard onClick={() => {history.push('/homepage/store')}}/>
+        <div className="col-xs-6" onClick = {() => this.onCanteenClick(0)} >
+          <CanteenCard/>
         </div>
-        <div className="col-xs-6" >
+        <div className="col-xs-6" onClick = {() => this.onCanteenClick(1)} >
           <CanteenCard1/>
         </div>
-        <div className="col-xs-6" >
+        <div className="col-xs-6" onClick = {() => this.onCanteenClick(2)} >
           <CanteenCard2/>
         </div>
       </div>

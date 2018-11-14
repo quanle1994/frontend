@@ -13,11 +13,27 @@ const styles = {
 
 function OrderItems(props) {
   const { classes } = props;
+  if(!props.data) {
+    return (
+      <div>
+      </div>
+    )
+  }
+  const { data } = props;
+  const qty = data.amount;
+  const length = 18;
+  const dishName = data.item.name;
+  const trimmedDishName = dishName.length > length ?
+                          dishName.substring(0, length-3) + "..." : dishName;
+  const dishPrice = new Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'SGD',
+  }).format(data.item.price);
   return (
     <div className={classes.wrapper}>
-      <div className="col-xs-2" >1x</div>
-      <div className="col-xs-8" >Chicken Rice</div>
-      <div className="col-xs-2" >$3.50</div>
+      <div className="col-xs-2" >{qty}x</div>
+      <div className="col-xs-8" >{trimmedDishName}</div>
+      <div className="col-xs-2" >{dishPrice}</div>
     </div>
 
 

@@ -7,8 +7,8 @@ export const canteenService = {
 }
 
 function getAllCanteens() {
-    const token = 'Basic YWxpY2VAZ21haWwuY29tOnBhc3N3b3Jk';
-    // const {token} = JSON.parse(localStorage.getItem('user'));
+    // const token = 'Basic YWxpY2VAZ21haWwuY29tOnBhc3N3b3Jk';
+    const {token} = JSON.parse(localStorage.getItem('user'));
     if (!token) {
         return Promise.reject('User is not logged in!');
     }

@@ -18,7 +18,7 @@ function CollectionStore(props) {
       <div className="col-xs-10" >Venue</div>
       <div className="col-xs-2" >Deck</div>
       <div className="col-xs-10" >Store</div>
-      <div className="col-xs-2" >Korean</div>
+      <div className="col-xs-2" >Menu</div>
     </div>
 
 

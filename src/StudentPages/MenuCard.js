@@ -11,6 +11,11 @@ import Add from '@material-ui/icons/Add';
 
 import Remove from '@material-ui/icons/Remove';
 import Button from '@material-ui/core/Button/Button';
+import { history } from '../_helpers';
+import { canteenConstants } from '../_constants';
+import config from 'config';
+
+
 
 const styles = theme => ({
   card: {
@@ -36,6 +41,7 @@ class MenuCard extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       expanded: false,
       quantity: 0,
@@ -54,77 +60,119 @@ class MenuCard extends React.Component {
         quantity: Math.max(0, quantity + value),
       })
     };
-    return (
-      <Card className={classes.card}>
-        <CardMedia
-          className={classes.media}
-          image="../../../img/kimchi_fried_rice.png"
-          title="Kimchi Fried Rice"
-        />
-        <CardContent
-          className={classes.content}
-        >
-          <Typography
-            component="p"
-            variant="h3"
-            style={{
-              fontSize: 15,
-              display: 'inline-block',
 
-            }}
+    const currentStore = JSON.parse(localStorage.getItem('currentStore'));
+    const { dishes } = currentStore;
+    console.log(`#####dishes:\n${JSON.stringify(dishes,undefined,2)}`);
+
+    const dishCards = dishes.map(dish => {
+      return (
+        <Card className={classes.card} key={dish.id}>
+          <CardMedia
+            className={classes.media}
+            image="../../../img/kimchi_fried_rice.png"
+            title="Kimchi Fried Rice"
+          />
+          <CardContent
+            className={classes.content}
           >
-            Kimchi Fried Rice
-          </Typography>
-          <CardActions
-            className={classes.actions} disableActionSpacing
-            style={{
-              display: 'inline-block',
-              verticalAlign: 'baseline',
-            }}
-          >
-            <IconButton aria-label="Add quantity" onClick={ () => adjustQuantity(1) }>
-              <Add className={classes.icon} />
-            </IconButton>
             <Typography
               component="p"
               variant="h3"
               style={{
                 fontSize: 15,
                 display: 'inline-block',
+
               }}
             >
-              {quantity}
+              {dish.name}
             </Typography>
-            <IconButton aria-label="Minus quantity" onClick={ () => adjustQuantity(-1)} >
-              <Remove className={classes.icon} />
-            </IconButton>
-            <Button
-              variant="outlined"
-              size="medium"
-              // component={Link}
+            <CardActions
+              className={classes.actions} disableActionSpacing
               style={{
-                borderColor: '#CB9D1B',
-                backgroundColor: 'floralWhite',
-                textTransform: 'none',
-                textDecoration: 'none',
-                justifyItems: 'center',
-                alignItems: 'center',
+                display: 'inline-block',
+                verticalAlign: 'baseline',
               }}
-              //onClick={openConfirmationDialog}
-              // to={{
-              //   pathname: './homepage',
-              // }}
             >
-              <Typography style={{
-                fontSize: 15,
-                color: '#CB9D1B',
-              }}
-              >Add To Cart
+              <IconButton aria-label="Add quantity" onClick={ () => adjustQuantity(1) }>
+                <Add className={classes.icon} />
+              </IconButton>
+              <Typography
+                component="p"
+                variant="h3"
+                style={{
+                  fontSize: 15,
+                  display: 'inline-block',
+                }}
+              >
+                {quantity}
               </Typography>
-            </Button>
-          </CardActions>
-        </CardContent>
-      </Card>
+              <IconButton aria-label="Minus quantity" onClick={ () => adjustQuantity(-1)} >
+                <Remove className={classes.icon} />
+              </IconButton>
+              <Button
+                variant="outlined"
+                size="medium"
+                // component={Link}
+                style={{
+                  borderColor: '#CB9D1B',
+                  backgroundColor: 'floralWhite',
+                  textTransform: 'none',
+                  textDecoration: 'none',
+                  justifyItems: 'center',
+                  alignItems: 'center',
+                }}
+                onClick={() => {
+                  const {token} = JSON.parse(localStorage.getItem('user'));
+                  const requestOptions = {
+                    method: 'POST',
+                    headers: {
+                      Authorization: token,
+                      "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                      amount: this.state.quantity,
+                      dish: {
+                        description: dish.description,
+                        id: dish.id,
+                        isAvailable: dish.isAvailable,
+                        name: dish.name,
+                        price: dish.price,
+                        store: {
+                          id: currentStore.id,
+                          name: currentStore.name
+                        },
+                      }
+                    })
+                  };
+
+                  console.log(`###Printing the order request:\n${JSON.stringify(requestOptions, undefined, 2)}`);
+                  fetch(`${config.apiUrl}/Resource/orderDishes`, requestOptions)
+                    .then(
+                      response => response.json(),
+
+                      error => error
+                    );
+                  history.push('/homepage/cart');
+                }}
+              >
+                <Typography style={{
+                  fontSize: 15,
+                  color: '#CB9D1B',
+                }}
+                >Add To Cart
+                </Typography>
+              </Button>
+            </CardActions>
+          </CardContent>
+        </Card>
+      );
+    });
+
+    return (
+      <div>
+        {dishCards}
+      </div>
     );
   }
 }
