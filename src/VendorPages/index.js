@@ -9,6 +9,7 @@ import VendorOrdersPage from './VendorOrders/VendorOrdersPage';
 import VendorHistoryPage from './VendorOrders/VendorHistoryPage';
 import VendorTopBar from '../HomePage/components/VendorTopBar';
 import VendorBottomBar from '../HomePage/components/VendorBottomBar';
+import CanteenPage from '../StudentPages/CanteenPage';
 
 class VendorPages extends React.Component {
   render() {
@@ -16,6 +17,7 @@ class VendorPages extends React.Component {
       <div style={{
         display: 'flex',
         flexDirection: 'column',
+        height: '100%',
       }}
       >
         <VendorTopBar />
@@ -27,10 +29,10 @@ class VendorPages extends React.Component {
             overflow: 'scroll',
           }}
           >
+            <Route exact path="/vendor/canteen" component={CanteenPage} />
             <Route exact path="/vendor/menu" component={VendorMenuPage} />
             <Route exact path="/vendor/vendorHistory" component={VendorHistoryPage} />
             <Route exact path="/vendor/vendorOrders" component={VendorOrdersPage} />
-            <Route exact path="/vendor/profile" component={ProfilePage} />
           </main>
         </Router>
         <VendorBottomBar />

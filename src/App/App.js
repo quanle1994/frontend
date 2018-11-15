@@ -1,11 +1,10 @@
 import React from 'react';
-import { Router, Route } from 'react-router-dom';
+import { Router, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import MetaTags from 'react-meta-tags';
 import { history } from '../_helpers';
 import { alertActions } from '../_actions';
-import { PrivateRoute } from '../_components';
 
 import { LoginPage } from '../LoginPage';
 import { RegisterPage } from '../RegisterPage';
@@ -15,6 +14,18 @@ import RegisterVendorPage from '../RegisterPage/RegisterVendorPage';
 import VendorPages from '../VendorPages';
 
 export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+
+function ContentPage() {
+  return (
+    <Router history={history}>
+      <div>
+        <Route path="/homepage" component={HomePage} />
+        <Route path="/vendor" component={VendorPages} />
+      </div>
+    </Router>
+  );
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -40,13 +51,19 @@ class App extends React.Component {
                         }
             <Router history={history}>
               <div>
-                {/* <PrivateRoute exact path="/" component={HomePage}/>/ */}
-                <Route path="/login" component={LoginPage} />
-                <Route path="/homepage" component={HomePage} />
-                <Route path="/vendor" component={VendorPages} />
-                <Route path="/userType" component={UserTypePage} />
-                <Route path="/registerStudent" component={RegisterPage} />
-                <Route path="/registerVendor" component={RegisterVendorPage} />
+                {/* <PrivateRoute exact path="/" component={HomePage} /> */}
+                <Route exact path="/login" component={LoginPage} />
+                <Route exact path="/userType" component={UserTypePage} />
+                <Route exact path="/registerStudent" component={RegisterPage} />
+                <Route exact path="/registerVendor" component={RegisterVendorPage} />
+                <Route
+                  path="/"
+                  render={() => (
+                    localStorage.getItem('user')
+                      ? <ContentPage />
+                      : <Redirect to={{ pathname: '/login' }} />
+                  )}
+                />
               </div>
             </Router>
           </div>

@@ -33,7 +33,7 @@ class ProfilePage extends React.Component {
     const { dispatch } = this.props;
     dispatch({
       type: SET_CURRENT_PAGE,
-      page: '',
+      page: 0,
     });
   }
 
@@ -152,7 +152,9 @@ class ProfilePage extends React.Component {
                   backgroundColor: 'floralWhite',
                   width: 150,
                 }}
-                onClick={() => {}}
+                onClick={() => {
+                  localStorage.clear();
+                }}
                 to={{
                   pathname: '../login',
                 }}

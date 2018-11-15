@@ -3,18 +3,12 @@ import { withStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import Home from '@material-ui/icons/Home';
-import Bookmark from '@material-ui/icons/Bookmark';
-import ShoppingCart from '@material-ui/icons/ShoppingCart'
-import Assignment from '@material-ui/icons/Assignment'
+import Assignment from '@material-ui/icons/Assignment';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 import History from '@material-ui/icons/History';
-import Search from '@material-ui/icons/Search';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
 import connect from 'react-redux/es/connect/connect';
 import { compose } from 'redux';
-import Link from 'react-router-dom/es/Link';
-import styled from 'styled-components';
 import { history } from '../../_helpers/history';
-import Badge from '@material-ui/core/Badge/Badge';
 
 const styles = {
   root: {
@@ -65,8 +59,8 @@ class VendorBottomBar extends React.Component {
     const { classes } = this.props;
     const { value } = this.state;
 
-    const handleChange = (event, value) => {
-      this.setState({ value });
+    const handleChange = (event, val) => {
+      this.setState({ value: val });
     };
 
     return (
@@ -76,12 +70,21 @@ class VendorBottomBar extends React.Component {
         className={classes.root}
       >
         <BottomNavigationAction
-          label="Home"
+          label="Profile"
           classes={{
             selected: classes.selected,
             label: classes.label,
           }}
-          onClick={() => { history.push('/homepage/canteen'); }}
+          onClick={() => { history.push('/vendor/menu'); }}
+          icon={<AccountCircle className={classes.icon} />}
+        />
+        <BottomNavigationAction
+          label="Canteen"
+          classes={{
+            selected: classes.selected,
+            label: classes.label,
+          }}
+          onClick={() => { history.push('/vendor/canteen'); }}
           icon={<Home className={classes.icon} />}
         />
         <BottomNavigationAction
@@ -90,7 +93,7 @@ class VendorBottomBar extends React.Component {
             selected: classes.selected,
             label: classes.label,
           }}
-          onClick={() => { history.push('/homepage/history'); }}
+          onClick={() => { history.push('/vendor/vendorHistory'); }}
           icon={<History className={classes.icon} />}
         />
         <BottomNavigationAction
@@ -99,10 +102,9 @@ class VendorBottomBar extends React.Component {
             selected: classes.selected,
             label: classes.label,
           }}
-
-          onClick={() => { history.push('/homepage/trackOrder'); }}
+          onClick={() => { history.push('/vendor/vendorOrders'); }}
           icon={
-              <Assignment className={classes.icon} />
+            <Assignment className={classes.icon} />
             }
 
         />
@@ -116,4 +118,3 @@ const mapStateToProps = state => ({
 });
 
 export default compose(withStyles(styles), connect(mapStateToProps))(VendorBottomBar);
-
