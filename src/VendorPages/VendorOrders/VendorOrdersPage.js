@@ -5,14 +5,19 @@ import Typography from '@material-ui/core/Typography/Typography';
 import VendorOrdersList from './VendorOrdersList';
 import VendorCompletedList from './VendorCompletedList';
 import api from '../../_api/vendors';
+import { SET_CURRENT_PAGE } from '../../App';
 
 export const GET_ORDERS_BY_VENDOR_ID = 'GET_ORDERS_BY_VENDOR_ID';
 class VendorOrdersPage extends React.Component {
   componentWillMount() {
     const { dispatch } = this.props;
-    api.getOrdersByVendorId(18).then(response => dispatch({
+    api.getOrdersByVendorId(JSON.parse(localStorage.getItem('user')).id).then(response => dispatch({
       type: GET_ORDERS_BY_VENDOR_ID,
       data: response.data,
+    }));
+    this.setState({}, () => dispatch({
+      type: SET_CURRENT_PAGE,
+      page: 3,
     }));
   }
 

@@ -80,7 +80,6 @@ class LoginPage extends React.Component {
             <Button
               variant="text"
               size="large"
-              component={Link}
               style={{
                 fontSize: 25,
                 color: '#CB9D1B',
@@ -88,9 +87,6 @@ class LoginPage extends React.Component {
                 marginBottom: 20,
               }}
               onClick={this.handleSubmit}
-              to={{
-                pathname: '../login',
-              }}
             >
               Login
             </Button>

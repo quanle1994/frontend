@@ -6,24 +6,39 @@ import withStyles from '@material-ui/core/es/styles/withStyles';
 import { compose } from 'redux';
 import Typography from '@material-ui/core/Typography/Typography';
 import Button from '@material-ui/core/Button/Button';
+import MenuItem from '@material-ui/core/MenuItem/MenuItem';
 import api from '../_api/vendors';
 import { history } from '../_helpers';
+import {SET_CURRENT_PAGE} from "../App";
 
 class RegisterVendorPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
       emailAddress: '',
       password: '',
+      confirmPassword: '',
       storeName: '',
       canteen: '',
+      canteenOptions: [],
     };
   }
 
+  componentWillMount() {
+    const { dispatch } = this.props;
+    api.getAllCanteens().then(response => this.setState({
+      canteenOptions: response.data.map(canteen => ({
+        value: canteen.id,
+        label: canteen.name,
+      })),
+    }));
+  }
 
   render() {
-    const { classes } = this.props;
+    const {
+      canteen, canteenOptions, emailAddress, password, confirmPassword, storeName,
+    } = this.state;
+    const { classes, dispatch } = this.props;
     const updateField = (e) => {
       const field = e.target.name;
       let value = e.target.value;
@@ -33,8 +48,15 @@ class RegisterVendorPage extends React.Component {
       this.setState({ [field]: value });
     };
     const registerVendor = () => {
-      api.createVendor(this.state).then((response) => {
-        console.log(response.data);
+      const data = this.state;
+      delete data.canteenOptions;
+      delete data.confirmPassword;
+      api.createVendor(data).then((response) => {
+        localStorage.setItem('user', JSON.stringify(response.data));
+        this.setState({}, () => dispatch({
+          type: SET_CURRENT_PAGE,
+          page: 0,
+        }));
         history.push('/homepage/vendor');
       }).catch();
     };
@@ -65,30 +87,6 @@ class RegisterVendorPage extends React.Component {
           />
         </div>
         <TextField
-          autoFocus
-          label={(
-            <Typography
-              style={{
-                fontSize: 20,
-                color: '#CB9D1B',
-              }}
-            >User Name
-            </Typography>
-          )}
-          fullWidth
-          style={{
-            height: 60,
-          }}
-          InputProps={{
-            style: {
-              fontSize: 20,
-              marginTop: 20,
-            },
-          }}
-          name="username"
-          onChange={updateField}
-        />
-        <TextField
           label={(
             <Typography
               style={{
@@ -108,6 +106,7 @@ class RegisterVendorPage extends React.Component {
               marginTop: 20,
             },
           }}
+          value={emailAddress}
           name="emailAddress"
           onChange={updateField}
         />
@@ -133,6 +132,32 @@ class RegisterVendorPage extends React.Component {
             },
           }}
           name="password"
+          value={password}
+          onChange={updateField}
+        />
+        <TextField
+          type="password"
+          label={(
+            <Typography
+              style={{
+                fontSize: 20,
+                color: '#CB9D1B',
+              }}
+            >Confirm Password
+            </Typography>
+          )}
+          fullWidth
+          style={{
+            height: 60,
+          }}
+          InputProps={{
+            style: {
+              fontSize: 20,
+              marginTop: 20,
+            },
+          }}
+          name="confirmPassword"
+          value={confirmPassword}
           onChange={updateField}
         />
         <TextField
@@ -156,6 +181,7 @@ class RegisterVendorPage extends React.Component {
             },
           }}
           name="storeName"
+          value={storeName}
           onChange={updateField}
         />
         <TextField
@@ -172,6 +198,7 @@ class RegisterVendorPage extends React.Component {
           style={{
             height: 60,
           }}
+          select
           InputProps={{
             style: {
               fontSize: 20,
@@ -179,8 +206,19 @@ class RegisterVendorPage extends React.Component {
             },
           }}
           name="canteen"
+          value={canteen}
           onChange={updateField}
-        />
+        >
+          {canteenOptions.map(canteenOption => (
+            <MenuItem
+              className={classes.menu}
+              key={canteenOption.value}
+              value={canteenOption.value}
+            >
+              {canteenOption.label}
+            </MenuItem>
+          ))}
+        </TextField>
         <div style={{
           textAlign: 'center',
         }}
@@ -211,6 +249,14 @@ class RegisterVendorPage extends React.Component {
   }
 }
 
-const styles = () => ({});
+const styles = () => ({
+  menu: {
+    fontSize: '1.5em !important',
+  },
+});
 
-export default compose(withStyles(styles), connect())(RegisterVendorPage);
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = dispatch => ({ dispatch });
+
+export default compose(withStyles(styles), connect(mapStateToProps, mapDispatchToProps))(RegisterVendorPage);

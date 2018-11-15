@@ -36,9 +36,16 @@ const getOrdersByVendorId = vendorId => api
     { params: { vendorId } },
   );
 
+const getAllCanteens = () => api
+  .get(
+    'getAllCanteens',
+    {},
+  );
+
 export default {
   createVendor,
   createNewItem,
   getVendorDetails,
   getOrdersByVendorId,
+  getAllCanteens,
 };

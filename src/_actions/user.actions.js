@@ -18,7 +18,8 @@ function login(email, password) {
       .then(
         (user) => {
           dispatch(success(user));
-          history.push('/homepage/canteen');
+          if (user.userType === 'VENDOR') history.push('/vendor/menu');
+          else history.push('/homepage/canteen');
         },
         (error) => {
           dispatch(failure(error.toString()));

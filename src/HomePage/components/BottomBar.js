@@ -4,17 +4,12 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import Home from '@material-ui/icons/Home';
 import Bookmark from '@material-ui/icons/Bookmark';
-import ShoppingCart from '@material-ui/icons/ShoppingCart'
-import Assignment from '@material-ui/icons/Assignment'
-import History from '@material-ui/icons/History';
-import Search from '@material-ui/icons/Search';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
+import ShoppingCart from '@material-ui/icons/ShoppingCart';
+import Assignment from '@material-ui/icons/Assignment';
 import connect from 'react-redux/es/connect/connect';
 import { compose } from 'redux';
-import Link from 'react-router-dom/es/Link';
-import styled from 'styled-components';
-import { history } from '../../_helpers/history';
 import Badge from '@material-ui/core/Badge/Badge';
+import { history } from '../../_helpers/history';
 
 const styles = {
   root: {
@@ -65,8 +60,8 @@ class SimpleBottomNavigation extends React.Component {
     const { classes } = this.props;
     const { value } = this.state;
 
-    const handleChange = (event, value) => {
-      this.setState({ value });
+    const handleChange = (event, val) => {
+      this.setState({ value: val });
     };
 
     return (
@@ -101,10 +96,11 @@ class SimpleBottomNavigation extends React.Component {
           }}
 
           onClick={() => { history.push('/homepage/trackOrder'); }}
-          icon={
+          icon={(
             <Badge className={classes.margin} badgeContent={1} color="primary">
-          <Assignment className={classes.icon} />
-            </Badge>}
+              <Assignment className={classes.icon} />
+            </Badge>
+)}
 
         />
         <BottomNavigationAction

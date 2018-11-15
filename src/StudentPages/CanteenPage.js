@@ -5,9 +5,9 @@ import Typography from '@material-ui/core/Typography/Typography';
 import CanteenCard from './CanteenCard';
 import CanteenCard1 from './Hardcode/CanteenCard1';
 import CanteenCard2 from './Hardcode/CanteenCard2';
-import { canteenActions } from '../_actions'
-import { canteenConstants } from '../_constants';
+import { canteenActions } from '../_actions';
 import { history } from '../_helpers/history';
+import { SET_CURRENT_PAGE } from '../App';
 
 class CanteenPage extends Component {
   constructor(props) {
@@ -15,16 +15,23 @@ class CanteenPage extends Component {
     this.props.dispatch(canteenActions.getAllCanteens());
   }
 
+  componentWillMount() {
+    const { dispatch } = this.props;
+    this.setState({}, () => dispatch({
+      type: SET_CURRENT_PAGE,
+      page: 1,
+    }));
+  }
+
   onCanteenClick(canteenId) {
     console.log('####clicked a canteen');
-    const {dispatch} = this.props;
+    const { dispatch } = this.props;
     dispatch({
-      type: canteenConstants.SET_CURRENT_CANTEEN,
-      currentCanteen: canteenId
+      type: SET_CURRENT_PAGE,
+      currentCanteen: canteenId,
     });
     history.push('/homepage/store');
   }
-
 
 
   render() {
@@ -39,18 +46,22 @@ class CanteenPage extends Component {
           }}
         >Canteen
         </Typography>
-        <div className="col-xs-6" onClick = {() => this.onCanteenClick(0)} >
-          <CanteenCard/>
+        <div className="col-xs-6" onClick={() => this.onCanteenClick(0)}>
+          <CanteenCard />
         </div>
-        <div className="col-xs-6" onClick = {() => this.onCanteenClick(1)} >
-          <CanteenCard1/>
+        <div className="col-xs-6" onClick={() => this.onCanteenClick(1)}>
+          <CanteenCard1 />
         </div>
-        <div className="col-xs-6" onClick = {() => this.onCanteenClick(2)} >
-          <CanteenCard2/>
+        <div className="col-xs-6" onClick={() => this.onCanteenClick(2)}>
+          <CanteenCard2 />
         </div>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = dispatch => ({ dispatch });
 
 export default connect()(CanteenPage);

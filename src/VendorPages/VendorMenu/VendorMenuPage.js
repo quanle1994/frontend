@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography/Typography';
 import MenuCard from './MenuCard';
 import AddItemDialog from './AddItemDialog';
 import api from '../../_api/vendors';
+import {SET_CURRENT_PAGE} from "../../App";
 
 export const GET_VENDOR_DETAILS_SUCCESS = 'GET_VENDOR_DETAILS_SUCCESS';
 class VendorMenuPage extends React.Component {
@@ -15,6 +16,10 @@ class VendorMenuPage extends React.Component {
         type: GET_VENDOR_DETAILS_SUCCESS,
         data: response.data,
       }));
+    this.setState({}, () => dispatch({
+      type: SET_CURRENT_PAGE,
+      page: 0,
+    }));
   }
 
   render() {
