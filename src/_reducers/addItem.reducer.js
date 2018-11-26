@@ -1,10 +1,11 @@
-import { OPEN_ADD_ITEM_DIALOG } from '../VendorPages/VendorMenu/MenuCard';
+import { OPEN_ADD_ITEM_DIALOG } from '../VendorPages/VendorMenu/components/MenuCard';
 import {
   CLOSE_ADD_ITEM_DIALOG,
-} from '../VendorPages/VendorMenu/AddItemDialog';
+} from '../VendorPages/VendorMenu/components/AddItemDialog';
 
 const INITIAL_STATE = {
   openAddItemDialog: false,
+  menuItem: {},
 };
 
 export default function addItem(state = INITIAL_STATE, action) {
@@ -13,13 +14,11 @@ export default function addItem(state = INITIAL_STATE, action) {
       return {
         ...state,
         openAddItemDialog: true,
+        menuItem: { ...action.menuItem },
       };
     }
     case CLOSE_ADD_ITEM_DIALOG: {
-      return {
-        ...state,
-        openAddItemDialog: false,
-      };
+      return INITIAL_STATE;
     }
     default:
       return state;

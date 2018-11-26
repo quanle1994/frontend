@@ -9,6 +9,8 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import AssignmentDoneIcon from '@material-ui/icons/AssignmentTurnedIn';
+import { compose } from 'redux';
+import connect from 'react-redux/es/connect/connect';
 import VendorOrdersDetailsCompleted from './VendorOrdersDetailsCompleted';
 
 const styles = theme => ({
@@ -21,7 +23,7 @@ const styles = theme => ({
   },
   listText: {
     fontSize: 20,
-  }
+  },
 });
 
 class VendorCompletedList extends React.Component {
@@ -34,7 +36,7 @@ class VendorCompletedList extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, completedOrders } = this.props;
 
     return (
       <div className={classes.root}>
@@ -44,15 +46,19 @@ class VendorCompletedList extends React.Component {
               <AssignmentDoneIcon />
             </ListItemIcon>
             <ListItemText
-              classes={{primary:classes.listText}}
-              inset primary="Completed Orders" />
+              classes={{ primary: classes.listText }}
+              inset
+              primary="Completed Orders"
+            />
             {this.state.open ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse in={this.state.open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem className={classes.nested}>
-                <VendorOrdersDetailsCompleted/>
-              </ListItem>
+              {completedOrders.map(o => (
+                <ListItem className={classes.nested}>
+                  <VendorOrdersDetailsCompleted order={o} />
+                </ListItem>
+              ))}
             </List>
           </Collapse>
         </List>
@@ -61,8 +67,8 @@ class VendorCompletedList extends React.Component {
   }
 }
 
-VendorCompletedList.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+const mapStateToProps = state => ({
+  completedOrders: state.vendorOrders.completedOrders,
+});
 
-export default withStyles(styles)(VendorCompletedList);
+export default compose(withStyles(styles), connect(mapStateToProps))(VendorCompletedList);

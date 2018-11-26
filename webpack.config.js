@@ -1,3 +1,5 @@
+// import { BACKEND_HOST } from './src/_api/constants';
+
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -51,6 +53,8 @@ module.exports = {
     // global app config object
     config: JSON.stringify({
       apiUrl: 'http://localhost:8080/Qoodie-war',
+      // apiUrl: `${BACKEND_HOST}Qoodie-war`,
+      // apiUrl: 'http://172.19.195.190:8080/Qoodie-war',
     }),
   },
 };

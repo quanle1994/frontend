@@ -9,16 +9,13 @@ const styles = {
 };
 
 function VendorRevenueDetails(props) {
-  const { classes } = props;
+  const { classes, order } = props;
   return (
     <div className={classes.wrapper}>
-      <div className="col-xs-10" >[Order Number]</div>
-      <div className="col-xs-2" > $5.50</div>
+      <div className="col-xs-10">{order.dishName}</div>
+      <div className="col-xs-2"> {order.subtotal}</div>
       <Divider />
     </div>
-
-
-
   );
 }
 

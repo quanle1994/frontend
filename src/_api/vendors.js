@@ -17,10 +17,21 @@ const createVendor = vendorDetails => api
     {},
   );
 
-const createNewItem = (name, price, file) => api
+const createNewItem = (name, price, file, fileId, dishTypeId, vendorId, storeId) => api
   .post(
     'createNewItem',
-    { name, price, file },
+    {
+      name, price, file, fileId, dishTypeId, vendorId, storeId,
+    },
+    {},
+  );
+
+const updateItem = (id, name, price, file, fileId, dishTypeId, vendorId, storeId) => api
+  .post(
+    'updateItem',
+    {
+      id, name, price, file, fileId, dishTypeId, vendorId, storeId,
+    },
     {},
   );
 
@@ -42,10 +53,32 @@ const getAllCanteens = () => api
     {},
   );
 
+const getAllDishTypes = () => api
+  .get(
+    'getAllDishTypes',
+    {},
+  );
+
+const getVendorOrders = params => api
+  .get(
+    'getVendorOrders',
+    { params: { ...params } },
+  );
+
+const setOrderToReady = orderId => api
+  .get(
+    'setOrderToReady',
+    { params: { orderId, storeId: parseFloat(JSON.parse(localStorage.getItem('store')).storeId) } },
+  );
+
 export default {
   createVendor,
+  updateItem,
   createNewItem,
   getVendorDetails,
   getOrdersByVendorId,
   getAllCanteens,
+  getAllDishTypes,
+  getVendorOrders,
+  setOrderToReady,
 };
