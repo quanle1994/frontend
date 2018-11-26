@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography/Typography';
 
 class VendorTotalRevenue extends React.Component {
   render() {
+    const { orders } = this.props;
     return (
       <div>
         <Typography
@@ -25,7 +26,7 @@ class VendorTotalRevenue extends React.Component {
             marginLeft: '4vw',
             display: 'inline-block',
           }}
-        >$55.30
+        >${parseFloat(orders.map(o => o.subtotal).reduce((a, b) => a + b, 0)).toFixed(2)}
         </Typography>
       </div>
     );

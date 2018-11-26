@@ -9,6 +9,8 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import connect from 'react-redux/es/connect/connect';
+import { compose } from 'redux';
 import VendorOrdersDetailsList from './VendorOrdersDetailsList';
 
 const styles = theme => ({
@@ -16,12 +18,9 @@ const styles = theme => ({
     width: 365,
     backgroundColor: theme.palette.background.paper,
   },
-  nested: {
-    paddingLeft: theme.spacing.unit * 4,
-  },
   listText: {
-    fontSize:20,
-  }
+    fontSize: 20,
+  },
 });
 
 class VendorOrdersList extends React.Component {
@@ -34,7 +33,7 @@ class VendorOrdersList extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, incomingOrders } = this.props;
 
     return (
       <div className={classes.root}>
@@ -44,14 +43,16 @@ class VendorOrdersList extends React.Component {
               <AssignmentIcon />
             </ListItemIcon>
             <ListItemText
-              classes={{primary:classes.listText}}
-              inset primary="Incoming Orders" />
+              classes={{ primary: classes.listText }}
+              inset
+              primary="Incoming Orders"
+            />
             {this.state.open ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse in={this.state.open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem className={classes.nested}>
-                <VendorOrdersDetailsList/>
+              <ListItem>
+                <VendorOrdersDetailsList />
               </ListItem>
             </List>
           </Collapse>
@@ -61,8 +62,8 @@ class VendorOrdersList extends React.Component {
   }
 }
 
-VendorOrdersList.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+const mapStateToProps = state => ({});
 
-export default withStyles(styles)(VendorOrdersList);
+const mapDispatchToProps = dispatch => ({ dispatch });
+
+export default compose(withStyles(styles), connect(mapStateToProps, mapDispatchToProps))(VendorOrdersList);

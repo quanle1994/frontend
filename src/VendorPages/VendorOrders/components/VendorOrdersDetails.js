@@ -2,19 +2,20 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider/Divider';
 
-const styles = {
+const styles = (theme) => ({
   wrapper: {
-    width: 275,
+    width: '100%',
   },
-};
+});
 
 function VendorOrdersDetails(props) {
-  const { classes } = props;
+  const { classes, order } = props;
   return (
     <div className={classes.wrapper}>
-      <div className="col-xs-8" >Kimichi Fried Rice</div>
-      <div className="col-xs-4" >x1</div>
-      <Divider/>
+      <div className="col-xs-8">{order.dishName}</div>
+      <div className="col-xs-2">x{order.amount}</div>
+      <div className="col-xs-2">{parseFloat(order.subtotal).toFixed(2)}</div>
+      <Divider />
     </div>
 
   );

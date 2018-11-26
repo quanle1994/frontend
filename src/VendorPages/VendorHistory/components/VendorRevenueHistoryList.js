@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import VendorRevenueDetails from './VendorRevenueDetails';
+import Typography from "@material-ui/core/Typography/Typography";
 
 
 const styles = theme => ({
@@ -14,16 +15,20 @@ const styles = theme => ({
 });
 
 function VendorRevenueHistoryList(props) {
-  const { classes } = props;
+  const { classes, orders } = props;
   return (
     <div className={classes.root}>
       <List component="nav">
-        <ListItem>
-          <VendorRevenueDetails/>
-        </ListItem>
-        <ListItem>
-          <VendorRevenueDetails/>
-        </ListItem>
+        {orders.length === 0 && (
+          <ListItem>
+            <Typography variant="h4" color="error">No Completed Orders Found</Typography>
+          </ListItem>
+        )}
+        {orders.map(o => (
+          <ListItem>
+            <VendorRevenueDetails order={o} />
+          </ListItem>
+        ))}
       </List>
     </div>
   );

@@ -12,6 +12,7 @@ import HomePage from '../HomePage/index';
 import UserTypePage from '../LoginPage/UserTypePage';
 import RegisterVendorPage from '../RegisterPage/RegisterVendorPage';
 import VendorPages from '../VendorPages';
+import VendorMenuPage from "../VendorPages/VendorMenu/VendorMenuPage";
 
 export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 
@@ -19,6 +20,12 @@ function ContentPage() {
   return (
     <Router history={history}>
       <div>
+        <Route
+          exact
+          path="/"
+          render={() => localStorage.getItem('store') !== null ? <Redirect to={{ pathname: '/vendor/menu' }} />
+            : <Redirect to={{ pathname: '/homepage' }} />}
+        />
         <Route path="/homepage" component={HomePage} />
         <Route path="/vendor" component={VendorPages} />
       </div>
@@ -52,6 +59,7 @@ class App extends React.Component {
             <Router history={history}>
               <div>
                 {/* <PrivateRoute exact path="/" component={HomePage} /> */}
+                <Route exact path="/vendor" component={ContentPage} />
                 <Route exact path="/login" component={LoginPage} />
                 <Route exact path="/userType" component={UserTypePage} />
                 <Route exact path="/registerStudent" component={RegisterPage} />

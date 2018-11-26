@@ -34,7 +34,8 @@
     "redux-devtools-extension": "^2.13.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
-    "styled-components": "^4.0.2"
+    "styled-components": "^4.0.2",
+    "sweetalert2": "^7.29.1"
   },
   "devDependencies": {
     "babel-core": "^6.21.0",

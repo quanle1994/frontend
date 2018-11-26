@@ -2,6 +2,7 @@ import { userConstants } from '../_constants';
 import { userService } from '../_services';
 import { alertActions } from '.';
 import { history } from '../_helpers';
+import ErrorDialog from '../_commons/ErrorDialog';
 
 export const userActions = {
   login,
@@ -21,12 +22,12 @@ function login(email, password) {
           if (user.userType === 'VENDOR') history.push('/vendor/menu');
           else history.push('/homepage/canteen');
         },
-        (error) => {
-          dispatch(failure(error.toString()));
-          console.log(error);
-          dispatch(alertActions.error(error.toString()));
-        },
-      );
+      ).catch((error) => {
+        ErrorDialog('logging in', error);
+        dispatch(failure(error.toString()));
+        console.log(error);
+        dispatch(alertActions.error(error.toString()));
+      });
   };
 
   function request(user) { return { type: userConstants.LOGIN_REQUEST, user }; }

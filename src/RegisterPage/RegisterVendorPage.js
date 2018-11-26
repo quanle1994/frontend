@@ -8,8 +8,10 @@ import Typography from '@material-ui/core/Typography/Typography';
 import Button from '@material-ui/core/Button/Button';
 import MenuItem from '@material-ui/core/MenuItem/MenuItem';
 import api from '../_api/vendors';
-import { history } from '../_helpers';
-import {SET_CURRENT_PAGE} from "../App";
+// import { history } from '../_helpers';
+import { SET_CURRENT_PAGE } from '../App';
+import ErrorDialog from '../_commons/ErrorDialog';
+import SuccessDialog from '../_commons/SuccessDialog';
 
 class RegisterVendorPage extends React.Component {
   constructor(props) {
@@ -25,7 +27,7 @@ class RegisterVendorPage extends React.Component {
   }
 
   componentWillMount() {
-    const { dispatch } = this.props;
+    // const { dispatch } = this.props;
     api.getAllCanteens().then(response => this.setState({
       canteenOptions: response.data.map(canteen => ({
         value: canteen.id,
@@ -53,12 +55,11 @@ class RegisterVendorPage extends React.Component {
       delete data.confirmPassword;
       api.createVendor(data).then((response) => {
         localStorage.setItem('user', JSON.stringify(response.data));
-        this.setState({}, () => dispatch({
+        SuccessDialog('Vendor Registration Successful', 'Vendor', 'registered', '/vendor/menu', () => dispatch({
           type: SET_CURRENT_PAGE,
           page: 0,
         }));
-        history.push('/homepage/vendor');
-      }).catch();
+      }).catch(error => ErrorDialog('registering vendor', error));
     };
     return (
       <div
