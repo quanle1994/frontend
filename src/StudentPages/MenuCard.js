@@ -42,7 +42,7 @@ class MenuCard extends React.Component {
 
     this.state = {
       expanded: false,
-      quantity: 0,
+      quantity: 1,
     };
   }
 
@@ -89,7 +89,7 @@ class MenuCard extends React.Component {
     const { quantity } = this.state;
     const adjustQuantity = (value) => {
       this.setState({
-        quantity: Math.max(0, quantity + value),
+        quantity: Math.max(1, quantity + value),
       });
     };
 

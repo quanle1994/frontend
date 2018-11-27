@@ -12,7 +12,7 @@ import { history } from '../../_helpers/history';
 class OrderConfirmationPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { open: false, };
+    this.state = { open: false };
   }
 
   handleClickOpen = () => {
@@ -24,16 +24,16 @@ class OrderConfirmationPage extends React.Component {
   };
 
   render() {
-    const {data} = this.props
+    const { data } = this.props;
     const total = data.amount * data.item.price;
     const { orderId } = this.props;
     console.log(`@@@orderId: ${orderId}`);
-    if(!this.props.orderId) {
-      return (<div></div>);
+    if (!this.props.orderId) {
+      return (<div />);
     }
 
-    let orderNum = parseInt(orderId);
-    let totalPrice = new Intl.NumberFormat('en-GB', {
+    const orderNum = parseInt(orderId);
+    const totalPrice = new Intl.NumberFormat('en-GB', {
       style: 'currency',
       currency: 'SGD',
     }).format(total);
@@ -62,7 +62,8 @@ class OrderConfirmationPage extends React.Component {
             fontSize: 15,
             color: '#CB9D1B',
           }}
-          >Order
+          >
+Order
           </Typography>
         </Button>
         <Dialog
@@ -78,42 +79,51 @@ class OrderConfirmationPage extends React.Component {
               verticalAlign: 'middle',
               marginTop: 0,
             }}
-            id="alert-dialog-title">
+            id="alert-dialog-title"
+          >
             <Typography
               variant="h4"
               style={{
                 color: '#CB9D1B',
               }}
             >
+
             Proceed with payment?
             </Typography>
           </DialogTitle>
           <DialogContent
-          style={{
-            textAlign: 'center',
-            display: 'inline-block',
-            verticalAlign: 'middle',
-          }}>
+            style={{
+              textAlign: 'center',
+              display: 'inline-block',
+              verticalAlign: 'middle',
+            }}
+          >
             <DialogContentText
               style={{
                 fontSize: 10,
               }}
-              id="alert-dialog-description">
+              id="alert-dialog-description"
+            >
               <Typography
                 variant="h5"
               >
-              Order number: {orderId}
-              <br />
-              Total payment: {totalPrice}
+
+              Order number:
+                {orderId}
+                <br />
+
+              Total payment:
+                {totalPrice}
               </Typography>
             </DialogContentText>
           </DialogContent>
           <DialogActions
-          style={{
-            textAlign: 'center',
-            display: 'inline-block',
-            verticalAlign: 'middle',
-          }}>
+            style={{
+              textAlign: 'center',
+              display: 'inline-block',
+              verticalAlign: 'middle',
+            }}
+          >
             <Button
               onClick={() => customerService.pay(orderNum).then(() => history.push('/homepage/trackOrder'))}
               variant="outlined"
@@ -127,12 +137,14 @@ class OrderConfirmationPage extends React.Component {
                 alignItems: 'center',
                 display: 'inline-block',
                 verticalAlign: 'middle',
-              }}>
+              }}
+            >
               <Typography style={{
                 fontSize: 15,
                 color: '#CB9D1B',
               }}
               >
+
               Pay
               </Typography>
             </Button>
@@ -149,12 +161,14 @@ class OrderConfirmationPage extends React.Component {
                 alignItems: 'center',
                 display: 'inline-block',
                 verticalAlign: 'middle',
-              }}>
+              }}
+            >
               <Typography style={{
                 fontSize: 15,
                 color: '#CB9D1B',
               }}
               >
+
               Close
               </Typography>
             </Button>

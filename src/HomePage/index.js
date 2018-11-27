@@ -12,39 +12,57 @@ import CanteenStorePage from '../StudentPages/CanteenStorePage';
 import CartPage from '../StudentPages/CartPage';
 import TrackOrderPage from '../StudentPages/TrackOrderPage';
 import BookmarkPage from '../StudentPages/BookmarkPage';
+import customerApi from '../_api/customers';
+import ErrorDialog from '../_commons/ErrorDialog';
+import { GET_USER_ORDERS_SUCCESS } from '../_reducers/userProfile.reducer';
 
-const HomePage = (props) => {
-  const { classes } = props;
-  return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      height: '100vh',
-    }}
-    >
-      <TopBar />
-      <Router history={history}>
-        <main style={{
-          flex: 1,
-          display: 'flex',
-          overflow: 'scroll',
-        }}
-        >
-          <Route exact path="/homepage/profile" component={ProfilePage} />
-          <Route exact path="/homepage/canteen" component={CanteenPage} />
-          <Route exact path="/homepage/menu/:cId/:sId" component={StudentOrderPage} />
-          <Route exact path="/homepage/store/:id" component={CanteenStorePage} />
-          <Route exact path="/homepage/cart" component={CartPage} />
-          <Route exact path="/homepage/trackOrder" component={TrackOrderPage} />
-          <Route exact path="/homepage/bookmark" component={BookmarkPage} />
-        </main>
+class HomePage extends React.Component {
+  componentWillMount() {
+    const { dispatch } = this.props;
+    customerApi.orders().then((response) => {
+      dispatch({
+        type: GET_USER_ORDERS_SUCCESS,
+        orders: response.data,
+      });
+    }).catch(error => ErrorDialog('retrieving orders', error));
+  }
 
-      </Router>
+  render() {
+    const { classes } = this.props;
+    return (
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100vh',
+      }}
+      >
+        <TopBar />
+        <Router history={history}>
+          <main style={{
+            flex: 1,
+            display: 'flex',
+            overflow: 'scroll',
+          }}
+          >
+            <Route exact path="/homepage/profile" component={ProfilePage} />
+            <Route exact path="/homepage/canteen" component={CanteenPage} />
+            <Route exact path="/homepage/menu/:cId/:sId" component={StudentOrderPage} />
+            <Route exact path="/homepage/store/:id" component={CanteenStorePage} />
+            <Route exact path="/homepage/cart" component={CartPage} />
+            <Route exact path="/homepage/trackOrder" component={TrackOrderPage} />
+            <Route exact path="/homepage/bookmark" component={BookmarkPage} />
+          </main>
+        </Router>
 
 
-      <SimpleBottomNavigation />
-    </div>
-  );
-};
+        <SimpleBottomNavigation />
+      </div>
+    );
+  }
+}
 
-export default connect()(HomePage);
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = dispatch => ({ dispatch });
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
