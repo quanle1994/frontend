@@ -102,12 +102,13 @@ class MenuCard extends React.Component {
         <Card className={classes.card} key={dish.id}>
           <CardMedia
             className={classes.media}
-            image="../../../img/kimchi_fried_rice.png"
+            image="../../../img/ytf.png"
             title="Kimchi Fried Rice"
           />
           <CardContent
             className={classes.content}
           >
+
             <Typography
               component="p"
               variant="h3"

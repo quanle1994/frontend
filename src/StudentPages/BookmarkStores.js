@@ -10,7 +10,6 @@ const styles = {
     fontSize: 20,
   },
   listText: {
-    fontSize: 20,
   },
 };
 
@@ -19,8 +18,11 @@ function BookmarkStores(props) {
   return (
     <div className={classes.wrapper}>
       <Button className={classes.listText}>
-        <div className="col-xs-3">{store.canteenName}:</div>
-        <div className="col-xs-9">{store.name}</div>
+        <div className="col-xs-3" style={{fontSize:17,}}>{store.canteenName}:</div>
+          <div className="col-xs-1"></div>
+        <div className="col-xs-8" style={{fontSize:15,}}>
+            {store.name}
+            </div>
       </Button>
     </div>
 

@@ -68,7 +68,7 @@ class StoreCard extends React.Component {
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image="../../../img/kimchi_fried_rice.png"
+            image="../../../img/ytf.png"
             title="Store"
             onClick={() => {
               localStorage.setItem('currentStore', JSON.stringify(qoodieStore));
