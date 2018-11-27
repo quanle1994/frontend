@@ -46,15 +46,15 @@ module.exports = {
   })],
   devServer: {
     historyApiFallback: true,
-    // host: '172.19.195.190',
-    // port: 3000,
+    host: '172.23.213.77',
+    port: 3000,
   },
   externals: {
     // global app config object
     config: JSON.stringify({
-      apiUrl: 'http://localhost:8080/Qoodie-war',
+      // apiUrl: 'http://localhost:8080/Qoodie-war',
       // apiUrl: `${BACKEND_HOST}Qoodie-war`,
-      // apiUrl: 'http://172.19.195.190:8080/Qoodie-war',
+      apiUrl: 'http://172.23.213.77:8080/Qoodie-war',
     }),
   },
 };

@@ -57,7 +57,7 @@ class SimpleBottomNavigation extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, bookmark, orders } = this.props;
     const { value } = this.state;
 
     const handleChange = (event, val) => {
@@ -86,7 +86,11 @@ class SimpleBottomNavigation extends React.Component {
             label: classes.label,
           }}
           onClick={() => { history.push('/homepage/bookmark'); }}
-          icon={<Bookmark className={classes.icon} />}
+          icon={(
+            <Badge className={classes.margin} badgeContent={bookmark.length} color="secondary">
+              <Bookmark className={classes.icon} />
+            </Badge>
+          )}
         />
         <BottomNavigationAction
           label="Orders"
@@ -97,11 +101,10 @@ class SimpleBottomNavigation extends React.Component {
 
           onClick={() => { history.push('/homepage/trackOrder'); }}
           icon={(
-            <Badge className={classes.margin} badgeContent={1} color="primary">
+            <Badge className={classes.margin} badgeContent={orders.length} color="secondary">
               <Assignment className={classes.icon} />
             </Badge>
-)}
-
+          )}
         />
         <BottomNavigationAction
           label="Cart"
@@ -112,11 +115,8 @@ class SimpleBottomNavigation extends React.Component {
 
           onClick={() => { history.push('/homepage/cart'); }}
           icon={
-
-
             <ShoppingCart className={classes.icon} />
             }
-
         />
       </BottomNavigation>
     );
@@ -125,6 +125,8 @@ class SimpleBottomNavigation extends React.Component {
 
 const mapStateToProps = state => ({
   page: state.currentPage.page,
+  bookmark: state.userProfile.bookmark,
+  orders: state.userProfile.orders,
 });
 
 export default compose(withStyles(styles), connect(mapStateToProps))(SimpleBottomNavigation);

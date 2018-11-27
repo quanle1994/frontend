@@ -14,6 +14,7 @@ function getAllCanteens() {
             stores: c.stores.map(s => ({
               ...s,
               canteenName: c.name,
+              canteen: c.id,
             })),
           }));
           dispatch({ type: canteenConstants.GETALL_SUCCESS, canteens: newC });

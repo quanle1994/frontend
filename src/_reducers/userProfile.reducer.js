@@ -7,10 +7,14 @@ const INITIAL_STATE = {
   userType: 0, // 0 = vendor, 1 = student
   vendorDetails: [],
   bookmark: [],
+  orders: [],
+  cart: [],
 };
 
 export const ADD_BOOKMARK = 'ADD_BOOKMARK';
 export const REMOVE_BOOKMARK = 'REMOVE_BOOKMARK';
+export const GET_USER_ORDERS_SUCCESS = 'GET_USER_ORDERS_SUCCESS';
+export const UPDATE_CART = 'UPDATE_CART';
 
 export default function userProfile(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -36,6 +40,19 @@ export default function userProfile(state = INITIAL_STATE, action) {
       return {
         ...state,
         bookmark: [...action.bookmark],
+      };
+    }
+    case GET_USER_ORDERS_SUCCESS: {
+      return {
+        ...state,
+        orders: [...action.orders],
+        cart: [...action.cart],
+      };
+    }
+    case UPDATE_CART: {
+      return {
+        ...state,
+        cart: { ...action.data },
       };
     }
     default:

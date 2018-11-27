@@ -7,6 +7,7 @@ import connect from 'react-redux/es/connect/connect';
 import { compose } from 'redux';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { BACKEND_HOST } from '../../_api/constants';
+import { history } from '../../_helpers/history';
 
 const styles = {
   row: {
@@ -51,7 +52,10 @@ class ProfileIcon extends React.Component {
           </Avatar>
         )}
         { (userProfile.photoDir === undefined || userProfile.photoDir === null) && (
-          <AccountCircle className={currentPage === 'profilePage' ? classes.bigAvatar : classes.avatar} />
+          <AccountCircle
+            className={currentPage === 'profilePage' ? classes.bigAvatar : classes.avatar}
+            onClick={() => history.push('/homepage/profile')}
+          />
         )}
       </div>
     );

@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography/Typography';
 import CanteenCard from './CanteenCard';
-import CanteenCard1 from './Hardcode/CanteenCard1';
-import CanteenCard2 from './Hardcode/CanteenCard2';
 import { canteenActions } from '../_actions';
 import { history } from '../_helpers/history';
 import { SET_CURRENT_PAGE } from '../App';
@@ -12,7 +10,7 @@ import { SET_CURRENT_PAGE } from '../App';
 class CanteenPage extends Component {
   constructor(props) {
     super(props);
-    this.props.dispatch(canteenActions.getAllCanteens());
+    this.state = {};
   }
 
   componentWillMount() {
@@ -21,6 +19,7 @@ class CanteenPage extends Component {
       type: SET_CURRENT_PAGE,
       page: 0,
     }));
+    dispatch(canteenActions.getAllCanteens());
   }
 
   onCanteenClick(canteenId) {

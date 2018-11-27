@@ -9,6 +9,7 @@ import { compose } from 'redux';
 import connect from 'react-redux/es/connect/connect';
 import BookmarkStores from './BookmarkStores';
 import { REMOVE_BOOKMARK } from '../_reducers/userProfile.reducer';
+import {history} from "../_helpers";
 
 const styles = theme => ({
   root: {
@@ -32,7 +33,7 @@ class BookmarkList extends React.Component {
       <div className={classes.root}>
         <List component="nav">
           {bookmark.map(b => (
-            <ListItem>
+            <ListItem onClick={() => history.push(`/homepage/menu/${b.canteen}/${b.id}`)}>
               <BookmarkStores store={b} />
               <IconButton className={classes.button} aria-label="Delete" onClick={() => this.removeBookmark(b.id)}>
                 <RemoveIcon />

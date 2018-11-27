@@ -2,52 +2,34 @@
 import React, { Component } from 'react';
 import connect from 'react-redux/es/connect/connect';
 import Typography from '@material-ui/core/Typography/Typography';
-import StoreCard from './StoreCard';
 import CartList from './CartList';
-import { cartService } from '../_services';
+import { SET_CURRENT_PAGE } from '../App';
 
 class CartPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { cartItems: [] };
-  }
-
-
-  //dirty
-  componentWillReceiveProps(nextProps) {
-    const { getCart } = cartService;
-    const cartItems = getCart().then(
-      items => this.setState({
-        cartItems: items,
-      })
-    )
-  }
-
   componentWillMount() {
-    const { getCart } = cartService;
-    const cartItems = getCart().then(
-      items => this.setState({
-        cartItems: items,
-      })
-    )
+    // const { getCart } = cartService;
+    // const cartItems = getCart().then(
+    //   items => this.setState({
+    //     cartItems: items,
+    //   }),
+    // );
+    const { dispatch } = this.props;
+    dispatch({
+      type: SET_CURRENT_PAGE,
+      page: 3,
+    });
   }
 
-
-
-  componentDidMount() {
-    const { getCart } = cartService;
-    const cartItems = getCart().then(
-      items => this.setState({
-        cartItems: items,
-      })
-    )
+  componentWillReceiveProps(nextProps) {
+    const { cart } = nextProps;
+    const cartItems = Object.keys(cart).map(k => cart[k].dish);
+    this.setState({ cartItems });
   }
 
   render() {
-    const { cartItems } = this.state;
-    console.log('### cartitems: ###');
-    console.table(cartItems);
-
+    const { cart } = this.props;
+    // const { orders } = this.props;
+    console.table(cart);
 
     return (
       <div>
@@ -60,7 +42,7 @@ class CartPage extends Component {
           }}
         >Cart
         </Typography>
-        {cartItems.length == 0 ? (
+        {cart.length === 0 ? (
           <Typography
             variant="h3"
             align="center"
@@ -68,15 +50,22 @@ class CartPage extends Component {
               color: 'gray',
               marginTop: 20,
               marginLeft: '4vw',
-            }}>
+            }}
+          >
             Seems a little empty around here
           </Typography>) : ''}
-        {cartItems ? cartItems.map((item, key) => {
-          return (<CartList key={key} data={item} total={item.orderPrice} orderId={item.id} />)
-        }) : 'loading cartItems...'}
+        {cart.length > 0 && cart.map(item => (
+          <CartList key={item.id} data={item} total={item.price} orderId={item.id} />
+        ))}
       </div>
     );
   }
 }
 
-export default connect()(CartPage);
+const mapStateToProps = state => ({
+  cart: state.userProfile.cart,
+});
+
+const mapDispatchToProps = dispatch => ({ dispatch });
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartPage);

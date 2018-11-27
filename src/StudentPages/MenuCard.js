@@ -12,7 +12,13 @@ import Add from '@material-ui/icons/Add';
 import Remove from '@material-ui/icons/Remove';
 import Button from '@material-ui/core/Button/Button';
 import config from 'config';
+import { compose } from 'redux';
+import connect from 'react-redux/es/connect/connect';
 import { history } from '../_helpers';
+import { GET_USER_ORDERS_SUCCESS, UPDATE_CART } from '../_reducers/userProfile.reducer';
+import customerApi from '../_api/customers';
+import ErrorDialog from '../_commons/ErrorDialog';
+import SuccessDialog from '../_commons/SuccessDialog';
 
 const styles = theme => ({
   card: {
@@ -42,7 +48,7 @@ class MenuCard extends React.Component {
 
     this.state = {
       expanded: false,
-      quantity: 0,
+      quantity: 1,
     };
   }
 
@@ -51,37 +57,58 @@ class MenuCard extends React.Component {
   };
 
   handleOnClick = (dish, currentStore) => {
-    const { token } = JSON.parse(localStorage.getItem('user'));
-    const requestOptions = {
-      method: 'POST',
-      headers: {
-        Authorization: token,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        amount: this.state.quantity,
-        dish: {
-          description: dish.description,
-          id: dish.id,
-          isAvailable: dish.isAvailable,
-          name: dish.name,
-          price: dish.price,
-          store: {
-            id: currentStore.id,
-            name: currentStore.name,
-          },
-        },
-      }),
+    // const { token } = JSON.parse(localStorage.getItem('user'));
+    // const requestOptions = {
+    //   method: 'POST',
+    //   headers: {
+    //     Authorization: token,
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     amount: this.state.quantity,
+    //     dish: {
+    //       description: dish.description,
+    //       id: dish.id,
+    //       isAvailable: dish.isAvailable,
+    //       name: dish.name,
+    //       price: dish.price,
+    //       store: {
+    //         id: currentStore.id,
+    //         name: currentStore.name,
+    //       },
+    //     },
+    //   }),
+    // };
+    //
+    // console.log(`###Printing the order request:\n${JSON.stringify(requestOptions, undefined, 2)}`);
+    // fetch(`${config.apiUrl}/Resource/orderDishes`, requestOptions)
+    //   .then(
+    //     response => response.json(),
+    //
+    //     error => error,
+    //   );
+    const { quantity } = this.state;
+    const req = {
+      customerId: parseFloat(JSON.parse(localStorage.getItem('user')).id),
+      dishId: dish.id,
+      quantity,
     };
+    customerApi.addItemToCart(req).then(() => {
+      SuccessDialog('Add Item To Cart Successfully', 'Item', 'added to cart');
+      history.push('/homepage/cart');
+      this.getOrder();
+    }).catch(error => ErrorDialog('adding item to cart', error));
+  };
 
-    console.log(`###Printing the order request:\n${JSON.stringify(requestOptions, undefined, 2)}`);
-    fetch(`${config.apiUrl}/Resource/orderDishes`, requestOptions)
-      .then(
-        response => response.json(),
-
-        error => error,
-      );
-    history.push('/homepage/cart');
+  getOrder = () => {
+    const { dispatch } = this.props;
+    customerApi.orders().then((response) => {
+      dispatch({
+        type: GET_USER_ORDERS_SUCCESS,
+        orders: response.data.filter(o => o.customerOrderType.name !== 'IN BASKET'),
+        cart: response.data.filter(o => o.customerOrderType.name === 'IN BASKET'),
+      });
+    });
   };
 
   render() {
@@ -89,7 +116,7 @@ class MenuCard extends React.Component {
     const { quantity } = this.state;
     const adjustQuantity = (value) => {
       this.setState({
-        quantity: Math.max(0, quantity + value),
+        quantity: Math.max(1, quantity + value),
       });
     };
 
@@ -173,4 +200,6 @@ class MenuCard extends React.Component {
   }
 }
 
-export default withStyles(styles)(MenuCard);
+const mapStateToProps = state => ({});
+
+export default compose(connect(mapStateToProps), withStyles(styles))(MenuCard);
