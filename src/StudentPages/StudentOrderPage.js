@@ -1,20 +1,21 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import * as React from 'react';
-import { connect } from 'react-redux';
+import connect from 'react-redux/es/connect/connect';
 import Typography from '@material-ui/core/Typography/Typography';
-import { compose } from 'redux';
 import withStyles from '@material-ui/core/es/styles/withStyles';
-import StoreCard from './StoreCard';
+import { compose } from 'redux';
+import MenuCard from './MenuCard';
 import { canteenActions } from '../_actions';
 import { SET_CURRENT_PAGE } from '../App';
 
-class CanteenStorePage extends React.Component {
+class StudentOrderPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      canteen: {},
+      store: {},
     };
   }
+
 
   componentWillMount() {
     const { canteens } = this.props;
@@ -24,56 +25,57 @@ class CanteenStorePage extends React.Component {
       type: SET_CURRENT_PAGE,
       page: 0,
     });
-    this.getStores(this.props);
+    this.getMenu(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.getStores(nextProps);
+    this.getMenu(nextProps);
   }
 
-  getStores(nextProps) {
+  getMenu(nextProps) {
     const { canteens } = nextProps;
-    const { id } = this.props.match.params;
-    if (id !== undefined) {
+    const { cId, sId } = this.props.match.params;
+    if (cId !== undefined && sId !== undefined) {
       const filterElement = canteens === undefined
-        ? {} : canteens.filter(c => c.id === parseFloat(id))[0];
+        ? {} : canteens.filter(c => c.id === parseFloat(cId))[0];
+      const store = filterElement.stores === undefined
+        ? {} : filterElement.stores.filter(s => s.id === parseFloat(sId))[0];
       this.setState({
-        canteen: filterElement === undefined ? {} : filterElement,
+        store: store.dishes === undefined ? {} : store,
       });
     }
   }
 
   render() {
     const { classes } = this.props;
-    const { canteen } = this.state;
-    const storeCards = canteen.stores !== undefined && canteen.stores.map(s => (
-      <StoreCard
-        canteen={canteen}
-        qoodieStore={s}
-        key={s.id}
-      />
-    ));
+    const { store } = this.state;
     return (
-      <div className={classes.wrapper}>
+      <div>
         <Typography
           variant="h3"
           style={{
             color: 'gray',
             marginTop: 20,
             marginLeft: '4vw',
+            marginBottom: 20,
           }}
-        >{canteen.name}'s Store
+        >
+          Menu
         </Typography>
-        {storeCards}
+        <div className={classes.menuWrapper}>
+          {console.log(store)}
+          {store.dishes !== undefined && store.dishes.map(d => (
+            <MenuCard dish={d} />
+          ))}
+        </div>
       </div>
     );
   }
 }
 
 const style = {
-  wrapper: {
+  menuWrapper: {
     padding: 15,
-    boxSizing: 'border-box',
     width: '100%',
   },
 };
@@ -84,4 +86,4 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({ dispatch });
 
-export default compose(withStyles(style), connect(mapStateToProps, mapDispatchToProps))(CanteenStorePage);
+export default compose(withStyles(style), connect(mapStateToProps, mapDispatchToProps))(StudentOrderPage);

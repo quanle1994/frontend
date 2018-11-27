@@ -13,7 +13,7 @@ function VendorRevenueDetails(props) {
   return (
     <div className={classes.wrapper}>
       <div className="col-xs-10">{order.dishName}</div>
-      <div className="col-xs-2"> {order.subtotal}</div>
+      <div className="col-xs-2"> {parseFloat(order.subtotal).toFixed(2)}</div>
       <Divider />
     </div>
   );

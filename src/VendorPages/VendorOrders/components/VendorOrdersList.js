@@ -33,7 +33,7 @@ class VendorOrdersList extends React.Component {
   };
 
   render() {
-    const { classes, incomingOrders } = this.props;
+    const { classes } = this.props;
 
     return (
       <div className={classes.root}>

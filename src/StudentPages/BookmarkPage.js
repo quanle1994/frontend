@@ -2,10 +2,18 @@
 import * as React from 'react';
 import connect from 'react-redux/es/connect/connect';
 import Typography from '@material-ui/core/Typography/Typography';
-import TrackOrderList from './TrackOrderList';
 import BookmarkList from './BookmarkList';
+import { SET_CURRENT_PAGE } from '../App';
 
 class BookmarkPage extends React.Component {
+  componentWillMount() {
+    const { dispatch } = this.props;
+    this.setState({}, () => dispatch({
+      type: SET_CURRENT_PAGE,
+      page: 1,
+    }));
+  }
+
   render() {
     return (
       <div>
@@ -18,10 +26,16 @@ class BookmarkPage extends React.Component {
           }}
         >Bookmark
         </Typography>
-        <BookmarkList/>
+        <BookmarkList />
       </div>
     );
   }
 }
 
-export default connect()(BookmarkPage);
+const mapStateToProps = state => ({
+  bookmark: state.userProfile.bookmark,
+});
+
+const mapDispatchToProps = dispatch => ({ dispatch });
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookmarkPage);

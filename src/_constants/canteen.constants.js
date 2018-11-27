@@ -7,5 +7,5 @@ const canteenConstants = {
 };
 
 module.exports = {
-  canteenConstants
+  canteenConstants,
 };

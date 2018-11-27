@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -9,15 +8,17 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Bookmark from '@material-ui/icons/Bookmark';
 import IconButton from '@material-ui/core/IconButton';
+import { compose } from 'redux';
+import connect from 'react-redux/es/connect/connect';
 import { history } from '../_helpers';
-import { canteenConstants } from '../_constants';
-
-import MenuCard from './MenuCard';
+import { ADD_BOOKMARK, REMOVE_BOOKMARK } from '../_reducers/userProfile.reducer';
 
 const styles = {
   card: {
-    width: 400,
+    width: '100%',
     paddingTop: 10,
+    marginTop: 10,
+    marginBottom: 20,
   },
   media: {
     height: 0,
@@ -32,58 +33,86 @@ const styles = {
     display: 'flex',
     height: 25,
   },
+  iconAdded: {
+    color: '#CB9D1B',
+  },
 };
 
-function StoreCard(props) {
-  const { classes, qoodieStore } = props;
-  console.log(`####store:\n${JSON.stringify(qoodieStore,undefined,2)}`);
+class StoreCard extends React.Component {
+  handleBookmark = () => {
+    const { dispatch, bookmark, qoodieStore } = this.props;
+    const l = bookmark.filter(b => b.id === qoodieStore.id).length;
+    console.log(bookmark);
+    if (l > 0) {
+      dispatch({
+        type: REMOVE_BOOKMARK,
+        bookmark: bookmark.filter(b => b.id !== qoodieStore.id),
+      });
+    } else {
+      bookmark.push(qoodieStore);
+      dispatch({
+        type: ADD_BOOKMARK,
+        bookmark,
+      });
+    }
+  };
 
-
-
-
-
-  return (
-    <Card className={classes.card}>
-      <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image="../../../img/kimchi_fried_rice.png"
-          title="Store"
-          onClick={() => {
-            localStorage.setItem('currentStore', JSON.stringify(qoodieStore));
-
-            history.push('/homepage/menu');
-          }}
-        />
-      </CardActionArea>
-      <CardContent className={classes.content}>
-      <Typography
-        component="p"
-        variant="h3"
-        style={{
-          fontSize: 20,
-          display: 'inline-block',
-        }}>
-        {qoodieStore.name}
-      </Typography>
-      <CardActions
-        className={classes.actions} disableActionSpacing
-        style={{
-          display: 'inline-block',
-        }}>
-        <IconButton
-          aria-label="Bookmark"
-        >
-          <Bookmark className={classes.icon} />
-        </IconButton>
-      </CardActions>
-      </CardContent>
-    </Card>
-  );
+  render() {
+    const {
+      classes, qoodieStore, canteen, bookmark,
+    } = this.props;
+    // console.log(`####store:\n${JSON.stringify(qoodieStore, undefined, 2)}`);
+    const bm = bookmark.filter(b => b.id === qoodieStore.id)[0];
+    return (
+      <Card className={classes.card}>
+        <CardActionArea>
+          <CardMedia
+            className={classes.media}
+            image="../../../img/kimchi_fried_rice.png"
+            title="Store"
+            onClick={() => {
+              localStorage.setItem('currentStore', JSON.stringify(qoodieStore));
+              history.push(`/homepage/menu/${canteen.id}/${qoodieStore.id}`);
+            }}
+          />
+        </CardActionArea>
+        <CardContent className={classes.content}>
+          <Typography
+            component="p"
+            variant="h3"
+            style={{
+              fontSize: 20,
+              display: 'inline-block',
+            }}
+          >
+            {qoodieStore.name}
+          </Typography>
+          <CardActions
+            className={classes.actions}
+            disableActionSpacing
+            style={{
+              display: 'inline-block',
+            }}
+          >
+            <IconButton
+              aria-label="Bookmark"
+            >
+              <Bookmark
+                className={bm === undefined ? classes.icon : classes.iconAdded}
+                onClick={this.handleBookmark}
+              />
+            </IconButton>
+          </CardActions>
+        </CardContent>
+      </Card>
+    );
+  }
 }
 
-StoreCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+const mapStateToProps = state => ({
+  bookmark: state.userProfile.bookmark,
+});
 
-export default withStyles(styles)(StoreCard);
+const mapDispatchToProps = dispatch => ({ dispatch });
+
+export default compose(withStyles(styles), connect(mapStateToProps, mapDispatchToProps))(StoreCard);

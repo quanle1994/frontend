@@ -7,7 +7,7 @@ import './css/HomePage.css';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import { history } from '../_helpers';
 import CanteenPage from '../StudentPages/CanteenPage';
-import StudentOrderPage from '../StudentPages/StudenOrderPage';
+import StudentOrderPage from '../StudentPages/StudentOrderPage';
 import CanteenStorePage from '../StudentPages/CanteenStorePage';
 import CartPage from '../StudentPages/CartPage';
 import TrackOrderPage from '../StudentPages/TrackOrderPage';
@@ -19,26 +19,24 @@ const HomePage = (props) => {
     <div style={{
       display: 'flex',
       flexDirection: 'column',
+      height: '100vh',
     }}
     >
       <TopBar />
-
       <Router history={history}>
         <main style={{
-          flexGrow: 1,
+          flex: 1,
           display: 'flex',
           overflow: 'scroll',
         }}
         >
           <Route exact path="/homepage/profile" component={ProfilePage} />
           <Route exact path="/homepage/canteen" component={CanteenPage} />
-          <Route exact path="/homepage/menu" component={StudentOrderPage} />
-          <Route exact path="/homepage/store" component={CanteenStorePage} />
+          <Route exact path="/homepage/menu/:cId/:sId" component={StudentOrderPage} />
+          <Route exact path="/homepage/store/:id" component={CanteenStorePage} />
           <Route exact path="/homepage/cart" component={CartPage} />
           <Route exact path="/homepage/trackOrder" component={TrackOrderPage} />
           <Route exact path="/homepage/bookmark" component={BookmarkPage} />
-
-
         </main>
 
       </Router>

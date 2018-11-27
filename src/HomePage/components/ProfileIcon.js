@@ -1,11 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import connect from 'react-redux/es/connect/connect';
 import { compose } from 'redux';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import { BACKEND_HOST } from '../../_api/constants';
 
 const styles = {
   row: {
@@ -36,20 +37,29 @@ const StyledLink = styled(Link)`
 
 class ProfileIcon extends React.Component {
   render() {
-    const { classes, currentPage } = this.props;
+    const { classes, currentPage, userProfile } = this.props;
     return (
-      <Avatar
-        className={currentPage === 'profilePage' ? classes.bigAvatar : classes.avatar}
-        component={StyledLink}
-        to="/homepage/profile"
-      >
-        <img alt="Adelle Charles" className="logo" src="https://www.morpht.com/sites/morpht/files/styles/landscape_medium/public/dalibor-matura_1.jpg?itok=Wskh0jNP" />
-      </Avatar>
+      <div>
+        { userProfile.photoDir !== undefined && userProfile.photoDir !== null && (
+          <Avatar
+            className={currentPage === 'profilePage' ? classes.bigAvatar : classes.avatar}
+            component={StyledLink}
+            to="/homepage/profile"
+          >
+            {/* <img alt="Adelle Charles" className="logo" src="https://www.morpht.com/sites/morpht/files/styles/landscape_medium/public/dalibor-matura_1.jpg?itok=Wskh0jNP" /> */}
+            <img alt={userProfile.name} className="logo" src={`${BACKEND_HOST}${userProfile.photoDir}`} />
+          </Avatar>
+        )}
+        { (userProfile.photoDir === undefined || userProfile.photoDir === null) && (
+          <AccountCircle className={currentPage === 'profilePage' ? classes.bigAvatar : classes.avatar} />
+        )}
+      </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
   currentPage: state.currentPage.page,
+  userProfile: state.userProfile,
 });
 export default compose(withStyles(styles), connect(mapStateToProps))(ProfileIcon);
