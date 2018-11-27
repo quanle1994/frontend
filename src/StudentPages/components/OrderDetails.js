@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TotalAmount from './TotalAmount';
@@ -14,8 +15,7 @@ function OrderDetails(props) {
   const { classes, order } = props;
   const dishes = order.orderDishes.map(dish => (
     <div>
-
-        Ordered dishes:
+      Ordered dishes:
       {dish.dish.name}
       <OrderItems dish={dish} />
       <TotalAmount dish={dish} />

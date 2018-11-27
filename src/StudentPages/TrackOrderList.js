@@ -31,25 +31,27 @@ function TrackOrderList(props) {
           expandIcon={<ExpandMoreIcon />}
         >
           <div className="col-xs-7">
-          <Typography
-            style={{
-              fontSize: 20,
-            }}>
-            {order.id}
-          </Typography>
+            <Typography
+              style={{
+                fontSize: 20,
+              }}
+            >
+              {order.id}
+            </Typography>
           </div>
           <div className="col-xs-5">
-          <Typography
-            style={{
-              paddingLeft: 5,
-              fontSize: 15,
-            }}>
-            {order.customerOrderType.name}
-          </Typography>
+            <Typography
+              style={{
+                paddingLeft: 5,
+                fontSize: 15,
+              }}
+            >
+              {order.customerOrderType.name}
+            </Typography>
           </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <OrderDetails order={order}/>
+          <OrderDetails order={order} />
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </div>

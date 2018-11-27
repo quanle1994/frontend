@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -25,21 +26,25 @@ class OrderConfirmationPage extends React.Component {
 
   render() {
     const { data } = this.props;
-    const total = data.amount * data.item.price;
+    const total = data.amount * data.dish.price;
     const { orderId } = this.props;
     console.log(`@@@orderId: ${orderId}`);
     if (!this.props.orderId) {
       return (<div />);
     }
 
-    const orderNum = parseInt(orderId);
+    const orderNum = parseInt(orderId, 10);
     const totalPrice = new Intl.NumberFormat('en-GB', {
       style: 'currency',
       currency: 'SGD',
     }).format(total);
     return (
-      <div>
-
+      <div
+        className="col-xs-4"
+        style={{
+          marginTop: 10,
+        }}
+      >
         <Button
           variant="outlined"
           size="medium"
@@ -63,7 +68,7 @@ class OrderConfirmationPage extends React.Component {
             color: '#CB9D1B',
           }}
           >
-Order
+            Order
           </Typography>
         </Button>
         <Dialog
@@ -107,13 +112,8 @@ Order
               <Typography
                 variant="h5"
               >
-
-              Order number:
-                {orderId}
-                <br />
-
-              Total payment:
-                {totalPrice}
+              Order number:&nbsp;{orderId}<br />
+              Total payment:&nbsp;{totalPrice}
               </Typography>
             </DialogContentText>
           </DialogContent>
@@ -144,7 +144,6 @@ Order
                 color: '#CB9D1B',
               }}
               >
-
               Pay
               </Typography>
             </Button>
@@ -168,7 +167,6 @@ Order
                 color: '#CB9D1B',
               }}
               >
-
               Close
               </Typography>
             </Button>

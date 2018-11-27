@@ -16,6 +16,14 @@ const orders = () => api
     { headers: { Authorization: JSON.parse(localStorage.getItem('user')).token } },
   );
 
+const addItemToCart = req => api
+  .post(
+    'addItemToCart',
+    { ...req },
+    {},
+  );
+
 export default {
   orders,
+  addItemToCart,
 };

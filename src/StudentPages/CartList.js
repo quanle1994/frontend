@@ -61,8 +61,13 @@ function CartList(props) {
           {/* <OrderConfirmationDialog total={total} orderId={orderId} data={data}/> */}
           {/* </div> */}
           {/* </div> */}
-          {orderDishes ? orderDishes.map(dish => (
-            <FoodItem key={dish.id} data={dish} total={totalPrice} orderId={orderId} />
+          {orderDishes ? orderDishes.map(orderDish => (
+            <FoodItem
+              key={orderDish.dish.id}
+              data={orderDish}
+              total={totalPrice}
+              orderId={orderId}
+            />
           )) : ''}
         </ExpansionPanelDetails>
       </ExpansionPanel>

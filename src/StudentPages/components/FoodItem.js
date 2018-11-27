@@ -1,36 +1,42 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import TotalAmount from './TotalAmount';
 import Typography from '@material-ui/core/Typography/Typography';
 import Button from '@material-ui/core/Button/Button';
+import TotalAmount from './TotalAmount';
 import OrderConfirmationDialog from './OrderConfirmationPage';
 import OrderItems from './OrderItems';
 
 const styles = {
   wrapper: {
+    width: '100%',
+    boxSizing: 'border-box',
   },
 };
 
 function FoodItem(props) {
-  const { classes } = props;
-  if(!props.data) {
+  const {
+    classes, data, total, orderId,
+  } = props;
+  if (!data) {
     return (
-      <div></div>
+      <div />
     );
   }
-  const { data, total, orderId } = props;
-  console.log(`******order:\n${JSON.stringify(data,undefined,2)}`);
+  console.log(`******order:\n${JSON.stringify(data, undefined, 2)}`);
 
   return (
     <div className={classes.wrapper}>
-      <OrderItems data={data}/>
-      <TotalAmount total={total} />
-      <div className="col-xs-5"></div>
-      <div className="col-xs-7">
-        <OrderConfirmationDialog total={total} orderId={orderId} data={data}/>
+      <div style={{
+        overflow: 'hidden',
+      }}
+      >
+        <OrderItems dish={data} />
+        <TotalAmount dish={data} total={total} />
       </div>
+      <div className="col-xs-8" />
+      <OrderConfirmationDialog total={total} orderId={orderId} data={data} />
     </div>
-
 
 
   );

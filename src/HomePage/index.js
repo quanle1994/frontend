@@ -22,7 +22,8 @@ class HomePage extends React.Component {
     customerApi.orders().then((response) => {
       dispatch({
         type: GET_USER_ORDERS_SUCCESS,
-        orders: response.data,
+        orders: response.data.filter(o => o.customerOrderType.name !== 'IN BASKET'),
+        cart: response.data.filter(o => o.customerOrderType.name === 'IN BASKET'),
       });
     }).catch(error => ErrorDialog('retrieving orders', error));
   }
