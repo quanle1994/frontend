@@ -3,6 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
+import connect from "react-redux/es/connect/connect";
+import {compose} from "redux";
 
 const styles = {
   card: {
@@ -37,4 +39,8 @@ function ProfileCard(props) {
   );
 }
 
-export default withStyles(styles)(ProfileCard);
+const mapStateToProps = state => ({
+  userProfile: state.userProfile,
+});
+
+export default compose(withStyles(styles), connect(mapStateToProps))(ProfileCard);

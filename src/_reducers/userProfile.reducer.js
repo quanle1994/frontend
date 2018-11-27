@@ -6,7 +6,11 @@ const INITIAL_STATE = {
   cardDetail: '123-123123-123',
   userType: 0, // 0 = vendor, 1 = student
   vendorDetails: [],
+  bookmark: [],
 };
+
+export const ADD_BOOKMARK = 'ADD_BOOKMARK';
+export const REMOVE_BOOKMARK = 'REMOVE_BOOKMARK';
 
 export default function userProfile(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -20,6 +24,18 @@ export default function userProfile(state = INITIAL_STATE, action) {
       return {
         ...state,
         vendorDetails: action.data,
+      };
+    }
+    case ADD_BOOKMARK: {
+      return {
+        ...state,
+        bookmark: [...action.bookmark],
+      };
+    }
+    case REMOVE_BOOKMARK: {
+      return {
+        ...state,
+        bookmark: [...action.bookmark],
       };
     }
     default:

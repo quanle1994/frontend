@@ -1,5 +1,5 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -11,15 +11,14 @@ import Add from '@material-ui/icons/Add';
 
 import Remove from '@material-ui/icons/Remove';
 import Button from '@material-ui/core/Button/Button';
-import { history } from '../_helpers';
-import { canteenConstants } from '../_constants';
 import config from 'config';
-
-
+import { history } from '../_helpers';
 
 const styles = theme => ({
   card: {
-    width: 400,
+    width: '100%',
+    marginTop: 10,
+    marginBottom: 20,
   },
   media: {
     height: 0,
@@ -38,7 +37,6 @@ const styles = theme => ({
 });
 
 class MenuCard extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -52,21 +50,55 @@ class MenuCard extends React.Component {
     this.setState(state => ({ expanded: !state.expanded }));
   };
 
+  handleOnClick = (dish, currentStore) => {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        amount: this.state.quantity,
+        dish: {
+          description: dish.description,
+          id: dish.id,
+          isAvailable: dish.isAvailable,
+          name: dish.name,
+          price: dish.price,
+          store: {
+            id: currentStore.id,
+            name: currentStore.name,
+          },
+        },
+      }),
+    };
+
+    console.log(`###Printing the order request:\n${JSON.stringify(requestOptions, undefined, 2)}`);
+    fetch(`${config.apiUrl}/Resource/orderDishes`, requestOptions)
+      .then(
+        response => response.json(),
+
+        error => error,
+      );
+    history.push('/homepage/cart');
+  };
+
   render() {
-    const { classes } = this.props;
+    const { classes, dish } = this.props;
     const { quantity } = this.state;
     const adjustQuantity = (value) => {
       this.setState({
         quantity: Math.max(0, quantity + value),
-      })
+      });
     };
 
     const currentStore = JSON.parse(localStorage.getItem('currentStore'));
     const { dishes } = currentStore;
-    console.log(`#####dishes:\n${JSON.stringify(dishes,undefined,2)}`);
+    console.log(`#####dishes:\n${JSON.stringify(dishes, undefined, 2)}`);
 
-    const dishCards = dishes.map(dish => {
-      return (
+    return (
+      <div>
         <Card className={classes.card} key={dish.id}>
           <CardMedia
             className={classes.media}
@@ -82,19 +114,19 @@ class MenuCard extends React.Component {
               style={{
                 fontSize: 15,
                 display: 'inline-block',
-
               }}
             >
               {dish.name}
             </Typography>
             <CardActions
-              className={classes.actions} disableActionSpacing
+              className={classes.actions}
+              disableActionSpacing
               style={{
                 display: 'inline-block',
                 verticalAlign: 'baseline',
               }}
             >
-              <IconButton aria-label="Add quantity" onClick={ () => adjustQuantity(1) }>
+              <IconButton aria-label="Add quantity" onClick={() => adjustQuantity(1)}>
                 <Add className={classes.icon} />
               </IconButton>
               <Typography
@@ -107,7 +139,7 @@ class MenuCard extends React.Component {
               >
                 {quantity}
               </Typography>
-              <IconButton aria-label="Minus quantity" onClick={ () => adjustQuantity(-1)} >
+              <IconButton aria-label="Minus quantity" onClick={() => adjustQuantity(-1)}>
                 <Remove className={classes.icon} />
               </IconButton>
               <Button
@@ -122,63 +154,22 @@ class MenuCard extends React.Component {
                   justifyItems: 'center',
                   alignItems: 'center',
                 }}
-                onClick={() => {
-                  const {token} = JSON.parse(localStorage.getItem('user'));
-                  const requestOptions = {
-                    method: 'POST',
-                    headers: {
-                      Authorization: token,
-                      "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                      amount: this.state.quantity,
-                      dish: {
-                        description: dish.description,
-                        id: dish.id,
-                        isAvailable: dish.isAvailable,
-                        name: dish.name,
-                        price: dish.price,
-                        store: {
-                          id: currentStore.id,
-                          name: currentStore.name
-                        },
-                      }
-                    })
-                  };
-
-                  console.log(`###Printing the order request:\n${JSON.stringify(requestOptions, undefined, 2)}`);
-                  fetch(`${config.apiUrl}/Resource/orderDishes`, requestOptions)
-                    .then(
-                      response => response.json(),
-
-                      error => error
-                    );
-                  history.push('/homepage/cart');
-                }}
+                onClick={() => this.handleOnClick(dish, currentStore)}
               >
                 <Typography style={{
                   fontSize: 15,
                   color: '#CB9D1B',
                 }}
-                >Add To Cart
+                >
+                  Add To Cart
                 </Typography>
               </Button>
             </CardActions>
           </CardContent>
         </Card>
-      );
-    });
-
-    return (
-      <div>
-        {dishCards}
       </div>
     );
   }
 }
-
-MenuCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(MenuCard);

@@ -1,16 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-import InboxIcon from '@material-ui/icons/Inbox';
-import Badge from '@material-ui/core/Badge';
-import BookmarkStores from './BookmarkStores';
 import RemoveIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
+import { compose } from 'redux';
+import connect from 'react-redux/es/connect/connect';
+import BookmarkStores from './BookmarkStores';
+import { REMOVE_BOOKMARK } from '../_reducers/userProfile.reducer';
 
 const styles = theme => ({
   root: {
@@ -19,25 +17,39 @@ const styles = theme => ({
   },
 });
 
-function BookmarkList(props) {
-  const { classes } = props;
-  return (
-    <div className={classes.root}>
-      <List component="nav">
-        <ListItem>
-          <BookmarkStores/>
-          <IconButton className={classes.button} aria-label="Delete">
-          <RemoveIcon/>
-          </IconButton>
-        </ListItem>
-      </List>
-      <Divider />
-    </div>
-  );
+class BookmarkList extends React.Component {
+  removeBookmark = (id) => {
+    const { dispatch, bookmark } = this.props;
+    dispatch({
+      type: REMOVE_BOOKMARK,
+      bookmark: bookmark.filter(b => b.id !== id),
+    });
+  };
+
+  render() {
+    const { classes, bookmark } = this.props;
+    return (
+      <div className={classes.root}>
+        <List component="nav">
+          {bookmark.map(b => (
+            <ListItem>
+              <BookmarkStores store={b} />
+              <IconButton className={classes.button} aria-label="Delete" onClick={() => this.removeBookmark(b.id)}>
+                <RemoveIcon />
+              </IconButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+      </div>
+    );
+  }
 }
 
-BookmarkList.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+const mapStateToProps = state => ({
+  bookmark: state.userProfile.bookmark,
+});
 
-export default withStyles(styles)(BookmarkList);
+const mapDispatchToProps = dispatch => ({ dispatch });
+
+export default compose(connect(mapStateToProps, mapDispatchToProps), withStyles(styles))(BookmarkList);

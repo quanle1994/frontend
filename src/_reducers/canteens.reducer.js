@@ -1,5 +1,5 @@
 import {
-  canteenConstants
+  canteenConstants,
 } from '../_constants/canteen.constants';
 
 const INITIAL_STATE = {};
@@ -9,12 +9,12 @@ export function canteens(state = INITIAL_STATE, action) {
     case canteenConstants.GETALL_SUCCESS:
       return {
         login: true,
-        canteens: action.canteens
+        canteens: action.canteens,
       };
     case canteenConstants.SET_CURRENT_CANTEEN:
       return {
         currentCanteen: action.currentCanteen,
-        ...state
+        ...state,
       };
     default:
       return state;

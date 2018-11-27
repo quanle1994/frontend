@@ -19,22 +19,18 @@ class CanteenPage extends Component {
     const { dispatch } = this.props;
     this.setState({}, () => dispatch({
       type: SET_CURRENT_PAGE,
-      page: 1,
+      page: 0,
     }));
   }
 
   onCanteenClick(canteenId) {
     console.log('####clicked a canteen');
-    const { dispatch } = this.props;
-    dispatch({
-      type: SET_CURRENT_PAGE,
-      currentCanteen: canteenId,
-    });
-    history.push('/homepage/store');
+    history.push(`/homepage/store/${canteenId}`);
   }
 
 
   render() {
+    const { canteens } = this.props;
     return (
       <div>
         <Typography
@@ -46,22 +42,20 @@ class CanteenPage extends Component {
           }}
         >Canteen
         </Typography>
-        <div className="col-xs-6" onClick={() => this.onCanteenClick(0)}>
-          <CanteenCard />
-        </div>
-        <div className="col-xs-6" onClick={() => this.onCanteenClick(1)}>
-          <CanteenCard1 />
-        </div>
-        <div className="col-xs-6" onClick={() => this.onCanteenClick(2)}>
-          <CanteenCard2 />
-        </div>
+        {canteens !== undefined && canteens.map(c => (
+          <div className="col-xs-6" onClick={() => this.onCanteenClick(c.id)}>
+            <CanteenCard canteen={c} />
+          </div>
+        )) }
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  canteens: state.canteens.canteens,
+});
 
 const mapDispatchToProps = dispatch => ({ dispatch });
 
-export default connect()(CanteenPage);
+export default connect(mapStateToProps, mapDispatchToProps)(CanteenPage);
