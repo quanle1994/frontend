@@ -88,7 +88,7 @@ class LoginPage extends React.Component {
           >
             <label htmlFor="email">Username</label>
             <input
-              style={{ width: "35vh" }}
+              style={{ width: "35vh", fontSize: 16 }}
               type="text"
               className="form-control"
               name="email"
@@ -106,7 +106,7 @@ class LoginPage extends React.Component {
           >
             <label htmlFor="password">Password</label>
             <input
-              style={{ width: "35vh" }}
+              style={{ width: "35vh", fontSize: 16 }}
               type="password"
               className="form-control"
               name="password"

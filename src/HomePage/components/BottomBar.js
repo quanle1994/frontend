@@ -119,14 +119,17 @@ class BottomBar extends Component {
             history.push("/homepage/bookmark");
           }}
           icon={
-            <Badge
-              className={classes.margin}
-              badgeContent={bookmark.length}
-              color="secondary"
-              invisible={bookmark.length === 0}
-            >
+            bookmark.length > 0 ? (
+              <Badge
+                className={classes.margin}
+                badgeContent={bookmark.length}
+                color="secondary"
+              >
+                <Bookmark className={classes.icon} />
+              </Badge>
+            ) : (
               <Bookmark className={classes.icon} />
-            </Badge>
+            )
           }
         />
         <BottomNavigationAction
@@ -139,14 +142,17 @@ class BottomBar extends Component {
             history.push("/homepage/cart");
           }}
           icon={
-            <Badge
-              className={classes.margin}
-              badgeContent={cartItems.length}
-              color="secondary"
-              invisible={cartItems.length === 0}
-            >
+            cartItems.length > 0 ? (
+              <Badge
+                className={classes.margin}
+                badgeContent={cartItems.length}
+                color="secondary"
+              >
+                <ShoppingCart className={classes.icon} />
+              </Badge>
+            ) : (
               <ShoppingCart className={classes.icon} />
-            </Badge>
+            )
           }
         />
 
@@ -159,15 +165,18 @@ class BottomBar extends Component {
           onClick={() => {
             history.push("/homepage/trackOrder");
           }}
-          invisible={orders.length === 0}
           icon={
-            <Badge
-              className={classes.margin}
-              badgeContent={orders.length}
-              color="secondary"
-            >
+            orders.length > 0 ? (
+              <Badge
+                className={classes.margin}
+                badgeContent={orders.length}
+                color="secondary"
+              >
+                <Assignment className={classes.icon} />
+              </Badge>
+            ) : (
               <Assignment className={classes.icon} />
-            </Badge>
+            )
           }
         />
       </BottomNavigation>

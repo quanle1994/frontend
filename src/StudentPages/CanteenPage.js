@@ -55,7 +55,7 @@ class CanteenPage extends Component {
         {canteens !== undefined &&
           canteens.map(c => (
             <div
-              className="col-xs-6"
+              className="col-xs-6 col-sm-4 col-md-3"
               key={c.id}
               onClick={() => this.onCanteenClick(c.id)}
             >

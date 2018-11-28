@@ -60,5 +60,5 @@
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.8.2"
   },
-  "proxy": "http://172.31.82.167:8080/Qoodie-war/"
+  "proxy": "http://localhost:8080/Qoodie-war/"
 }

@@ -52,7 +52,7 @@ class CanteenStorePage extends React.Component {
     const storeCards =
       canteen.stores !== undefined &&
       canteen.stores.map(s => (
-        <div className="col-xs-6">
+        <div key={s.id} className="col-xs-6">
           <StoreCard canteen={canteen} qoodieStore={s} key={s.id} />
         </div>
       ));
