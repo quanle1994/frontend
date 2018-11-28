@@ -45,7 +45,7 @@ class VendorConfirmOrderReadyDialog extends React.Component {
           size="small"
           // component={Link}
           style={{
-            borderColor: '#CB9D1B',
+            borderColor: '#DAA520',
             backgroundColor: 'floralWhite',
             textTransform: 'none',
             textDecoration: 'none',
@@ -59,7 +59,7 @@ class VendorConfirmOrderReadyDialog extends React.Component {
         >
           <Typography style={{
             fontSize: 15,
-            color: '#CB9D1B',
+            color: '#DAA520',
           }}
           >Ready
           </Typography>
@@ -82,7 +82,7 @@ class VendorConfirmOrderReadyDialog extends React.Component {
             <Typography
               variant="h4"
               style={{
-                color: '#CB9D1B',
+                color: '#DAA520',
               }}
             >
               Order ready for collection?
@@ -100,7 +100,7 @@ class VendorConfirmOrderReadyDialog extends React.Component {
               variant="outlined"
               size="medium"
               style={{
-                borderColor: '#CB9D1B',
+                borderColor: '#DAA520',
                 backgroundColor: 'floralWhite',
                 textTransform: 'none',
                 textDecoration: 'none',
@@ -112,7 +112,7 @@ class VendorConfirmOrderReadyDialog extends React.Component {
             >
               <Typography style={{
                 fontSize: 15,
-                color: '#CB9D1B',
+                color: '#DAA520',
               }}
               >
                 Yes
@@ -123,7 +123,7 @@ class VendorConfirmOrderReadyDialog extends React.Component {
               variant="outlined"
               size="medium"
               style={{
-                borderColor: '#CB9D1B',
+                borderColor: '#DAA520',
                 backgroundColor: 'floralWhite',
                 textTransform: 'none',
                 textDecoration: 'none',
@@ -135,7 +135,7 @@ class VendorConfirmOrderReadyDialog extends React.Component {
             >
               <Typography style={{
                 fontSize: 15,
-                color: '#CB9D1B',
+                color: '#DAA520',
               }}
               >
                 No

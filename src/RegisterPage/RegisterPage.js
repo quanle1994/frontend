@@ -112,7 +112,7 @@ class RegisterPage extends React.Component {
                 style={{
                   marginTop: 10,
                   fontSize: 25,
-                  color: '#CB9D1B',
+                  color: '#DAA520',
                 }}
                 onClick={() => {}}
               >

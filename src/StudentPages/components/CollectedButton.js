@@ -27,7 +27,7 @@ class CollectedButton extends React.Component {
           size="medium"
           // component={Link}
           style={{
-            borderColor: '#CB9D1B',
+            borderColor: '#DAA520',
             backgroundColor: 'floralWhite',
             textTransform: 'none',
             textDecoration: 'none',
@@ -41,7 +41,7 @@ class CollectedButton extends React.Component {
         >
           <Typography style={{
             fontSize: 15,
-            color: '#CB9D1B',
+            color: '#DAA520',
           }}
           >Collected
           </Typography>
@@ -63,7 +63,7 @@ class CollectedButton extends React.Component {
             <Typography
               variant="h4"
               style={{
-                color: '#CB9D1B',
+                color: '#DAA520',
               }}
             >
               Confirm Collection
@@ -80,7 +80,7 @@ class CollectedButton extends React.Component {
               variant="outlined"
               size="medium"
               style={{
-                borderColor: '#CB9D1B',
+                borderColor: '#DAA520',
                 backgroundColor: 'floralWhite',
                 textTransform: 'none',
                 textDecoration: 'none',
@@ -91,7 +91,7 @@ class CollectedButton extends React.Component {
               }}>
               <Typography style={{
                 fontSize: 15,
-                color: '#CB9D1B',
+                color: '#DAA520',
               }}
               >
                 Yes
@@ -102,7 +102,7 @@ class CollectedButton extends React.Component {
               variant="outlined"
               size="medium"
               style={{
-                borderColor: '#CB9D1B',
+                borderColor: '#DAA520',
                 backgroundColor: 'floralWhite',
                 textTransform: 'none',
                 textDecoration: 'none',
@@ -113,7 +113,7 @@ class CollectedButton extends React.Component {
               }}>
               <Typography style={{
                 fontSize: 15,
-                color: '#CB9D1B',
+                color: '#DAA520',
               }}
               >
                 No

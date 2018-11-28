@@ -1,20 +1,21 @@
-import React from 'react';
-import { Router, Route, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React from "react";
+import { Router, Route, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 
-import MetaTags from 'react-meta-tags';
-import { history } from '../_helpers';
-import { alertActions } from '../_actions';
+import MetaTags from "react-meta-tags";
+import { history } from "../_helpers";
+import { alertActions } from "../_actions";
 
-import { LoginPage } from '../LoginPage';
-import { RegisterPage } from '../RegisterPage';
-import HomePage from '../HomePage/index';
-import UserTypePage from '../LoginPage/UserTypePage';
-import RegisterVendorPage from '../RegisterPage/RegisterVendorPage';
-import VendorPages from '../VendorPages';
+import { LoginPage } from "../LoginPage";
+import { RegisterPage } from "../RegisterPage";
+import HomePage from "../HomePage/index";
+import UserTypePage from "../LoginPage/UserTypePage";
+import RegisterVendorPage from "../RegisterPage/RegisterVendorPage";
+import VendorPages from "../VendorPages";
 import VendorMenuPage from "../VendorPages/VendorMenu/VendorMenuPage";
 
-export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+export const SET_CURRENT_TITLE = "SET_CURRENT_TITLE";
 
 function ContentPage() {
   return (
@@ -23,8 +24,13 @@ function ContentPage() {
         <Route
           exact
           path="/"
-          render={() => localStorage.getItem('store') !== null ? <Redirect to={{ pathname: '/vendor/menu' }} />
-            : <Redirect to={{ pathname: '/homepage' }} />}
+          render={() =>
+            localStorage.getItem("store") !== null ? (
+              <Redirect to={{ pathname: "/vendor/menu" }} />
+            ) : (
+              <Redirect to={{ pathname: "/homepage" }} />
+            )
+          }
         />
         <Route path="/homepage" component={HomePage} />
         <Route path="/vendor" component={VendorPages} />
@@ -49,13 +55,16 @@ class App extends React.Component {
     return (
       <div id="parentWrapper" className="wrapper">
         <MetaTags>
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
         </MetaTags>
         <div>
           <div className="col">
-            {alert.message
-                        && <div className={`alert ${alert.type}`}>{alert.message}</div>
-                        }
+            {alert.message && (
+              <div className={`alert ${alert.type}`}>{alert.message}</div>
+            )}
             <Router history={history}>
               <div>
                 {/* <PrivateRoute exact path="/" component={HomePage} /> */}
@@ -63,14 +72,20 @@ class App extends React.Component {
                 <Route exact path="/login" component={LoginPage} />
                 <Route exact path="/userType" component={UserTypePage} />
                 <Route exact path="/registerStudent" component={RegisterPage} />
-                <Route exact path="/registerVendor" component={RegisterVendorPage} />
+                <Route
+                  exact
+                  path="/registerVendor"
+                  component={RegisterVendorPage}
+                />
                 <Route
                   path="/"
-                  render={() => (
-                    localStorage.getItem('user')
-                      ? <ContentPage />
-                      : <Redirect to={{ pathname: '/login' }} />
-                  )}
+                  render={() =>
+                    localStorage.getItem("user") ? (
+                      <ContentPage />
+                    ) : (
+                      <Redirect to={{ pathname: "/login" }} />
+                    )
+                  }
                 />
               </div>
             </Router>
@@ -81,11 +96,10 @@ class App extends React.Component {
   }
 }
 
-
 function mapStateToProps(state) {
   const { alert } = state;
   return {
-    alert,
+    alert
   };
 }
 

@@ -15,7 +15,7 @@ const styles = {
   media: {
     height: '40vw',
     border: '3px solid',
-    borderColor: '#CB9D1B',
+    borderColor: '#DAA520',
   },
   wrapper: {
     width: '100%',

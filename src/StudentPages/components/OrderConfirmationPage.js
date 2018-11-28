@@ -65,7 +65,7 @@ class OrderConfirmationPage extends React.Component {
           size="medium"
           // component={Link}
           style={{
-            borderColor: '#CB9D1B',
+            borderColor: '#DAA520',
             backgroundColor: 'floralWhite',
             textTransform: 'none',
             textDecoration: 'none',
@@ -80,7 +80,7 @@ class OrderConfirmationPage extends React.Component {
         >
           <Typography style={{
             fontSize: 15,
-            color: '#CB9D1B',
+            color: '#DAA520',
           }}
           >
             Order
@@ -104,7 +104,7 @@ class OrderConfirmationPage extends React.Component {
             <Typography
               variant="h4"
               style={{
-                color: '#CB9D1B',
+                color: '#DAA520',
               }}
             >
             Proceed with payment?
@@ -143,7 +143,7 @@ class OrderConfirmationPage extends React.Component {
               variant="outlined"
               size="medium"
               style={{
-                borderColor: '#CB9D1B',
+                borderColor: '#DAA520',
                 backgroundColor: 'floralWhite',
                 textTransform: 'none',
                 textDecoration: 'none',
@@ -155,7 +155,7 @@ class OrderConfirmationPage extends React.Component {
             >
               <Typography style={{
                 fontSize: 15,
-                color: '#CB9D1B',
+                color: '#DAA520',
               }}
               >
               Pay
@@ -166,7 +166,7 @@ class OrderConfirmationPage extends React.Component {
               variant="outlined"
               size="medium"
               style={{
-                borderColor: '#CB9D1B',
+                borderColor: '#DAA520',
                 backgroundColor: 'floralWhite',
                 textTransform: 'none',
                 textDecoration: 'none',
@@ -178,7 +178,7 @@ class OrderConfirmationPage extends React.Component {
             >
               <Typography style={{
                 fontSize: 15,
-                color: '#CB9D1B',
+                color: '#DAA520',
               }}
               >
               Close

@@ -55,7 +55,7 @@ class VendorProfile extends React.Component {
           <Typography
             variant="h4"
             style={{
-              color: '#CB9D1B',
+              color: '#DAA520',
             }}
           >
             Personal Account
@@ -68,7 +68,7 @@ class VendorProfile extends React.Component {
                     <Typography
                       variant="h6"
                       style={{
-                        color: '#CB9D1B',
+                        color: '#DAA520',
                         fontSize: 14,
                       }}
                     >
@@ -97,7 +97,7 @@ class VendorProfile extends React.Component {
           <Button
             variant="contained"
             style={{
-              backgroundColor: '#CB9D1B',
+              backgroundColor: '#DAA520',
               width: '80%',
               marginTop: 20,
               marginBottom: 20,

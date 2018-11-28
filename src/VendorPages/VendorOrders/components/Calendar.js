@@ -47,7 +47,7 @@ class Calendar extends React.Component {
             <Typography
               style={{
                 fontSize: 20,
-                color: '#CB9D1B',
+                color: '#DAA520',
               }}
             >Select Start Date
             </Typography>
@@ -79,7 +79,7 @@ class Calendar extends React.Component {
             <Typography
               style={{
                 fontSize: 20,
-                color: '#CB9D1B',
+                color: '#DAA520',
               }}
             >Select End Date
             </Typography>

@@ -20,7 +20,7 @@ class UserTypePage extends React.Component {
           variant="h2"
           style={{
             marginTop: 40,
-            color: '#CB9D1B',
+            color: '#DAA520',
           }}
         >I am a ...
         </Typography>
@@ -32,7 +32,7 @@ class UserTypePage extends React.Component {
             size="large"
             component={Link}
             style={{
-              borderColor: '#CB9D1B',
+              borderColor: '#DAA520',
               width: 140,
               height: 140,
               textTransform: 'none',
@@ -47,7 +47,7 @@ class UserTypePage extends React.Component {
             <Typography
               variant="h4"
               style={{
-                color: '#CB9D1B',
+                color: '#DAA520',
               }}
             >Student
             </Typography>
@@ -57,7 +57,7 @@ class UserTypePage extends React.Component {
             size="large"
             component={Link}
             style={{
-              borderColor: '#CB9D1B',
+              borderColor: '#DAA520',
               width: 140,
               height: 140,
               textTransform: 'none',
@@ -72,7 +72,7 @@ class UserTypePage extends React.Component {
             <Typography
               variant="h4"
               style={{
-                color: '#CB9D1B',
+                color: '#DAA520',
               }}
             >Vendor
             </Typography>

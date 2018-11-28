@@ -11,7 +11,7 @@ class VendorTotalRevenue extends React.Component {
         <Typography
           variant="h4"
           style={{
-            color: '#CB9D1B',
+            color: '#DAA520',
             marginTop: 20,
             marginLeft: '4vw',
             display: 'inline-block',

@@ -175,7 +175,7 @@ class MenuCard extends React.Component {
                 size="medium"
                 // component={Link}
                 style={{
-                  borderColor: '#CB9D1B',
+                  borderColor: '#DAA520',
                   backgroundColor: 'floralWhite',
                   textTransform: 'none',
                   textDecoration: 'none',
@@ -186,7 +186,7 @@ class MenuCard extends React.Component {
               >
                 <Typography style={{
                   fontSize: 15,
-                  color: '#CB9D1B',
+                  color: '#DAA520',
                 }}
                 >
                   Add To Cart
