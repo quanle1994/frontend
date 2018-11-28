@@ -3,21 +3,10 @@ import * as React from 'react';
 import connect from 'react-redux/es/connect/connect';
 import Typography from '@material-ui/core/Typography/Typography';
 import TrackOrderList from './TrackOrderList';
-import { cartService } from '../_services';
 import { SET_CURRENT_PAGE } from '../App';
 
 
 class TrackOrderPage extends React.Component {
-  constructor(props) {
-    super(props);
-    cartService.getOrders();
-    const orders = JSON.parse(localStorage.getItem('orderStatus'));
-    console.log(JSON.stringify(orders, undefined, 2));
-    this.state = {
-      orders: orders === null ? [] : orders,
-    };
-  }
-
   componentWillMount() {
     const { dispatch } = this.props;
     this.setState({}, () => dispatch({
@@ -27,12 +16,10 @@ class TrackOrderPage extends React.Component {
   }
 
   render() {
-    const { orders } = this.state;
-    const orderLists = orders.map(order => (
+    const { orders } = this.props;
+    const orderLists = orders.sort((o1, o2) => o1.created >= o2.created ? -1 : 1).filter(o => o.customerOrderType.name !== 'IN BASKET').map(order => (
       <TrackOrderList order={order} key={order.id} />
     ));
-
-
     return (
       <div>
         <Typography
@@ -42,7 +29,7 @@ class TrackOrderPage extends React.Component {
             marginTop: 20,
             marginLeft: '4vw',
           }}
-        >Order Status
+        >Orders
         </Typography>
         <div>
           {orderLists}
@@ -53,7 +40,9 @@ class TrackOrderPage extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  orders: state.userProfile.orders,
+});
 
 const mapDispatchToProps = dispatch => ({ dispatch });
 

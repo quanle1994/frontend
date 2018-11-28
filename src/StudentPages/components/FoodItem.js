@@ -1,10 +1,7 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography/Typography';
-import Button from '@material-ui/core/Button/Button';
-import TotalAmount from './TotalAmount';
-import OrderConfirmationDialog from './OrderConfirmationPage';
+import Divider from '@material-ui/core/Divider/Divider';
 import OrderItems from './OrderItems';
 
 const styles = {
@@ -15,30 +12,22 @@ const styles = {
 };
 
 function FoodItem(props) {
-  const {
-    classes, data, total, orderId,
-  } = props;
-  if (!data) {
-    return (
-      <div />
-    );
-  }
-  console.log(`******order:\n${JSON.stringify(data, undefined, 2)}`);
+  const { classes, data } = props;
+  if (!data) return null;
+  // console.log(`******order:\n${JSON.stringify(data, undefined, 2)}`);
 
   return (
     <div className={classes.wrapper}>
       <div style={{
         overflow: 'hidden',
+        paddingBottom: 10,
+        paddingTop: 10,
       }}
       >
         <OrderItems dish={data} />
-        <TotalAmount dish={data} total={total} />
       </div>
-      <div className="col-xs-8" />
-      <OrderConfirmationDialog total={total} orderId={orderId} data={data} />
+      <Divider />
     </div>
-
-
   );
 }
 

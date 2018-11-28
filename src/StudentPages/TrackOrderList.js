@@ -23,6 +23,10 @@ const styles = theme => ({
 
 function TrackOrderList(props) {
   const { classes, order } = props;
+  const orderTotal = new Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'SGD',
+  }).format(order.price);
   return (
     <div className={classes.root}>
       <ExpansionPanel>
@@ -30,7 +34,7 @@ function TrackOrderList(props) {
           className={classes.heading}
           expandIcon={<ExpandMoreIcon />}
         >
-          <div className="col-xs-7">
+          <div className="col-xs-4">
             <Typography
               style={{
                 fontSize: 20,
@@ -39,7 +43,7 @@ function TrackOrderList(props) {
               {order.id}
             </Typography>
           </div>
-          <div className="col-xs-5">
+          <div className="col-xs-4">
             <Typography
               style={{
                 paddingLeft: 5,
@@ -47,6 +51,16 @@ function TrackOrderList(props) {
               }}
             >
               {order.customerOrderType.name}
+            </Typography>
+          </div>
+          <div className="col-xs-4">
+            <Typography
+              style={{
+                paddingLeft: 5,
+                fontSize: 15,
+              }}
+            >
+              {orderTotal}
             </Typography>
           </div>
         </ExpansionPanelSummary>
