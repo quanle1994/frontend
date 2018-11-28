@@ -35,17 +35,17 @@ class BookmarkList extends React.Component {
         <List component="nav">
           {bookmark.map((b, index) => (
             <ListItem
-              key={index}
+              key={b.id}
               onClick={() =>
                 history.push(`/homepage/menu/${b.canteen}/${b.id}`)
               }
             >
-              <BookmarkStores key={index} store={b} />
+              <BookmarkStores key={b.id} store={b} />
               <IconButton
                 key={index}
                 className={classes.button}
                 aria-label="Delete"
-                onClick={(e) => this.removeBookmark(e, b.id)}
+                onClick={e => this.removeBookmark(e, b.id)}
               >
                 <RemoveIcon />
               </IconButton>

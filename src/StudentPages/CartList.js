@@ -76,12 +76,14 @@ function CartList(props) {
               currency: "SGD"
             }).format(t);
             return (
-              <ExpansionPanel>
+              <ExpansionPanel key={canteens[k].id}>
                 <ExpansionPanelSummary
+                  key={canteens[k].id}
                   className={classes.heading}
-                  expandIcon={<ExpandMoreIcon />}
+                  expandIcon={<ExpandMoreIcon key={canteens[k].id} />}
                 >
                   <Typography
+                    key={canteens[k].id}
                     style={{
                       fontSize: 20
                     }}
@@ -90,6 +92,7 @@ function CartList(props) {
                     :&nbsp;
                   </Typography>
                   <Typography
+                    key={canteens[k].id}
                     style={{
                       paddingLeft: 5,
                       fontSize: 20
@@ -98,6 +101,7 @@ function CartList(props) {
                     {trimmedDishName || "storeName"}
                   </Typography>
                   <Typography
+                    key={canteens[k].id}
                     style={{
                       marginLeft: 18,
                       fontSize: 20
@@ -106,7 +110,7 @@ function CartList(props) {
                     {oPrice}
                   </Typography>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
+                <ExpansionPanelDetails key={canteens[k].id}>
                   {/* <div className={classes.wrapper}> */}
                   {/* <OrderItems data={data}/> */}
                   {/* <TotalAmount total={total} /> */}
@@ -115,15 +119,15 @@ function CartList(props) {
                   {/* <OrderConfirmationDialog total={total} orderId={orderId} data={data}/> */}
                   {/* </div> */}
                   {/* </div> */}
-                  <div>
+                  <div key={canteens[k].id}>
                     {ods.map((orderDish, index) => (
                       <FoodItem
-                        key={index}
+                        key={orderDish.id}
                         data={orderDish}
                         orderId={orderId}
                       />
                     ))}
-                    <TotalAmount key={index} dish={data} total={t} />
+                    <TotalAmount key={canteens[k].id} dish={data} total={t} />
                   </div>
                 </ExpansionPanelDetails>
               </ExpansionPanel>

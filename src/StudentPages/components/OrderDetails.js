@@ -21,8 +21,9 @@ function OrderDetails(props) {
         paddingBottom: 10
       }}
     >
-      <Divider key={index} />
+      <Divider key={dish.id} />
       <div
+        key={dish.id}
         style={{
           paddingTop: 10,
           overflow: "hidden",
@@ -30,7 +31,7 @@ function OrderDetails(props) {
         }}
       >
         <Typography
-          key={index}
+          key={dish.id}
           variant="h5"
           style={{
             color: "#CB9D1B"
@@ -44,7 +45,7 @@ function OrderDetails(props) {
           overflow: "hidden"
         }}
       >
-        <OrderItems key={index} dish={dish} />
+        <OrderItems key={dish.id} dish={dish} />
       </div>
     </div>
   ));
