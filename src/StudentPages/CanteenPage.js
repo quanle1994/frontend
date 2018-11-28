@@ -22,11 +22,10 @@ class CanteenPage extends Component {
     dispatch(canteenActions.getAllCanteens());
   }
 
-  onCanteenClick(canteenId) {
-    console.log('####clicked a canteen');
+  onCanteenClick = (canteenId) => {
+    // console.log('####clicked a canteen');
     history.push(`/homepage/store/${canteenId}`);
-  }
-
+  };
 
   render() {
     const { canteens } = this.props;

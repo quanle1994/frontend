@@ -20,15 +20,8 @@ class CartPage extends Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { cart } = nextProps;
-    const cartItems = Object.keys(cart).map(k => cart[k].dish);
-    this.setState({ cartItems });
-  }
-
   render() {
     const { cart } = this.props;
-    // const { orders } = this.props;
     console.table(cart);
 
     return (

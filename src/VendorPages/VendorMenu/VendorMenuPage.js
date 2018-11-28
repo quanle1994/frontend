@@ -12,19 +12,19 @@ import VendorProfile from './components/VendorProfile';
 export const GET_VENDOR_DETAILS_SUCCESS = 'GET_VENDOR_DETAILS_SUCCESS';
 class VendorMenuPage extends React.Component {
   componentWillMount() {
-    // const { dispatch } = this.props;
-    // api.getVendorDetails(JSON.parse(localStorage.getItem('user')).id)
-    //   .then((response) => {
-    //     dispatch({
-    //       type: GET_VENDOR_DETAILS_SUCCESS,
-    //       data: response.data,
-    //     });
-    //     localStorage.setItem('store', JSON.stringify(response.data));
-    //   }).catch(error => ErrorDialog('retrieving vendor details', error));
-    // this.setState({}, () => dispatch({
-    //   type: SET_CURRENT_PAGE,
-    //   page: 0,
-    // }));
+    const { dispatch } = this.props;
+    api.getVendorDetails(JSON.parse(localStorage.getItem('user')).id)
+      .then((response) => {
+        dispatch({
+          type: GET_VENDOR_DETAILS_SUCCESS,
+          data: response.data,
+        });
+        localStorage.setItem('store', JSON.stringify(response.data));
+      }).catch(error => ErrorDialog('retrieving vendor details', error));
+    this.setState({}, () => dispatch({
+      type: SET_CURRENT_PAGE,
+      page: 0,
+    }));
   }
 
   render() {

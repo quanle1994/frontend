@@ -1,9 +1,5 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography/Typography';
-import Button from '@material-ui/core/Button/Button';
-import TotalAmount from './TotalAmount';
-import OrderConfirmationDialog from './OrderConfirmationPage';
 
 const styles = {
   wrapper: {

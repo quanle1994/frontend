@@ -7,8 +7,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography/Typography';
+import connect from 'react-redux/es/connect/connect';
 import { customerService } from '../../_services';
 import { history } from '../../_helpers/history';
+import customerApi from '../../_api/customers';
+import { GET_USER_ORDERS_SUCCESS } from '../../_reducers/userProfile.reducer';
 
 class OrderConfirmationPage extends React.Component {
   constructor(props) {
@@ -24,9 +27,21 @@ class OrderConfirmationPage extends React.Component {
     this.setState({ open: false });
   };
 
+  getOrder = () => {
+    const { dispatch } = this.props;
+    customerApi.orders().then((response) => {
+      dispatch({
+        type: GET_USER_ORDERS_SUCCESS,
+        orders: response.data.filter(o => o.customerOrderType.name !== 'IN BASKET'),
+        cart: response.data.filter(o => o.customerOrderType.name === 'IN BASKET'),
+      });
+      history.push('/homepage/trackOrder');
+    });
+  };
+
   render() {
-    const { data } = this.props;
-    const total = data.amount * data.dish.price;
+    const { total } = this.props;
+    // const total = data.amount * data.dish.price;
     const { orderId } = this.props;
     console.log(`@@@orderId: ${orderId}`);
     if (!this.props.orderId) {
@@ -92,7 +107,6 @@ class OrderConfirmationPage extends React.Component {
                 color: '#CB9D1B',
               }}
             >
-
             Proceed with payment?
             </Typography>
           </DialogTitle>
@@ -125,7 +139,7 @@ class OrderConfirmationPage extends React.Component {
             }}
           >
             <Button
-              onClick={() => customerService.pay(orderNum).then(() => history.push('/homepage/trackOrder'))}
+              onClick={() => customerService.pay(orderNum).then(this.getOrder)}
               variant="outlined"
               size="medium"
               style={{
@@ -177,4 +191,8 @@ class OrderConfirmationPage extends React.Component {
   }
 }
 
-export default OrderConfirmationPage;
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = dispatch => ({ dispatch });
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderConfirmationPage);

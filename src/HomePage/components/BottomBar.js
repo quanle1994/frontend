@@ -56,10 +56,30 @@ class SimpleBottomNavigation extends React.Component {
     });
   }
 
-  render() {
-    const { classes, bookmark, orders } = this.props;
-    const { value } = this.state;
+  getCartItems = () => {
+    const { cart } = this.props;
+    const canteens = {};
+    cart.map((c) => {
+      const { orderDishes } = c;
+      orderDishes.map((od) => {
+        const canteen = canteens[`${od.dish.store.canteen.id}||${od.dish.store.id}`];
+        if (canteen === undefined) canteens[`${od.dish.store.canteen.id}||${od.dish.store.id}`] = { orderDishes: [] };
+        canteens[`${od.dish.store.canteen.id}||${od.dish.store.id}`].orderDishes.push(od);
+        canteens[`${od.dish.store.canteen.id}||${od.dish.store.id}`].canteenName = od.dish.store.canteen.name;
+        canteens[`${od.dish.store.canteen.id}||${od.dish.store.id}`].storeName = od.dish.store.name;
+        return true;
+      });
+      return true;
+    });
+    return Object.keys(canteens);
+  };
 
+  render() {
+    const {
+      classes, bookmark, orders, cart,
+    } = this.props;
+    const { value } = this.state;
+    const cartItems = this.getCartItems();
     const handleChange = (event, val) => {
       this.setState({ value: val });
     };
@@ -87,7 +107,7 @@ class SimpleBottomNavigation extends React.Component {
           }}
           onClick={() => { history.push('/homepage/bookmark'); }}
           icon={(
-            <Badge className={classes.margin} badgeContent={bookmark.length} color="secondary">
+            <Badge className={classes.margin} badgeContent={bookmark.length} color="secondary" invisible={bookmark.length === 0}>
               <Bookmark className={classes.icon} />
             </Badge>
           )}
@@ -101,7 +121,7 @@ class SimpleBottomNavigation extends React.Component {
 
           onClick={() => { history.push('/homepage/trackOrder'); }}
           icon={(
-            <Badge className={classes.margin} badgeContent={orders.length} color="secondary">
+            <Badge className={classes.margin} badgeContent={orders.length} color="secondary" invisible={orders.length === 0}>
               <Assignment className={classes.icon} />
             </Badge>
           )}
@@ -114,9 +134,11 @@ class SimpleBottomNavigation extends React.Component {
           }}
 
           onClick={() => { history.push('/homepage/cart'); }}
-          icon={
-            <ShoppingCart className={classes.icon} />
-            }
+          icon={(
+            <Badge className={classes.margin} badgeContent={cartItems.length} color="secondary" invisible={cartItems.length === 0}>
+              <ShoppingCart className={classes.icon} />
+            </Badge>
+          )}
         />
       </BottomNavigation>
     );
@@ -127,6 +149,7 @@ const mapStateToProps = state => ({
   page: state.currentPage.page,
   bookmark: state.userProfile.bookmark,
   orders: state.userProfile.orders,
+  cart: state.userProfile.cart,
 });
 
 export default compose(withStyles(styles), connect(mapStateToProps))(SimpleBottomNavigation);
