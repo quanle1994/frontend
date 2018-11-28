@@ -19,8 +19,9 @@ const styles = theme => ({
 });
 
 class BookmarkList extends React.Component {
-  removeBookmark = id => {
+  removeBookmark = (e, id) => {
     const { dispatch, bookmark } = this.props;
+    e.stopPropagation();
     dispatch({
       type: REMOVE_BOOKMARK,
       bookmark: bookmark.filter(b => b.id !== id)
@@ -44,7 +45,7 @@ class BookmarkList extends React.Component {
                 key={index}
                 className={classes.button}
                 aria-label="Delete"
-                onClick={() => this.removeBookmark(b.id)}
+                onClick={(e) => this.removeBookmark(e, b.id)}
               >
                 <RemoveIcon />
               </IconButton>

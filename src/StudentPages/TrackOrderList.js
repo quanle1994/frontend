@@ -26,7 +26,7 @@ function TrackOrderList(props) {
   const orderTotal = new Intl.NumberFormat('en-GB', {
     style: 'currency',
     currency: 'SGD',
-  }).format(order.price);
+  }).format(order.orderDishes.map(od => od.amount * od.dish.price).reduce((a, b) => a + b, 0));
   return (
     <div className={classes.root}>
       <ExpansionPanel>
