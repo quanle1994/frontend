@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Router, Route } from "react-router-dom";
 import TopBar from "./components/TopBar";
-import SimpleBottomNavigation from "./components/BottomBar";
+import BottomBar from "./components/BottomBar";
 import "./css/HomePage.css";
 import ProfilePage from "../ProfilePage/ProfilePage";
 import { history } from "../_helpers";
@@ -77,7 +77,7 @@ class HomePage extends React.Component {
           </main>
         </Router>
 
-        <SimpleBottomNavigation />
+        <BottomBar />
       </div>
     );
   }
