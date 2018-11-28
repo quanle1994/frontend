@@ -68,10 +68,12 @@ class StudentOrderPage extends React.Component {
           Menu
         </Typography>
         <div className={classes.menuWrapper}>
-          {console.log(store)}
           {store.dishes !== undefined &&
             store.dishes.map((d, index) => (
-              <div className="col-xs-6">
+              <div className="col-xs-12 col-md-6" style={{
+                paddingLeft: 5,
+                    paddingRight: 5,
+          }}>
                 <MenuCard dish={d} key={index} />
               </div>
             ))}
