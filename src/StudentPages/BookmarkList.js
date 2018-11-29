@@ -9,7 +9,7 @@ import { compose } from 'redux';
 import connect from 'react-redux/es/connect/connect';
 import BookmarkStores from './BookmarkStores';
 import { REMOVE_BOOKMARK } from '../_reducers/userProfile.reducer';
-import {history} from "../_helpers";
+import { history } from '../_helpers';
 
 const styles = theme => ({
   root: {
@@ -19,8 +19,9 @@ const styles = theme => ({
 });
 
 class BookmarkList extends React.Component {
-  removeBookmark = (id) => {
+  removeBookmark = (e, id) => {
     const { dispatch, bookmark } = this.props;
+    e.stopPropagation();
     dispatch({
       type: REMOVE_BOOKMARK,
       bookmark: bookmark.filter(b => b.id !== id),
@@ -32,10 +33,19 @@ class BookmarkList extends React.Component {
     return (
       <div className={classes.root}>
         <List component="nav">
-          {bookmark.map(b => (
-            <ListItem onClick={() => history.push(`/homepage/menu/${b.canteen}/${b.id}`)}>
-              <BookmarkStores store={b} />
-              <IconButton className={classes.button} aria-label="Delete" onClick={() => this.removeBookmark(b.id)}>
+          {bookmark.map((b, index) => (
+            <ListItem
+              key={b.id}
+              onClick={() => history.push(`/homepage/menu/${b.canteen}/${b.id}`)
+              }
+            >
+              <BookmarkStores key={b.id} store={b} />
+              <IconButton
+                key={index}
+                className={classes.button}
+                aria-label="Delete"
+                onClick={e => this.removeBookmark(e, b.id)}
+              >
                 <RemoveIcon />
               </IconButton>
             </ListItem>
@@ -53,4 +63,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({ dispatch });
 
-export default compose(connect(mapStateToProps, mapDispatchToProps), withStyles(styles))(BookmarkList);
+export default compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
+  withStyles(styles),
+)(BookmarkList);

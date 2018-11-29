@@ -16,14 +16,15 @@ class StudentOrderPage extends React.Component {
     };
   }
 
-
   componentWillMount() {
-    const { canteens } = this.props;
-    if (canteens === undefined) this.props.dispatch(canteenActions.getAllCanteens());
-    const { dispatch } = this.props;
+    const { canteens, dispatch } = this.props;
+    if (canteens === undefined) {
+      dispatch(canteenActions.getAllCanteens());
+    }
+    const { userType } = JSON.parse(localStorage.getItem('user'));
     dispatch({
       type: SET_CURRENT_PAGE,
-      page: 0,
+      page: userType === 'VENDOR' ? 1 : 0,
     });
     this.getMenu(this.props);
   }
@@ -37,9 +38,11 @@ class StudentOrderPage extends React.Component {
     const { cId, sId } = this.props.match.params;
     if (cId !== undefined && sId !== undefined) {
       const filterElement = canteens === undefined
-        ? {} : canteens.filter(c => c.id === parseFloat(cId))[0];
+        ? {}
+        : canteens.filter(c => c.id === parseFloat(cId))[0];
       const store = filterElement.stores === undefined
-        ? {} : filterElement.stores.filter(s => s.id === parseFloat(sId))[0];
+        ? {}
+        : filterElement.stores.filter(s => s.id === parseFloat(sId))[0];
       this.setState({
         store: store.dishes === undefined ? {} : store,
       });
@@ -57,16 +60,24 @@ class StudentOrderPage extends React.Component {
             color: 'gray',
             marginTop: 20,
             marginLeft: '4vw',
-            marginBottom: 20,
+            marginBottom: 0,
           }}
         >
           Menu
         </Typography>
         <div className={classes.menuWrapper}>
-          {console.log(store)}
-          {store.dishes !== undefined && store.dishes.map(d => (
-            <MenuCard dish={d} />
-          ))}
+          {store.dishes !== undefined
+            && store.dishes.map((d, index) => (
+              <div
+                className="col-xs-12 col-md-6"
+                style={{
+                  paddingLeft: 5,
+                  paddingRight: 5,
+                }}
+              >
+                <MenuCard dish={d} currentStore={store} key={index} />
+              </div>
+            ))}
         </div>
       </div>
     );
@@ -75,7 +86,7 @@ class StudentOrderPage extends React.Component {
 
 const style = {
   menuWrapper: {
-    padding: 15,
+    padding: '0 15px 15px 15px',
     width: '100%',
   },
 };
@@ -86,4 +97,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({ dispatch });
 
-export default compose(withStyles(style), connect(mapStateToProps, mapDispatchToProps))(StudentOrderPage);
+export default compose(
+  withStyles(style),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
+)(StudentOrderPage);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
@@ -14,12 +14,13 @@ import { history } from '../../_helpers/history';
 const styles = {
   root: {
     width: '100%',
-    backgroundColor: '#CB9D1B',
-    height: 70,
+    backgroundColor: '#DAA520',
+    height: 58,
+    padding: 3,
     overflow: 'hidden',
   },
   icon: {
-    fontSize: 38,
+    fontSize: 25,
     // position: 'absolute',
     // top: 2,
   },
@@ -30,11 +31,11 @@ const styles = {
   label: {
     // position: 'absolute',
     // bottom: 0,
-    fontSize: '15px !important',
+    fontSize: '12px !important',
   },
 };
 
-class SimpleBottomNavigation extends React.Component {
+class BottomBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -63,9 +64,17 @@ class SimpleBottomNavigation extends React.Component {
       const { orderDishes } = c;
       orderDishes.map((od) => {
         const canteen = canteens[`${od.dish.store.canteen.id}||${od.dish.store.id}`];
-        if (canteen === undefined) canteens[`${od.dish.store.canteen.id}||${od.dish.store.id}`] = { orderDishes: [] };
-        canteens[`${od.dish.store.canteen.id}||${od.dish.store.id}`].orderDishes.push(od);
-        canteens[`${od.dish.store.canteen.id}||${od.dish.store.id}`].canteenName = od.dish.store.canteen.name;
+        if (canteen === undefined) {
+          canteens[`${od.dish.store.canteen.id}||${od.dish.store.id}`] = {
+            orderDishes: [],
+          };
+        }
+        canteens[
+          `${od.dish.store.canteen.id}||${od.dish.store.id}`
+        ].orderDishes.push(od);
+        canteens[
+          `${od.dish.store.canteen.id}||${od.dish.store.id}`
+        ].canteenName = od.dish.store.canteen.name;
         canteens[`${od.dish.store.canteen.id}||${od.dish.store.id}`].storeName = od.dish.store.name;
         return true;
       });
@@ -91,12 +100,14 @@ class SimpleBottomNavigation extends React.Component {
         className={classes.root}
       >
         <BottomNavigationAction
-          label="Home"
+          label="Canteen"
           classes={{
             selected: classes.selected,
             label: classes.label,
           }}
-          onClick={() => { history.push('/homepage/canteen'); }}
+          onClick={() => {
+            history.push('/homepage/canteen');
+          }}
           icon={<Home className={classes.icon} />}
         />
         <BottomNavigationAction
@@ -105,24 +116,12 @@ class SimpleBottomNavigation extends React.Component {
             selected: classes.selected,
             label: classes.label,
           }}
-          onClick={() => { history.push('/homepage/bookmark'); }}
+          onClick={() => {
+            history.push('/homepage/bookmark');
+          }}
           icon={(
             <Badge className={classes.margin} badgeContent={bookmark.length} color="secondary" invisible={bookmark.length === 0}>
               <Bookmark className={classes.icon} />
-            </Badge>
-          )}
-        />
-        <BottomNavigationAction
-          label="Orders"
-          classes={{
-            selected: classes.selected,
-            label: classes.label,
-          }}
-
-          onClick={() => { history.push('/homepage/trackOrder'); }}
-          icon={(
-            <Badge className={classes.margin} badgeContent={orders.length} color="secondary" invisible={orders.length === 0}>
-              <Assignment className={classes.icon} />
             </Badge>
           )}
         />
@@ -132,11 +131,28 @@ class SimpleBottomNavigation extends React.Component {
             selected: classes.selected,
             label: classes.label,
           }}
-
-          onClick={() => { history.push('/homepage/cart'); }}
+          onClick={() => {
+            history.push('/homepage/cart');
+          }}
           icon={(
             <Badge className={classes.margin} badgeContent={cartItems.length} color="secondary" invisible={cartItems.length === 0}>
               <ShoppingCart className={classes.icon} />
+            </Badge>
+          )}
+        />
+
+        <BottomNavigationAction
+          label="Orders"
+          classes={{
+            selected: classes.selected,
+            label: classes.label,
+          }}
+          onClick={() => {
+            history.push('/homepage/trackOrder');
+          }}
+          icon={(
+            <Badge className={classes.margin} badgeContent={orders.length} color="secondary" invisible={orders.length === 0}>
+              <Assignment className={classes.icon} />
             </Badge>
           )}
         />
@@ -152,4 +168,7 @@ const mapStateToProps = state => ({
   cart: state.userProfile.cart,
 });
 
-export default compose(withStyles(styles), connect(mapStateToProps))(SimpleBottomNavigation);
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps),
+)(BottomBar);

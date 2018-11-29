@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import React, { Component } from 'react';
-import connect from 'react-redux/es/connect/connect';
-import Typography from '@material-ui/core/Typography/Typography';
-import CartList from './CartList';
-import { SET_CURRENT_PAGE } from '../App';
+import React, { Component } from "react";
+import connect from "react-redux/es/connect/connect";
+import Typography from "@material-ui/core/Typography/Typography";
+import CartList from "./CartList";
+import { SET_CURRENT_PAGE } from "../App";
 
 class CartPage extends Component {
   componentWillMount() {
@@ -16,7 +16,7 @@ class CartPage extends Component {
     const { dispatch } = this.props;
     dispatch({
       type: SET_CURRENT_PAGE,
-      page: 3,
+      page: 2
     });
   }
 
@@ -29,36 +29,49 @@ class CartPage extends Component {
         <Typography
           variant="h3"
           style={{
-            color: 'gray',
+            color: "gray",
             marginTop: 20,
-            marginLeft: '4vw',
+            marginLeft: "4vw"
           }}
-        >Cart
+        >
+          {" "}
+          Cart
         </Typography>
         {cart.length === 0 ? (
           <Typography
             variant="h3"
             align="center"
             style={{
-              color: 'gray',
-              marginTop: 20,
-              marginLeft: '4vw',
+              color: "gray",
+              marginTop: 20
             }}
           >
             Seems a little empty around here
-          </Typography>) : ''}
-        {cart.length > 0 && cart.map(item => (
-          <CartList key={item.id} data={item} total={item.price} orderId={item.id} />
-        ))}
+          </Typography>
+        ) : (
+          ""
+        )}
+        {cart.length > 0 &&
+          cart.map(item => (
+            <CartList
+              key={item.id}
+              data={item}
+              total={item.price}
+              orderId={item.id}
+            />
+          ))}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  cart: state.userProfile.cart,
+  cart: state.userProfile.cart
 });
 
 const mapDispatchToProps = dispatch => ({ dispatch });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CartPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CartPage);

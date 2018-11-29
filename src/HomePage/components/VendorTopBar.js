@@ -6,7 +6,7 @@ import VendorSwitch from './VendorSwitch';
 
 const styles = {
   appBar: {
-    backgroundColor: '#CB9D1B',
+    backgroundColor: '#DAA520',
     position: 'relative',
   },
   logo: {
@@ -37,7 +37,7 @@ function TopBar(props) {
             <img alt="Qoodie" className="logo" src="../../../img/grey2.png" />
           </div>
           <div className={classes.switch}>
-            <VendorSwitch/>
+            <VendorSwitch />
           </div>
         </Toolbar>
       </AppBar>

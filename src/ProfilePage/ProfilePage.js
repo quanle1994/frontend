@@ -124,7 +124,7 @@ class ProfilePage extends React.Component {
                 size="large"
                 style={{
                   fontSize: 25,
-                  backgroundColor: '#CB9D1B',
+                  backgroundColor: '#DAA520',
                   width: 150,
                   color: 'floralWhite',
                 }}
@@ -146,9 +146,9 @@ class ProfilePage extends React.Component {
                 component={Link}
                 style={{
                   fontSize: 25,
-                  color: '#CB9D1B',
+                  color: '#DAA520',
                   border: '2px solid',
-                  borderColor: '#CB9D1B',
+                  borderColor: '#DAA520',
                   backgroundColor: 'floralWhite',
                   width: 150,
                 }}

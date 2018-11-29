@@ -10,20 +10,20 @@ const api = axios.create({
   contentType: 'application/json',
 });
 
-const orders = () => api
-  .get(
-    'orders',
-    { headers: { Authorization: JSON.parse(localStorage.getItem('user')).token } },
-  );
+const orders = () => api.get('orders', {
+  headers: { Authorization: JSON.parse(localStorage.getItem('user')).token },
+});
 
-const addItemToCart = req => api
-  .post(
-    'addItemToCart',
-    { ...req },
-    {},
+const addItemToCart = req => api.post('addItemToCart', { ...req }, {});
+
+const setCollected = id => api
+  .get(
+    'setCollected',
+    { params: { id } },
   );
 
 export default {
   orders,
   addItemToCart,
+  setCollected,
 };

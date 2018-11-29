@@ -141,7 +141,7 @@ class AddItemDialog extends React.Component {
           <Typography
             variant="h3"
             style={{
-              color: '#CB9D1B',
+              color: '#DAA520',
             }}
           >
             {menuItem.name !== undefined ? 'Update Menu Item' : 'Add Menu Item'}
@@ -153,7 +153,7 @@ class AddItemDialog extends React.Component {
               <Typography
                 style={{
                   fontSize: 15,
-                  color: '#CB9D1B',
+                  color: '#DAA520',
                 }}
               >Name
               </Typography>
@@ -176,7 +176,7 @@ class AddItemDialog extends React.Component {
               <Typography
                 style={{
                   fontSize: 15,
-                  color: '#CB9D1B',
+                  color: '#DAA520',
                 }}
               >Price
               </Typography>
@@ -200,7 +200,7 @@ class AddItemDialog extends React.Component {
               <Typography
                 style={{
                   fontSize: 15,
-                  color: '#CB9D1B',
+                  color: '#DAA520',
                 }}
               >Dish Type
               </Typography>
@@ -244,7 +244,7 @@ class AddItemDialog extends React.Component {
                 <Typography
                   style={{
                     fontSize: 15,
-                    color: '#CB9D1B',
+                    color: '#DAA520',
                     marginTop: 20,
                   }}
                 >Photo
@@ -312,7 +312,7 @@ class AddItemDialog extends React.Component {
             variant="outlined"
             size="large"
             style={{
-              borderColor: '#CB9D1B',
+              borderColor: '#DAA520',
               backgroundColor: 'floralWhite',
               textTransform: 'none',
               textDecoration: 'none',
@@ -321,7 +321,7 @@ class AddItemDialog extends React.Component {
           >
             <Typography style={{
               fontSize: 15,
-              color: '#CB9D1B',
+              color: '#DAA520',
             }}
             >
               {menuItem.name !== undefined ? 'Update' : 'Submit'}
@@ -333,7 +333,7 @@ class AddItemDialog extends React.Component {
             size="large"
             // component={Link}
             style={{
-              borderColor: '#CB9D1B',
+              borderColor: '#DAA520',
               backgroundColor: 'floralWhite',
               textTransform: 'none',
               textDecoration: 'none',
@@ -345,7 +345,7 @@ class AddItemDialog extends React.Component {
           >
             <Typography style={{
               fontSize: 15,
-              color: '#CB9D1B',
+              color: '#DAA520',
             }}
             >Cancel
             </Typography>

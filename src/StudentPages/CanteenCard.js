@@ -11,7 +11,7 @@ const styles = {
   card: {
     width: '40vw',
     display: '-webkit-inline-box',
-    marginTop: 20,
+    marginTop: 10,
     position: 'relative',
   },
   media: {
@@ -34,7 +34,10 @@ const styles = {
 function CanteenCard(props) {
   const { classes, canteen } = props;
   const defaultPhoto = canteen.name === 'Deck'
-    ? '../../../img/deck.png' : canteen.name === 'FineFood' ? '../../../img/fineFood.png' : '../../../img/foodClique.png';
+    ? '../../../img/deck.png'
+    : canteen.name === 'FineFood'
+      ? '../../../img/fineFood.png'
+      : '../../../img/foodClique.png';
   return (
     <div className={classes.wrapper}>
       <Card className={classes.card}>
@@ -42,8 +45,11 @@ function CanteenCard(props) {
           <CardMedia
             className={classes.media}
             // image="../../../img/deck.png"
-            image={canteen.photoDir === undefined || canteen.photoDir === null
-              ? defaultPhoto : `${BACKEND_HOST}${canteen.photoDir}`}
+            image={
+              canteen.photoDir === undefined || canteen.photoDir === null
+                ? defaultPhoto
+                : `${BACKEND_HOST}${canteen.photoDir}`
+            }
             title={canteen.name}
           />
           <CardContent className={classes.name}>

@@ -5,21 +5,21 @@ import Typography from '@material-ui/core/Typography/Typography';
 import TrackOrderList from './TrackOrderList';
 import { SET_CURRENT_PAGE } from '../App';
 
-
 class TrackOrderPage extends React.Component {
   componentWillMount() {
     const { dispatch } = this.props;
     this.setState({}, () => dispatch({
       type: SET_CURRENT_PAGE,
-      page: 2,
+      page: 3,
     }));
   }
 
   render() {
     const { orders } = this.props;
-    const orderLists = orders.sort((o1, o2) => o1.created >= o2.created ? -1 : 1).filter(o => o.customerOrderType.name !== 'IN BASKET').map(order => (
-      <TrackOrderList order={order} key={order.id} />
-    ));
+    const orderLists = orders
+      .sort((o1, o2) => (o1.created >= o2.created ? -1 : 1))
+      .filter(o => o.customerOrderType.name !== 'IN BASKET')
+      .map(order => <TrackOrderList order={order} key={order.id} />);
     return (
       <div>
         <Typography
@@ -29,12 +29,10 @@ class TrackOrderPage extends React.Component {
             marginTop: 20,
             marginLeft: '4vw',
           }}
-        >Orders
+        >
+          Orders
         </Typography>
-        <div>
-          {orderLists}
-        </div>
-
+        <div>{orderLists}</div>
       </div>
     );
   }
@@ -46,4 +44,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({ dispatch });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TrackOrderPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(TrackOrderPage);

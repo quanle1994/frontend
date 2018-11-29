@@ -12,6 +12,7 @@ import TableCell from '@material-ui/core/TableCell/TableCell';
 import TextField from '@material-ui/core/TextField/TextField';
 import CameraAlt from '@material-ui/icons/CameraAlt';
 import Button from '@material-ui/core/Button/Button';
+import { history } from '../../../_helpers/history';
 
 class VendorProfile extends React.Component {
   constructor(props) {
@@ -55,7 +56,7 @@ class VendorProfile extends React.Component {
           <Typography
             variant="h4"
             style={{
-              color: '#CB9D1B',
+              color: '#DAA520',
             }}
           >
             Personal Account
@@ -68,7 +69,7 @@ class VendorProfile extends React.Component {
                     <Typography
                       variant="h6"
                       style={{
-                        color: '#CB9D1B',
+                        color: '#DAA520',
                         fontSize: 14,
                       }}
                     >
@@ -97,7 +98,7 @@ class VendorProfile extends React.Component {
           <Button
             variant="contained"
             style={{
-              backgroundColor: '#CB9D1B',
+              backgroundColor: '#DAA520',
               width: '80%',
               marginTop: 20,
               marginBottom: 20,
@@ -110,6 +111,27 @@ class VendorProfile extends React.Component {
                 color: 'white',
               }}
             >Update
+            </Typography>
+          </Button>
+          <Button
+            variant="outlined"
+            style={{
+              borderColor: '#DAA520',
+              width: '80%',
+              marginBottom: 20,
+            }}
+            onClick={() => {
+              localStorage.clear();
+              history.push('/login');
+            }}
+          >
+            <Typography
+              variant="h6"
+              style={{
+                fontSize: 15,
+                color: '#DAA520',
+              }}
+            >Logout
             </Typography>
           </Button>
         </Paper>

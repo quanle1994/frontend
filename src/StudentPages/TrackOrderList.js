@@ -26,7 +26,8 @@ function TrackOrderList(props) {
   const orderTotal = new Intl.NumberFormat('en-GB', {
     style: 'currency',
     currency: 'SGD',
-  }).format(order.price);
+  }).format(order.orderDishes.map(od => od.amount * od.dish.price).reduce((a, b) => a + b, 0));
+  const orderStatus = order.customerOrderType.name;
   return (
     <div className={classes.root}>
       <ExpansionPanel>
@@ -48,9 +49,10 @@ function TrackOrderList(props) {
               style={{
                 paddingLeft: 5,
                 fontSize: 15,
+                color: orderStatus === 'READY' ? 'red' : null,
               }}
             >
-              {order.customerOrderType.name}
+              {orderStatus}
             </Typography>
           </div>
           <div className="col-xs-4">

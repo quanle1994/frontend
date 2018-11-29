@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -11,13 +12,14 @@ import IconButton from '@material-ui/core/IconButton';
 import { compose } from 'redux';
 import connect from 'react-redux/es/connect/connect';
 import { history } from '../_helpers';
-import { ADD_BOOKMARK, REMOVE_BOOKMARK } from '../_reducers/userProfile.reducer';
+import {
+  ADD_BOOKMARK,
+  REMOVE_BOOKMARK,
+} from '../_reducers/userProfile.reducer';
 
 const styles = {
   card: {
     width: '100%',
-    paddingTop: 10,
-    marginTop: 10,
     marginBottom: 20,
   },
   media: {
@@ -34,7 +36,7 @@ const styles = {
     height: 25,
   },
   iconAdded: {
-    color: '#CB9D1B',
+    color: '#DAA520',
   },
 };
 
@@ -42,7 +44,6 @@ class StoreCard extends React.Component {
   handleBookmark = () => {
     const { dispatch, bookmark, qoodieStore } = this.props;
     const l = bookmark.filter(b => b.id === qoodieStore.id).length;
-    console.log(bookmark);
     if (l > 0) {
       dispatch({
         type: REMOVE_BOOKMARK,
@@ -61,18 +62,47 @@ class StoreCard extends React.Component {
     const {
       classes, qoodieStore, canteen, bookmark,
     } = this.props;
-    // console.log(`####store:\n${JSON.stringify(qoodieStore, undefined, 2)}`);
+    const { userType } = JSON.parse(localStorage.getItem('user'));
     const bm = bookmark.filter(b => b.id === qoodieStore.id)[0];
     return (
       <Card className={classes.card}>
-        <CardActionArea>
+        <CardActionArea style={{
+          position: 'relative',
+        }}
+        >
+          {!qoodieStore.receivingOrders && (
+            <div style={{
+              padding: 10,
+              paddingLeft: 25,
+              paddingRight: 25,
+              position: 'absolute',
+              backgroundColor: '#D32F2F',
+              borderRadius: 5,
+              top: 0,
+              right: 0,
+            }}
+            >
+              <Typography
+                variant="h4"
+                style={{
+                  color: 'white',
+                }}
+              >
+                CLOSED
+              </Typography>
+            </div>
+          )}
           <CardMedia
             className={classes.media}
             image="../../../img/ytf.png"
             title="Store"
             onClick={() => {
               localStorage.setItem('currentStore', JSON.stringify(qoodieStore));
-              history.push(`/homepage/menu/${canteen.id}/${qoodieStore.id}`);
+              if (userType === 'VENDOR') {
+                history.push(`/vendor/menu/${canteen.id}/${qoodieStore.id}`);
+              } else {
+                history.push(`/homepage/menu/${canteen.id}/${qoodieStore.id}`);
+              }
             }}
           />
         </CardActionArea>
@@ -87,22 +117,22 @@ class StoreCard extends React.Component {
           >
             {qoodieStore.name}
           </Typography>
-          <CardActions
-            className={classes.actions}
-            disableActionSpacing
-            style={{
-              display: 'inline-block',
-            }}
-          >
-            <IconButton
-              aria-label="Bookmark"
+          {userType !== 'VENDOR' && (
+            <CardActions
+              className={classes.actions}
+              disableActionSpacing
+              style={{
+                display: 'inline-block',
+              }}
             >
-              <Bookmark
-                className={bm === undefined ? classes.icon : classes.iconAdded}
-                onClick={this.handleBookmark}
-              />
-            </IconButton>
-          </CardActions>
+              <IconButton aria-label="Bookmark">
+                <Bookmark
+                  className={bm === undefined ? classes.icon : classes.iconAdded}
+                  onClick={this.handleBookmark}
+                />
+              </IconButton>
+            </CardActions>
+          )}
         </CardContent>
       </Card>
     );
@@ -115,4 +145,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({ dispatch });
 
-export default compose(withStyles(styles), connect(mapStateToProps, mapDispatchToProps))(StoreCard);
+export default compose(
+  withStyles(styles),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
+)(StoreCard);

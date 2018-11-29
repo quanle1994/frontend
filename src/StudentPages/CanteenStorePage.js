@@ -19,10 +19,11 @@ class CanteenStorePage extends React.Component {
   componentWillMount() {
     const { canteens } = this.props;
     if (canteens === undefined) this.props.dispatch(canteenActions.getAllCanteens());
+    const { userType } = JSON.parse(localStorage.getItem('user'));
     const { dispatch } = this.props;
     dispatch({
       type: SET_CURRENT_PAGE,
-      page: 0,
+      page: userType === 'VENDOR' ? 1 : 0,
     });
     this.getStores(this.props);
   }
@@ -46,13 +47,19 @@ class CanteenStorePage extends React.Component {
   render() {
     const { classes } = this.props;
     const { canteen } = this.state;
-    const storeCards = canteen.stores !== undefined && canteen.stores.map(s => (
-      <StoreCard
-        canteen={canteen}
-        qoodieStore={s}
-        key={s.id}
-      />
-    ));
+    const storeCards = canteen.stores !== undefined
+      && canteen.stores.map(s => (
+        <div
+          key={s.id}
+          className="col-xs-12 col-md-6"
+          style={{
+            paddingLeft: 5,
+            paddingRight: 5,
+          }}
+        >
+          <StoreCard canteen={canteen} qoodieStore={s} key={s.id} />
+        </div>
+      ));
     return (
       <div className={classes.wrapper}>
         <Typography
@@ -60,9 +67,11 @@ class CanteenStorePage extends React.Component {
           style={{
             color: 'gray',
             marginTop: 20,
-            marginLeft: '4vw',
+            marginBottom: 10,
+            marginLeft: '2vw',
           }}
-        >{canteen.name}'s Store
+        >
+          {canteen.name}'s Store
         </Typography>
         {storeCards}
       </div>
@@ -72,9 +81,9 @@ class CanteenStorePage extends React.Component {
 
 const style = {
   wrapper: {
-    padding: 15,
+    padding: '0 15px 15px 15px',
     boxSizing: 'border-box',
-    width: '100%',
+    width: '100vw',
   },
 };
 
@@ -84,4 +93,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({ dispatch });
 
-export default compose(withStyles(style), connect(mapStateToProps, mapDispatchToProps))(CanteenStorePage);
+export default compose(
+  withStyles(style),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
+)(CanteenStorePage);

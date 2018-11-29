@@ -92,7 +92,7 @@ class RegisterVendorPage extends React.Component {
             <Typography
               style={{
                 fontSize: 20,
-                color: '#CB9D1B',
+                color: '#DAA520',
               }}
             >Email Address
             </Typography>
@@ -117,7 +117,7 @@ class RegisterVendorPage extends React.Component {
             <Typography
               style={{
                 fontSize: 20,
-                color: '#CB9D1B',
+                color: '#DAA520',
               }}
             >Password
             </Typography>
@@ -142,7 +142,7 @@ class RegisterVendorPage extends React.Component {
             <Typography
               style={{
                 fontSize: 20,
-                color: '#CB9D1B',
+                color: '#DAA520',
               }}
             >Confirm Password
             </Typography>
@@ -166,7 +166,7 @@ class RegisterVendorPage extends React.Component {
             <Typography
               style={{
                 fontSize: 20,
-                color: '#CB9D1B',
+                color: '#DAA520',
               }}
             >Store Name
             </Typography>
@@ -190,7 +190,7 @@ class RegisterVendorPage extends React.Component {
             <Typography
               style={{
                 fontSize: 20,
-                color: '#CB9D1B',
+                color: '#DAA520',
               }}
             >Canteen
             </Typography>
@@ -229,7 +229,7 @@ class RegisterVendorPage extends React.Component {
             size="large"
             style={{
               marginTop: 20,
-              borderColor: '#CB9D1B',
+              borderColor: '#DAA520',
               backgroundColor: 'floralWhite',
               marginBottom: 20,
               textTransform: 'none',
@@ -239,7 +239,7 @@ class RegisterVendorPage extends React.Component {
           >
             <Typography style={{
               fontSize: 20,
-              color: '#CB9D1B',
+              color: '#DAA520',
             }}
             >Start Cooking
             </Typography>
